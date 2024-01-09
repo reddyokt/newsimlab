@@ -79,4 +79,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/kader/create', [App\Http\Controllers\KaderController::class, 'createkader']);
     Route::post('/kader/create', [App\Http\Controllers\KaderController::class, 'storekader']);
     Route::get('/kader/pcabypda/{id}', [App\Http\Controllers\KaderController::class, 'PCAbyPDA']);
+    /*------------------6.majelis-----------------------------------------------*/
+    Route::get('/majelis', [App\Http\Controllers\MajelisController::class, 'majelisindex']);
+    Route::get('/majelis/create', [App\Http\Controllers\MajelisController::class, 'createmajelis']);
+    Route::post('/majelis/create', [App\Http\Controllers\MajelisController::class, 'storecreatemajelis']);
 });

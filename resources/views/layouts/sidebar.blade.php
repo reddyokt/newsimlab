@@ -5,7 +5,7 @@
     <div class="navbar-brand-box">
         <a href="{{url('index')}}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ URL::asset('/assets/images/A.png') }}" alt="" height="10">
+                <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="40">
             </span>
             <span class="logo-lg">
                 <img src="{{ URL::asset('/assets/images/A.png') }}" alt="" height="30">
@@ -14,7 +14,7 @@
 
         <a href="{{url('index')}}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ URL::asset('/assets/images/A.png') }}" alt="" height="10">
+                <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="10">
             </span>
             <span class="logo-lg">
                 <img src="{{ URL::asset('/assets/images/A.png') }}" alt="" height="30">
@@ -44,7 +44,9 @@
                     <li><a href="/pda">PDA Manajemen</a></li>
                     <li><a href="/pca">PCA Manajemen</a></li>
                     <li><a href="/kader">Kader Manajemen</a></li>
-                    
+                    <li><a href="/majelis">Majelis & Lembaga Manajemen</a></li>
+
+
                     {{-- <li><a href="contacts-grid">@lang('translation.User_Grid')</a></li>
                     <li><a href="contacts-list">@lang('translation.User_List')</a></li>
                     <li><a href="contacts-profile">@lang('translation.Profile')</a></li> --}}

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('tipe_menu', ['Dashboard', 'Menu'])->default('Menu');
             $table->string('created_by');
             $table->string('updated_by');
-            $table->date('deleted_at');
+            $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }

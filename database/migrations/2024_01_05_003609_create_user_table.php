@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('pda_id')->nullable();
             $table->foreign('pda_id')->references('pda_id')->on('pda')->onDelete('restrict');
             $table->string('created_by');
-            $table->date('delete_at');
+            $table->date('delete_at')->nullable();
             $table->timestamps();
         });
     }

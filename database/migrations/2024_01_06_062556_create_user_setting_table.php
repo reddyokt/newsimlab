@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('user_id')->on('user')->onDelete('cascade');
             $table->string('default_setting')->default('0|0|0|id');
             $table->string('created_by');
-            $table->date('deleted_at');
+            $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }
