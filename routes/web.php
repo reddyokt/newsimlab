@@ -83,4 +83,12 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/majelis', [App\Http\Controllers\MajelisController::class, 'majelisindex']);
     Route::get('/majelis/create', [App\Http\Controllers\MajelisController::class, 'createmajelis']);
     Route::post('/majelis/create', [App\Http\Controllers\MajelisController::class, 'storecreatemajelis']);
+    /*------------------7.filetype-----------------------------------------------*/
+    Route::get('/filetype', [App\Http\Controllers\FiletypeController::class, 'filetypeindex']);
+    Route::get('/filetype/create', [App\Http\Controllers\FiletypeController::class, 'createfiletype']);
+    Route::post('/filetype/create', [App\Http\Controllers\FiletypeController::class, 'storecreatefiletype']);
+    /*------------------7.bidang_usaha-----------------------------------------------*/
+    Route::get('/bidangusaha', [App\Http\Controllers\BidangUsahaController::class, 'bidangusahaindex']);
+    Route::get('/bidangusaha/create', [App\Http\Controllers\BidangUsahaController::class, 'createbidangusaha']);
+    Route::post('/bidangusaha/create', [App\Http\Controllers\BidangUsahaController::class, 'storecreatebidangusaha']);
 });

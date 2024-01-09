@@ -44,7 +44,8 @@
                     <li><a href="/pda">PDA Manajemen</a></li>
                     <li><a href="/pca">PCA Manajemen</a></li>
                     <li><a href="/kader">Kader Manajemen</a></li>
-                    <li><a href="/majelis">Majelis & Lembaga Manajemen</a></li>
+                    <li><a href="/majelis">Majelis/Lembaga Manajemen</a></li>
+                    <li><a href="/majelis">File Type Manajemen</a></li>
 
 
                     {{-- <li><a href="contacts-grid">@lang('translation.User_Grid')</a></li>

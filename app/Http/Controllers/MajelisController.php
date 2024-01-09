@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Majelis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -9,7 +10,9 @@ class MajelisController extends Controller
 {
     public function majelisindex()
     {
-        $majelisindex = DB::table('majelis');
+        $majelisindex = DB::table('majelis')
+                        ->where('isActive', 'Yes')
+                        ->get();
 
         return view ('auth.masterdata.majelis.majelisindex', compact('majelisindex'));
     }
@@ -21,7 +24,21 @@ class MajelisController extends Controller
 
     public function storecreatemajelis(Request $request)
     {
-        dd($request);
-        return view('auth.masterdata.majelis.storecreatemajelis');
+        // dd($request);
+        $storecreatemajelis = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'type' => 'required',
+            'description' => 'required',
+        ]);
+
+        $storecreatemajelis['name'] = $request->name;
+        $storecreatemajelis['code'] = $request->code;
+        $storecreatemajelis['type'] = $request->type;
+        $storecreatemajelis['description'] = $request->description;
+        // $storecreatemajelis['created_by'] = $request->id;
+
+        Majelis::create($storecreatemajelis);
+        return redirect('/majelis')->with('success', 'Alhamdulillah data Majelis/Lembaga berhasil dibuat');
     }
 }

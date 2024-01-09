@@ -5,8 +5,8 @@
 
 @section('content')
     @component('common-components.breadcrumb')
-        @slot('pagetitle') Majelis @endslot
-        @slot('title') Majelis List @endslot
+        @slot('pagetitle') Bidang Usaha @endslot
+        @slot('title') Bidang Usaha List @endslot
     @endcomponent
 
     <div class="row">
@@ -17,7 +17,7 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <a href="/majelis/create" class="btn btn-success waves-effect waves-light"><i
+                                <a href="/bidangusaha/create" class="btn btn-success waves-effect waves-light"><i
                                         class="mdi mdi-plus me-2"></i> Add New</a>
                             </div>
                         </div>
@@ -43,44 +43,29 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Nama Majelis/Lembaga</th>
-                                    <th scope="col">code</th>
+                                    <th scope="col">Bidang Usaha</th>
                                     <th scope="col">Description</th>
                                     <th scope="col" style="width: 200px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($majelisindex as $majelis )
+                                @foreach ($bidangusahaindex as $file )
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>                                    
                                     <td style="width: 30%">
-                                        <img src="{{ URL::asset('/assets/images/aisyiyah/logo-aisyiyah.png') }}" alt=""
-                                            class="avatar-xs rounded-circle me-2">
-                                        <a href="#" class="text-body">{{$majelis->type}} {{$majelis->name}}</a>
+                                        {{$file->name}}
                                     </td>
-                                    <td>{{$majelis->code}}</td>
-                                    <td style="width: 30%">{{$majelis->description}}</td>
+                                    <td style="width: 30%">{{$file->description}}</td>
                                     <td>
                                         <ul class="list-inline mb-0">
                                             <li class="list-inline-item">
-                                                <a href="/majelis/edit/{{$majelis->id_majelis}}" class="px-2 text-primary"><i
+                                                <a href="/bidangusaha/edit/{{$file->id_bidangusaha}}" class="px-2 text-primary"><i
                                                         class="uil uil-pen font-size-18"></i></a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="/majelis/delete/{{$majelis->id_majelis}}" class="px-2 text-danger"><i
+                                                <a href="/bidangusaha/delete/{{$file->id_bidangusaha}}" class="px-2 text-danger"><i
                                                         class="uil uil-trash-alt font-size-18"></i></a>
                                             </li>
-                                            {{-- <li class="list-inline-item dropdown">
-                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#"
-                                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                    <i class="uil uil-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </li> --}}
                                         </ul>
                                     </td>
                                 </tr>
@@ -93,7 +78,7 @@
                     <div class="row mt-4">
                         <div class="col-sm-6">
                             <div>
-                                <p class="mb-sm-0">Showing 1 to 10 of {{$majelisindex->count()}} entries</p>
+                                <p class="mb-sm-0">Showing 1 to 10 of {{$bidangusahaindex->count()}} entries</p>
                             </div>
                         </div>
                         {{-- <div class="col-sm-6">
