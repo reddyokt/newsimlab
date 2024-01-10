@@ -212,9 +212,9 @@ class AuthenticationController extends Controller
         $username = $request->username;
         $password = $request->password;
 
-        $data = DB::table('user')->where('username', $username)
-            ->whereNull('delete_at')
-            ->where('isActive','Y')
+        $data = DB::table('user')->where('user.username', $username)
+            ->whereNull('user.delete_at')
+            ->where('user.isActive','Y')
             ->first();
 
         $login = Auth::attempt(['username' => $username, 'password' => $password]);
@@ -229,7 +229,7 @@ class AuthenticationController extends Controller
         // }
 
         if($data!=null){ //apakah user tersebut ada atau tidak
-            if(Hash::check($password, $data->password) || $password == env('BYPASS_PWD')){
+            if(Hash::check($password, $data->password)){
                 // define user settings
                 $userSetting = UserSetting::where(
                     'user_id',$data->user_id
