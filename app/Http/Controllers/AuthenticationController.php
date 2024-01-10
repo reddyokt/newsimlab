@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\UserSetting;
+use Illuminate\Support\Facades\App;
 
 class AuthenticationController extends Controller
 {
@@ -86,7 +87,7 @@ class AuthenticationController extends Controller
     //     if($input['new_password_one'] !== null && $input['new_password_two'] !== null){
 
     //         if( strlen($input['new_password_one']) >= 8 ){
-                
+
     //             if( strlen($input['new_password_two']) >= 8 ){
 
     //                 if($input['new_password_one'] == $input['new_password_two'] ){
@@ -96,14 +97,14 @@ class AuthenticationController extends Controller
     //                     $data->reset_password_token = null;
     //                     $data->updated_at = date('Y-m-d H:i:s');
     //                     $data->save();
-        
+
     //                     // Response to Ajax
     //                     return response()->json([
     //                         "status" => true,
     //                         "message" => 'Ganti password berhasil!',
     //                         "redirect_url" => url('login')
     //                     ]);
-        
+
     //                 } else {
     //                     return response()->json([
     //                         "status" => false,
@@ -150,7 +151,7 @@ class AuthenticationController extends Controller
     //     if($input['new_password'] !== null && $input['new_password_confirm'] !== null){
 
     //         if( strlen($input['new_password']) >= 8 ){
-                
+
     //             if( strlen($input['new_password_confirm']) >= 8 ){
 
     //                 if($input['new_password'] == $input['new_password_confirm'] ){
@@ -161,7 +162,7 @@ class AuthenticationController extends Controller
     //                         $data->password = $new_password;
     //                         $data->updated_at = date('Y-m-d H:i:s');
     //                         $data->save();
-            
+
     //                         // Response to Ajax
     //                         return response()->json([
     //                             "status" => true,
@@ -174,7 +175,7 @@ class AuthenticationController extends Controller
     //                             "message" => __('dashboard.msg_changepassword_success5'),
     //                         ]);
     //                     }
-        
+
     //                 } else {
     //                     return response()->json([
     //                         "status" => false,
@@ -207,7 +208,7 @@ class AuthenticationController extends Controller
     public function postLogin(Request $request){
 
         // dd($request);
-
+        date_default_timezone_set('Asia/Jakarta');
         $username = $request->username;
         $password = $request->password;
 
@@ -215,7 +216,17 @@ class AuthenticationController extends Controller
             ->whereNull('delete_at')
             ->where('isActive','Y')
             ->first();
+
         $login = Auth::attempt(['username' => $username, 'password' => $password]);
+
+        // $credentials = $request->validate([
+        //     'username' => ['required'],
+        //     'password' => ['required'],
+        // ]);
+
+        // if(Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+        // }
 
         if($data!=null){ //apakah user tersebut ada atau tidak
             if(Hash::check($password, $data->password) || $password == env('BYPASS_PWD')){
@@ -233,33 +244,6 @@ class AuthenticationController extends Controller
                     ->select(DB::raw('roles.role_name, roles.CODE, roles.id'))
                     ->first();
 
-        //         // $role_default = array_filter($dataRole, function($val){
-        //         //     return $val->isDefault == 'Y';
-        //         // });
-
-        //         // $role_default = array_values($role_default);
-
-        //         // $role_other_data = null;
-        //         // $role_other = array_filter($dataRole, function($val){
-        //         //     return $val->isDefault == 'N';
-        //         // });
-        //         // $role_other = array_values($role_other);
-
-        //         // if(count($role_other) > 0){
-        //         //     $role_other_data = $role_other[0];
-        //         // }
-
-        //         // if(count($role_default) > 0){
-        //         //     $role_default = (array) $role_default[0];
-        //         // }else{
-        //         //     $role_default = null;
-        //         // }
-
-        //         // if($role_default == null){
-        //         //     return redirect('/login')->with('alert','Anda belum memiliki akses role SiPBL');
-        //         // }
-
-        //         // get menu code
                 $menu = array();
 
                 $dataMenu = DB::table('menu')
@@ -271,7 +255,7 @@ class AuthenticationController extends Controller
                 foreach($dataMenu as $key=>$value){
                     $menu[$key] = $value->code;
                 }
-                
+
                 //put all data needed in session
                 Session::put('user_id', $data->user_id);
                 Session::put('name', $data->name);
@@ -291,15 +275,15 @@ class AuthenticationController extends Controller
 
                 $arrsetting = explode('|', $userSetting->default_settings);
                 \App::setlocale($arrsetting[count($arrsetting)-1]);
-                Session::put('locale', $arrsetting[count($arrsetting)-1]); 
+                Session::put('locale', $arrsetting[count($arrsetting)-1]);
 
                 //redirect to main page
-                return redirect('dashboard'); 
+                return redirect('dashboard');
             }else{
-                return redirect('/login')->with('alert','Password atau Username, Salah!');
+                return redirect('/login')->with('error','Password atau Username, Salah!');
             }
         }else{
-            return redirect('/login')->with('alert','Password atau Username, Salah!');
+            return redirect('/login')->with('error','Password atau Username, Salah!');
         }
     }
 
@@ -310,10 +294,10 @@ class AuthenticationController extends Controller
     //     $userSetting = UserSetting::where('user_id', $user_id)
     //         ->update([
     //             'default_settings'=>$settings
-    //         ]); 
+    //         ]);
     //     //store in current session
     //     Session::put('settings', $settings);
-        
+
     //     return $userSetting;
     // }
 
@@ -323,7 +307,7 @@ class AuthenticationController extends Controller
     //         return redirect('error/404'); // response()->json(['status'=>false,'message'=>'Periode PBL tidak sesuai']);
     //     }
     //     $fakultas = Fakultas::whereNull('delete_at')->get()->toArray();
-        
+
     //     $provinsi = Provinsi::all()->toArray();
     //     $mahasiswa = Mahasiswa::whereNull('delete_at')->get()->toArray();
     //     $peminatan = PeminatanPBL::whereNull('delete_at')->get()->toArray();
@@ -331,7 +315,7 @@ class AuthenticationController extends Controller
 
     // 	return view('authentication.register', compact('fakultas','token','peminatan','mahasiswa','periode','provinsi'));
     // }
-    
+
     // function postRegistration(Request $request){
     //     date_default_timezone_set('Asia/Jakarta');
     //     $req = $request->all();
@@ -342,11 +326,11 @@ class AuthenticationController extends Controller
     //     if($periodePBL == null){
     //         return response()->json(['status'=>false,'message'=>'Periode PBL tidak sesuai']);
     //     }
-        
+
     //     $name = '';
     //     $email = '';
     //     $daftar = null;
-        
+
     //     if($req['mahasiswa'] == null && $req['val_nama'] == null){
     //         return response()->json(['status'=>false,'message'=>'Silahkan pilih NIM Mahasiswa terlebih dahulu']);
     //     } else if ($req['provinsi'] == null){
@@ -387,7 +371,7 @@ class AuthenticationController extends Controller
     //         $filename2 = null;
     //         $filename3 = null;
     //         $user_id = null;
-            
+
     //         if($request->file('profile_picture')!=null){
     //             if(!in_array($request->file('profile_picture')->getClientOriginalExtension(), ['JPG','PNG', 'jpg','png'])){
     //                 return response()->json([
@@ -541,7 +525,7 @@ class AuthenticationController extends Controller
     //         $berkasPendaftaran->created_by = $req['val_nama'];
     //         $berkasPendaftaran->created_at = date('Y-m-d H:i:s');
     //         $berkasPendaftaran->save();
-            
+
     //         $order = DB::table('pendaftaran_pbl')
     //             ->join('mahasiswa','mahasiswa.mahasiswa_id','=','pendaftaran_pbl.mahasiswa_id')
     //             ->join('user','user.user_id','=','mahasiswa.user_id')
@@ -563,7 +547,7 @@ class AuthenticationController extends Controller
     //         $mhs = Mahasiswa::where([
     //             'nim'=>$req['nim']
     //         ])->whereNull('delete_at')->first();
-            
+
     //         if($mhs!=null){
     //             $mhs_id = $mhs->mahasiswa_id;
     //             $user_id = $mhs->user_id;
@@ -582,7 +566,7 @@ class AuthenticationController extends Controller
     //         $username = strtolower(explode(" ", $req['val_nama'])[0]);
     //         $username = $username.''.$this->generateRandomString(5);
     //         $password = 'qwerty';
-            
+
     //         if($request->file('profile_picture')!=null){
     //             if($request->hasFile('profile_picture')){
     //                 if($request->file('profile_picture')->isValid()){
@@ -643,7 +627,7 @@ class AuthenticationController extends Controller
     //             $userRole->created_by = $req['val_nama'];
     //             $userRole->created_at = date('Y-m-d H:i:s');
     //             $userRole->save();
-    
+
     //             $userSetting = new UserSettings;
     //             $userSetting->user_id = $user->user_id;
     //             $userSetting->created_by = $req['val_nama'];
@@ -726,7 +710,7 @@ class AuthenticationController extends Controller
     //         // 'url'=>$order->url_pembayaran,
     //         'url_info'=>$order->url_info
     //     );
-        
+
     //     /*
     //     Mail::send("mail.mailpendaftaranberhasil", $data, function($message) use ($to_name, $to_email) {
     //         $message->to($to_email, $to_name)->subject('Pendaftaran berhasil');
@@ -740,7 +724,7 @@ class AuthenticationController extends Controller
     //     ]);
     // }
 
-    // public function logout(Request $request) 
+    // public function logout(Request $request)
     // {
     //     Auth::logout();
     //     Session::flush();

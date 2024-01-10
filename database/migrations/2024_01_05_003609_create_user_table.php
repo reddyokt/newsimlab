@@ -22,6 +22,8 @@ return new class extends Migration
             $table->enum('isActive', ['Y', 'N'])->default('N');
             $table->unsignedBigInteger('pda_id')->nullable();
             $table->foreign('pda_id')->references('pda_id')->on('pda')->onDelete('restrict');
+            $table->unsignedBigInteger('majelis_id')->nullable();
+            $table->foreign('pda_id')->references('majelis_id')->on('majelis')->onDelete('restrict');
             $table->string('created_by');
             $table->date('delete_at')->nullable();
             $table->timestamps();

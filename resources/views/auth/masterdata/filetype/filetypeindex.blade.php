@@ -17,7 +17,7 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <a href="/majelis/create" class="btn btn-success waves-effect waves-light"><i
+                                <a href="/filetype/create" class="btn btn-success waves-effect waves-light"><i
                                         class="mdi mdi-plus me-2"></i> Add New</a>
                             </div>
                         </div>
@@ -51,9 +51,9 @@
                             <tbody>
                                 @foreach ($filetypeindex as $file )
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>                                    
+                                    <td>{{ $loop->iteration }}</td>
                                     <td style="width: 30%">
-                                        {{$file->name}}
+                                        {{$file->filename}}
                                     </td>
                                     <td style="width: 30%">{{$file->description}}</td>
                                     <td>
@@ -70,7 +70,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                
+
 
                             </tbody>
                         </table>

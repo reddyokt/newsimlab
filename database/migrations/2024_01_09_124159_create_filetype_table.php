@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('filetype', function (Blueprint $table) {
             $table->id('id_filetype');
-            $table->string('name');
+            $table->string('filename');
             $table->enum('isActive', ['Yes','No'])->default('Yes');
             $table->longText('description')->nullable();
             $table->timestamps();

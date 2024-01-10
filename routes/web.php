@@ -59,6 +59,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/account/edit/{id}', [App\Http\Controllers\AccountController::class, 'updateaccount']);
     Route::get('/account/delete/{id}', [App\Http\Controllers\AccountController::class, 'deleteaccount']);
     Route::get('/account/pda', [App\Http\Controllers\AccountController::class, 'getPDA']);
+    Route::get('/account/majelis', [App\Http\Controllers\AccountController::class, 'getMajelis']);
 
     /*--------------------3.pda------------------------------------------------*/
     Route::get('/pda', [App\Http\Controllers\PdaController::class, 'pdaindex']);
@@ -91,4 +92,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/bidangusaha', [App\Http\Controllers\BidangUsahaController::class, 'bidangusahaindex']);
     Route::get('/bidangusaha/create', [App\Http\Controllers\BidangUsahaController::class, 'createbidangusaha']);
     Route::post('/bidangusaha/create', [App\Http\Controllers\BidangUsahaController::class, 'storecreatebidangusaha']);
+    /*------------------8.Document-----------------------------------------------*/
+    Route::get('/document', [App\Http\Controllers\DocumentController::class, 'documentindex']);
+    Route::get('/document/create', [App\Http\Controllers\DocumentController::class, 'createdocument']);
+    Route::post('/document/create', [App\Http\Controllers\DocumentController::class, 'storecreatedocument']);
 });

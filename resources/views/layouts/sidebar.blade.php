@@ -3,7 +3,7 @@
 
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="{{url('index')}}" class="logo logo-dark">
+        <a href="{{ url('index') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="40">
             </span>
@@ -12,7 +12,7 @@
             </span>
         </a>
 
-        <a href="{{url('index')}}" class="logo logo-light">
+        <a href="{{ url('index') }}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="10">
             </span>
@@ -31,28 +31,30 @@
         <!--- Sidemenu -->
         <div id="sidebar-menu">
             <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title">@lang('translation.Menu')</li>
-            <li>
-                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                    <i class="uil-users-alt"></i>
-                    {{-- <span>@lang('translation.Contacts')</span> --}}
-                    <span>Master Data</span>
-                </a>
-                <ul class="sub-menu" aria-expanded="false">
-                    <li><a href="/role">Role Manajemen</a></li>
-                    <li><a href="/account">Account Manajemen</a></li>
-                    <li><a href="/pda">PDA Manajemen</a></li>
-                    <li><a href="/pca">PCA Manajemen</a></li>
-                    <li><a href="/kader">Kader Manajemen</a></li>
-                    <li><a href="/majelis">Majelis/Lembaga Manajemen</a></li>
-                    <li><a href="/majelis">File Type Manajemen</a></li>
-
-
-                    {{-- <li><a href="contacts-grid">@lang('translation.User_Grid')</a></li>
-                    <li><a href="contacts-list">@lang('translation.User_List')</a></li>
-                    <li><a href="contacts-profile">@lang('translation.Profile')</a></li> --}}
-                </ul>
-            </li>
+                {{-- <li class="menu-title">@lang('translation.Menu')</li> --}}
+                <li>
+                    <a href="/document" class="waves-effect">
+                        <i class="uil-file"></i>
+                        <span>Document</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-users-alt"></i>
+                        {{-- <span>@lang('translation.Contacts')</span> --}}
+                        <span>Master Data</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/role">Role Manajemen</a></li>
+                        <li><a href="/account">Account Manajemen</a></li>
+                        <li><a href="/pda">PDA Manajemen</a></li>
+                        <li><a href="/pca">PCA Manajemen</a></li>
+                        <li><a href="/kader">Kader Manajemen</a></li>
+                        <li><a href="/majelis">Majelis/Lembaga Manajemen</a></li>
+                        <li><a href="/filetype">File Type Manajemen</a></li>
+                        <li><a href="/bidangusaha">Bidang Usaha Manajemen</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
         {{-- <div id="sidebar-menu">

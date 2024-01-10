@@ -30,7 +30,7 @@ class FiletypeController extends Controller
             'description' => 'required'
         ]);
 
-        $storecreatefiletype['name'] = $request->name;
+        $storecreatefiletype['filename'] = $request->name;
         $storecreatefiletype['description'] = $request->description;
 
         Filetype::create($storecreatefiletype);
