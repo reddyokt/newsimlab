@@ -11,4 +11,5 @@ class Surat extends Model
 
     protected $table = 'surat';
     protected $fillable = ['kepada_id', 'subject', 'body', 'file_uploaded', 'created_by', 'deleted_at'];
+    protected $primaryKey = 'id_surat';
 }

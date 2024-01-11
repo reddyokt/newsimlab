@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserRole;
+use App\Models\UserSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -211,6 +212,13 @@ class AccountController extends Controller
             $userRole->save();
         }
 
+        $user_settings = new UserSetting();
+        $user_settings->user_id = $user->user_id;
+        $user_settings->created_at = date('Y-m-d H:i:s');
+        $user_settings->created_by = Session::get('username');
+        $user_settings->save();
+
+
         //user Log
         // $userLog = new UserLog;
         // $userLog->user_id = Session::get('user_id');
@@ -239,9 +247,9 @@ class AccountController extends Controller
                 'delete_at'=>date('Y-m-d H:i:s')
             ]);
 
-            // $userSetting = UserSettings::whereNull('deleted_at')->where('user_id', $id)->first();
-            // $userSetting->deleted_at = date('Y-m-d H:i:s');
-            // $userSetting->save();
+            $userSetting = UserSetting::whereNull('deleted_at')->where('user_id', $id)->first();
+            $userSetting->deleted_at = date('Y-m-d H:i:s');
+            $userSetting->save();
 
             //user Log
             // $userLog = new UserLog;

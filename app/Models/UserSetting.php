@@ -10,4 +10,5 @@ class UserSetting extends Model
     use HasFactory;
 
     protected $table = 'user_setting';
+    protected $primaryKey = 'id';
 }

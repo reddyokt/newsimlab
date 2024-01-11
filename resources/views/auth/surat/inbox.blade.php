@@ -141,24 +141,23 @@
                         </div>
                     </div> --}}
                     </div>
-                    <ul class="message-list">
-                        <li>
-                            <div class="col-mail col-mail-1">
-                                <div class="checkbox-wrapper-mail">
-                                    <input type="checkbox" id="chk19">
-                                    <label for="chk19" class="toggle"></label>
+                    @foreach ($inbox as $inbox)
+                        <ul class="message-list">
+                            <li>
+                                <div class="col-mail col-mail-1">
+                                    <div class="">
+                                        <a href="/inbox/read/{{$inbox->id_surat}}" class="title">From : {{ $inbox->dari }} </a>
+
+                                    </div>
+                                    <a href="/inbox/read/{{$inbox->id_surat}}" class="title">From : {{ $inbox->dari }} </a>
                                 </div>
-                                <a href="#" class="title">Peter, me (3)</a><span
-                                    class="star-toggle far fa-star"></span>
-                            </div>
-                            <div class="col-mail col-mail-2">
-                                <a href="#" class="subject">Hello – <span class="teaser">Trip home from Colombo has
-                                        been arranged, then Jenna will come get me from Stockholm. :)</span>
-                                </a>
-                                <div class="date">Mar 6</div>
-                            </div>
-                        </li>
-                    </ul>
+                                <div class="col-mail col-mail-2">
+                                    <a href="#" class="subject">{{ $inbox->subject }}</a>
+                                    <div class="col-md-8    date">{{ \Carbon\Carbon::parse($inbox->created_at)->format('l,d/m/Y')}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    @endforeach
 
                 </div> <!-- card -->
 
@@ -183,7 +182,7 @@
     </div><!-- End row -->
 
     <!-- Modal -->
-    <div class="modal fade" id="composemodal" tabindex="-1" role="dialog" aria-labelledby="composemodalTitle"
+    {{-- <div class="modal fade" id="composemodal" tabindex="-1" role="dialog" aria-labelledby="composemodalTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -221,7 +220,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 @section('script')
     <script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script>

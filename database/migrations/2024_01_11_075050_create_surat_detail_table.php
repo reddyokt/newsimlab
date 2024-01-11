@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('surat_id')->references('surat_id')->on('surat')->onDelete('restrict');
             $table->unsignedBigInteger('kepada_id')->index();
             $table->foreign('kepada_id')->references('user_id')->on('user')->onDelete('restrict');
-            $table->unsignedBigInteger('disposisi_to')->index();
+            $table->unsignedBigInteger('disposisi_to')->index()->nullable();
             $table->foreign('disposisi_to')->references('user_id')->on('user')->onDelete('restrict');
             $table->enum('status', ['Selesai','Belum selesai'])->default('Belum selesai');
             $table->string('created_by');

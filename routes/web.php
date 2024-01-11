@@ -97,7 +97,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/document/create', [App\Http\Controllers\DocumentController::class, 'createdocument']);
     Route::post('/document/create', [App\Http\Controllers\DocumentController::class, 'storecreatedocument']);
     /*------------------8.Surat-----------------------------------------------*/
-    Route::get('/inbox', [App\Http\Controllers\SuratController::class, 'inbox']);
+    Route::get('/inbox/{id}', [App\Http\Controllers\SuratController::class, 'inbox']);
     Route::get('/surat/create', [App\Http\Controllers\SuratController::class, 'createsurat']);
     Route::post('/surat/create', [App\Http\Controllers\SuratController::class, 'storecreatesurat']);
 });

@@ -45,7 +45,7 @@
                         <span>e-Surat</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/inbox">Inbox</a></li>
+                        <li><a href="/inbox/{{Session::get('user_id')}}">Inbox</a></li>
                     </ul>
                 </li>
                 <li>
