@@ -40,6 +40,16 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-envelope"></i>
+                        {{-- <span>@lang('translation.Contacts')</span> --}}
+                        <span>e-Surat</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/inbox">Inbox</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-users-alt"></i>
                         {{-- <span>@lang('translation.Contacts')</span> --}}
                         <span>Master Data</span>

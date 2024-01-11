@@ -279,6 +279,6 @@
                 $('.appending_div').append(field);
             })
         })
-        
+
     </script>
 @endsection

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Support\Facades\App;
+use SebastianBergmann\Type\NullType;
 
 class AuthenticationController extends Controller
 {
@@ -213,7 +214,7 @@ class AuthenticationController extends Controller
         $password = $request->password;
 
         $data = DB::table('user')->where('user.username', $username)
-            ->whereNull('user.delete_at')
+            ->where('user.delete_at', Null)
             ->where('user.isActive','Y')
             ->first();
 

@@ -39,8 +39,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             return redirect('dashboard/index');
         });
         Route::get('dashboard/index', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
-        Route::get('dashboard/setrole/{id}', 'DashboardController@setRole')->name('dashboard.setrole');
-        Route::get('set-language/{lang}', 'DashboardController@setLanguage')->name('dashboard.setlanguage');
+        Route::get('dashboard/setrole/{id}', [App\Http\Controllers\DashboardController::class, 'setrole'])->name('dashboard.setrole');
+        Route::get('set-language/{lang}', [App\Http\Controllers\DashboardController::class, 'setlanguage'])->name('dashboard.setlanguage');
     });
 
 
@@ -96,4 +96,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/document', [App\Http\Controllers\DocumentController::class, 'documentindex']);
     Route::get('/document/create', [App\Http\Controllers\DocumentController::class, 'createdocument']);
     Route::post('/document/create', [App\Http\Controllers\DocumentController::class, 'storecreatedocument']);
+    /*------------------8.Surat-----------------------------------------------*/
+    Route::get('/inbox', [App\Http\Controllers\SuratController::class, 'inbox']);
+    Route::get('/surat/create', [App\Http\Controllers\SuratController::class, 'createsurat']);
+    Route::post('/surat/create', [App\Http\Controllers\SuratController::class, 'storecreatesurat']);
 });
