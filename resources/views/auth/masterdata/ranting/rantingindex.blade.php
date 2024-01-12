@@ -61,7 +61,7 @@
                                     <td style="width:2%;">{{$ranting['nomor']}}</td>
                                     <td>Ranting {{$ranting['ranting_name']}}<br>
                                         - PCA {{$ranting['pca_name']}}<br>
-                                        -- {{$ranting['pda_name']}}
+                                        -- PDA {{$ranting['pda_name']}}
 
                                     </td>
                                     <td>{{$ranting['villages']}}</td>

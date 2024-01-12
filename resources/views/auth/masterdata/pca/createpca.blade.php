@@ -63,11 +63,14 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" class="control-label">Pilih Kecamatan/Administrative</label>
-                                            <select class="select2 form-control select2-multiple" name="districts"
-                                                data-placeholder="Choose ...">
-                                                @foreach ($districts as $key => $value)
-                                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                            <label class="form-label" class="control-label">Pilih PDA</label>
+                                            <select class="select2 form-control select2-multiple" name="pda"
+                                                id="pdaforpca" data-live-search="true">
+                                                <option selected disabled>
+                                                    Pilih PDA</option>
+                                                @foreach ($pda as $key => $value)
+                                                    <option value="{{ $value->pda_id }}">
+                                                        {{ $value->pda_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -80,15 +83,12 @@
                                             <textarea class="form-control" type="text" name="address" id="address"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" class="control-label">Pilih PDA</label>
-                                            <select class="select2 form-control select2-multiple" name="pda"
-                                                id="pda" data-live-search="true">
-                                                @foreach ($pda as $key => $value)
-                                                    <option value="{{ $value->pda_id }}">
-                                                        {{ $value->pda_name }}</option>
-                                                @endforeach
+                                    <div class="col-md-6" id="divdistricts" style="display: none">
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label" class="control-label">Pilih Kecamatan/Administrative</label>
+                                            <select class="form-select form-control form-select-solid" name="districts"
+                                                    id="districts" data-control="select2"
+                                                    data-placeholder="{{ __('account.placeholder_districts') }}">
                                             </select>
                                         </div>
                                     </div>
@@ -110,6 +110,7 @@
     </div>
 @endsection
 @section('script')
+<script src="{{ asset('assets/js/account.js') }}"></script>
 <script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script>
 <script src="{{ URL::asset('/assets/libs/dropzone/dropzone.min.js') }}"></script>
 <script src="{{ URL::asset('/assets/js/pages/ecommerce-add-product.init.js') }}"></script>

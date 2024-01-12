@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PCAController;
 use App\Http\Controllers\RoleController;
 use App\Models\Role;
 use Illuminate\Support\Facades\Auth;
@@ -75,6 +76,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/pca/edit/{id}', [App\Http\Controllers\PcaController::class, 'editpca']);
     Route::post('/pca/edit/{id}', [App\Http\Controllers\PcaController::class, 'storeeditpca']);
     Route::post('/pca/delete/{id}', [App\Http\Controllers\PcaController::class, 'deletepca']);
+    Route::get('/pca/pdabydistricts/{id}', [App\Http\Controllers\PCaController::class, 'pdaBydistricts']);
     /*------------------5.kader-----------------------------------------------*/
     Route::get('/kader', [App\Http\Controllers\KaderController::class, 'kaderindex']);
     Route::get('/kader/create', [App\Http\Controllers\KaderController::class, 'createkader']);
@@ -110,5 +112,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/ranting/edit/{id}', [App\Http\Controllers\RantingController::class, 'editranting']);
     Route::post('/ranting/edit/{id}', [App\Http\Controllers\RantingController::class, 'storeeditranting']);
     Route::post('/ranting/delete/{id}', [App\Http\Controllers\RantingController::class, 'deleteranting']);
+    Route::get('/ranting/pcabyvillages/{id}', [App\Http\Controllers\PCaController::class, 'pcaByvillages']);
+
 
 });

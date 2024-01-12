@@ -170,3 +170,42 @@ $(document).on('change', '#pda', function () {
     $('#divpca').css("display", "flex");
 
 });
+
+$(document).on('change', '#pdaforpca', function () {
+    var id = $(this).val();
+    $('#districts').html("");
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        url: '/pca/pdabydistricts/' + id,
+        success: function (data) {
+            $.each(data, function (index, option) {
+                $('#districts').append($('<option>').val(option.id).text(option.name));
+            });
+        }
+    });
+    $('#divdistricts').css("display", "flex");
+
+});
+
+$(document).on('change', '#pcaforranting', function () {
+    var id = $(this).val();
+    $('#villages').html("");
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        url: '/ranting/pcabyvillages/' + id,
+        success: function (data) {
+            $.each(data, function (index, option) {
+                $('#villages').append($('<option>').val(option.id).text(option.name));
+            });
+        }
+    });
+    $('#divvillages').css("display", "flex");
+
+});
+

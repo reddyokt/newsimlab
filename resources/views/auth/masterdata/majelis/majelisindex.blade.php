@@ -44,7 +44,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nama Majelis/Lembaga</th>
-                                    <th scope="col">code</th>
+                                    {{-- <th scope="col">code</th> --}}
                                     <th scope="col">Description</th>
                                     <th scope="col" style="width: 200px;">Action</th>
                                 </tr>
@@ -52,13 +52,13 @@
                             <tbody>
                                 @foreach ($majelisindex as $majelis )
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>                                    
-                                    <td style="width: 30%">
+                                    <td style="width: 5%">{{ $loop->iteration }}</td>                                    
+                                    <td style="width: 45%">
                                         <img src="{{ URL::asset('/assets/images/aisyiyah/logo-aisyiyah.png') }}" alt=""
                                             class="avatar-xs rounded-circle me-2">
                                         <a href="#" class="text-body">{{$majelis->type}} {{$majelis->name}}</a>
                                     </td>
-                                    <td>{{$majelis->code}}</td>
+                                    {{-- <td>{{$majelis->code}}</td> --}}
                                     <td style="width: 30%">{{$majelis->description}}</td>
                                     <td>
                                         <ul class="list-inline mb-0">

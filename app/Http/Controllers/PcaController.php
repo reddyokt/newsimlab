@@ -10,30 +10,29 @@ class PCAController extends Controller
 {
     public function pcaindex()
     {
-        $pcaindex = Pca::leftJoin('pda', 'pda.pda_id', '=' ,'pca.pda_id')
-                    ->leftJoin('districts', 'districts.id', '=', 'pca.district_id')
-                    ->whereNull('pca.deleted_at')
-                    ->select(DB::raw('pca.pca_id, pca.pca_name, districts.name, pca.address, pda.pda_name as pda_name'))
-                    ->get()->toArray();
+        $pcaindex = Pca::leftJoin('pda', 'pda.pda_id', '=', 'pca.pda_id')
+            ->leftJoin('districts', 'districts.id', '=', 'pca.district_id')
+            ->whereNull('pca.deleted_at')
+            ->select(DB::raw('pca.pca_id, pca.pca_name, districts.name, pca.address, pda.pda_name as pda_name'))
+            ->get()->toArray();
 
 
         foreach ($pcaindex as $key => $value) {
             $pcaindex[$key]['nomor'] = $key + 1;
         }
 
-    return view('auth.masterdata.pca.pcaindex', compact('pcaindex'));
+        return view('auth.masterdata.pca.pcaindex', compact('pcaindex'));
     }
 
     public function createpca()
     {
         $districts = DB::table('districts')
-        ->get()->toArray();
+            ->get()->toArray();
         $pda = DB::table('pda')
-        ->whereNull('pda.deleted_at')
-        ->get()->toArray();
+            ->whereNull('pda.deleted_at')
+            ->get()->toArray();
 
-        return view('auth.masterdata.pca.createpca', compact('districts','pda'));
-
+        return view('auth.masterdata.pca.createpca', compact('districts', 'pda'));
     }
 
     public function storecreatepca(Request $request)
@@ -55,5 +54,31 @@ class PCAController extends Controller
         Pca::create($storecreatepca);
 
         return redirect('/pca')->with('success', 'Alhamdulillah, data PCA berhasil dibuat');
+    }
+
+    public function pdaBydistricts($id)
+    {
+        $pda = DB::table('pda')->where('pda.pda_id', $id)->first();
+        $reg_id = $pda->regencies_id;
+
+        // dd($reg_id);
+
+        $districts = DB::table('districts')->where('districts.regency_id', $reg_id)->get()->toArray();
+        return response()->json($districts);
+
+        
+    }
+
+    public function pcaByvillages($id)
+    {
+        $pca = DB::table('pca')->where('pca.pca_id', $id)->first();
+        $vill_id = $pca->district_id;
+
+        // dd($reg_id);
+
+        $villages = DB::table('villages')->where('villages.district_id', $vill_id)->get()->toArray();
+        return response()->json($villages);
+
+        
     }
 }
