@@ -11,4 +11,5 @@ class PCA extends Model
 
     protected $table = 'pca';
     protected $fillable = ['pca_name','district_id','address','pda_id','created_by'];
+    protected $primaryKey = 'pca_id';
 }

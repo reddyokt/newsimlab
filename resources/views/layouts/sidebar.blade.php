@@ -39,14 +39,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <a href="/inbox/{{Session::get('user_id')}}" class="">
                         <i class="uil-envelope"></i>
                         {{-- <span>@lang('translation.Contacts')</span> --}}
                         <span>e-Surat</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
+                    {{-- <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/inbox/{{Session::get('user_id')}}">Inbox</a></li>
-                    </ul>
+                    </ul> --}}
                 </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -59,6 +59,7 @@
                         <li><a href="/account">Account Manajemen</a></li>
                         <li><a href="/pda">PDA Manajemen</a></li>
                         <li><a href="/pca">PCA Manajemen</a></li>
+                        <li><a href="/ranting">Ranting Manajemen</a></li>
                         <li><a href="/kader">Kader Manajemen</a></li>
                         <li><a href="/majelis">Majelis/Lembaga Manajemen</a></li>
                         <li><a href="/filetype">File Type Manajemen</a></li>

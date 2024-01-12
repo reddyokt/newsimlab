@@ -11,4 +11,6 @@ class UserRole extends Model
 
     protected $table ='user_role';
     protected $fillable = ['user_id', 'role_id', 'created_at'];
+    protected $primaryKey = 'id';
+
 }

@@ -214,20 +214,11 @@ class AuthenticationController extends Controller
         $password = $request->password;
 
         $data = DB::table('user')->where('user.username', $username)
-            ->where('user.delete_at', Null)
+            ->whereNull('user.delete_at')
             ->where('user.isActive','Y')
             ->first();
 
         $login = Auth::attempt(['username' => $username, 'password' => $password]);
-
-        // $credentials = $request->validate([
-        //     'username' => ['required'],
-        //     'password' => ['required'],
-        // ]);
-
-        // if(Auth::attempt($credentials)) {
-        //     $request->session()->regenerate();
-        // }
 
         if($data!=null){ //apakah user tersebut ada atau tidak
             if(Hash::check($password, $data->password)){

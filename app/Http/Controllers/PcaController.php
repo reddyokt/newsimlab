@@ -10,15 +10,16 @@ class PCAController extends Controller
 {
     public function pcaindex()
     {
-        $pcaindex = Pca::leftJoin('districts', 'districts.id', '=', 'pca.district_id')
-        ->whereNull('pca.deleted_at')
-        ->select(DB::raw('pca.pca_id, pca.pca_name, districts.name, pca.address'))
-        ->get()->toArray();
+        $pcaindex = Pca::leftJoin('pda', 'pda.pda_id', '=' ,'pca.pda_id')
+                    ->leftJoin('districts', 'districts.id', '=', 'pca.district_id')
+                    ->whereNull('pca.deleted_at')
+                    ->select(DB::raw('pca.pca_id, pca.pca_name, districts.name, pca.address, pda.pda_name as pda_name'))
+                    ->get()->toArray();
 
 
-    foreach ($pcaindex as $key => $value) {
-        $pcaindex[$key]['nomor'] = $key + 1;
-    }
+        foreach ($pcaindex as $key => $value) {
+            $pcaindex[$key]['nomor'] = $key + 1;
+        }
 
     return view('auth.masterdata.pca.pcaindex', compact('pcaindex'));
     }

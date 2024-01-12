@@ -11,5 +11,6 @@ class Majelis extends Model
 
     protected $table = 'majelis';
     protected $fillable = ['name','code', 'type', 'description', 'isActive'];
+    protected $primaryKey = 'id_majelis';
 
 }

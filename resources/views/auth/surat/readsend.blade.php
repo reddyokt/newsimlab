@@ -9,7 +9,7 @@
             e-Surat
         @endslot
         @slot('title')
-            Inbox
+            Send
         @endslot
     @endcomponent
 
@@ -21,13 +21,15 @@
                     Compose </a>
                 </button>
                 <div class="mail-list mt-4">
-                    <a href="/inbox/{{Session::get('user_id')}}"><i class="mdi mdi-email-outline font-size-16 align-middle me-2"></i>
-                        Inbox <span class="ms-1 float-end">({{count($inbox)}})</span></a>
+                    <a href="/inbox/{{ Session::get('user_id') }}"><i
+                            class="mdi mdi-email-outline font-size-16 align-middle me-2"></i>
+                        Inbox <span class="ms-1 float-end">({{ count($inbox) }})</span></a>
                     {{-- <a href="#"><i class="mdi mdi-star-outline font-size-16 align-middle me-2"></i>Starred</a>
                     <a href="#"><i class="mdi mdi-diamond-stone font-size-16 align-middle me-2"></i>Important</a>
                     <a href="#"><i class="mdi mdi-file-outline font-size-16 align-middle me-2"></i>Draft</a> --}}
-                    <a href="/sent/{{Session::get('user_id')}}"><i class="mdi mdi-email-check-outline font-size-16 align-middle me-2"></i>
-                        Sent <span class="ms-1 float-end">({{count($sent)}})</span></a></a>
+                    <a href="/sent/{{ Session::get('user_id') }}"><i
+                            class="mdi mdi-email-check-outline font-size-16 align-middle me-2"></i>
+                        Sent <span class="ms-1 float-end">({{ count($sent) }})</span></a></a>
                     <a href="#"><i class="mdi mdi-trash-can-outline font-size-16 align-middle me-2"></i>Trash</a>
                 </div>
 
@@ -99,81 +101,55 @@
 
                 <div class="card">
                     <div class="btn-toolbar p-3" role="toolbar">
-                        {{-- <div class="btn-group me-2 mb-2 mb-sm-0">
-                        <button type="button" class="btn btn-primary waves-light waves-effect"><i class="fa fa-inbox"></i></button>
-                        <button type="button" class="btn btn-primary waves-light waves-effect"><i class="fa fa-exclamation-circle"></i></button>
-                        <button type="button" class="btn btn-primary waves-light waves-effect"><i class="far fa-trash-alt"></i></button>
-                    </div> --}}
-                        {{-- <div class="btn-group me-2 mb-2 mb-sm-0">
-                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-folder"></i> <i class="mdi mdi-chevron-down ms-1"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Updates</a>
-                            <a class="dropdown-item" href="#">Social</a>
-                            <a class="dropdown-item" href="#">Team Manage</a>
+                        <div class="btn-group me-2 mb-2 mb-sm-0">
+                            <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Option <i class="mdi mdi-dots-vertical ms-2"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Mark as Done</a>
+                            </div>
                         </div>
-                    </div> --}}
-                        {{-- <div class="btn-group me-2 mb-2 mb-sm-0">
-                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-tag"></i> <i class="mdi mdi-chevron-down ms-1"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Updates</a>
-                            <a class="dropdown-item" href="#">Social</a>
-                            <a class="dropdown-item" href="#">Team Manage</a>
-                        </div>
-                    </div> --}}
-
-                        {{-- <div class="btn-group me-2 mb-2 mb-sm-0">
-                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            More <i class="mdi mdi-dots-vertical ms-2"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Mark as Unread</a>
-                            <a class="dropdown-item" href="#">Mark as Important</a>
-                            <a class="dropdown-item" href="#">Add to Tasks</a>
-                            <a class="dropdown-item" href="#">Add Star</a>
-                            <a class="dropdown-item" href="#">Mute</a>
-                        </div>
-                    </div> --}}
                     </div>
-                    @foreach ($inbox as $inbox)
-                        <ul class="message-list">
-                            @if ($inbox->isOpened == 'No')
-                            <li class="unread">
-                                @else
-                                <li class="read">
-                            @endif
-                                <div class="col-mail" style="margin-left:20px;">
-                                        <a href="/inbox/read/{{$inbox->id_surat}}" class="title">From : {{ $inbox->dari }} </a>
+                    {{-- {{ dd($readsend) }} --}}
+                    <div class="card-body">
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="flex-shrink-0 me-3">
+                                @foreach ( $readsend as $read )
+                                <img class="rounded-circle avatar-sm"
+                                    src="{{ '/../upload/profile_picture/' . $read->photo }}"
+                                    alt="Generic placeholder image">
+                            </div>
+                            <div class="flex-grow-1">
+                                    <h5 class="font-size-14 my-1">Kepada : {{ $read->kepada }}</h5>
+                                    <small class="text-muted">{{ $read->role_name }}</small>
+
+                            </div>
+                        </div>
+
+                        <h4 class="font-size-16">{{ $read->subject }}</h4>
+
+                        {!! $read->body !!}
+
+
+                        <div class="row">
+                            <div class="col-xl-2 col-6">
+                                <div class="card border shadow-none">
+                                    <a href="{{ '/upload/attachment/' . $read->uploaded_file }}" class="fw-medium" target="_blank">Download<i class="uil-file-download-alt"></i></a>
+                                    <div class="py-2 text-center">
+
+                                    </div>
                                 </div>
-                                <div class="col-mail col-mail-2">
-                                    <a href="#" class="subject">{{ $inbox->subject }}</a>
-                                    <div class="date">{{ \Carbon\Carbon::parse($inbox->created_at)->format('l,d/m/Y')}}</div>
-                                </div>
-                            </li>
-                        </ul>
-                        <hr>
+                            </div>
+                        </div>
+
+                        <a href="/surat/disposisi/{{ $read->id_detail }}" class="btn btn-secondary waves-effect mt-4"><i
+                                class="mdi mdi-reply"></i> Disposisi</a>
+                    </div>
                     @endforeach
 
-                </div> <!-- card -->
-
-                <div class="row">
-                    <div class="col-7">
-                        Showing 1 - 20 of 1,524
-                    </div>
-                    <div class="col-5">
-                        <div class="btn-group float-end">
-                            <button type="button" class="btn btn-sm btn-success waves-effect"><i
-                                    class="fa fa-chevron-left"></i></button>
-                            <button type="button" class="btn btn-sm btn-success waves-effect"><i
-                                    class="fa fa-chevron-right"></i></button>
-                        </div>
-                    </div>
                 </div>
-
-            </div> <!-- end Col-9 -->
+            </div>
 
         </div>
 

@@ -10,8 +10,8 @@
 
 @section('content')
     @component('common-components.breadcrumb')
-        @slot('pagetitle') PDA @endslot
-        @slot('title') PDA List @endslot
+        @slot('pagetitle') Ranting @endslot
+        @slot('title') Ranting List @endslot
     @endcomponent
 
     <div class="row">
@@ -23,7 +23,7 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <a href="/pca/create" class="btn btn-success waves-effect waves-light"><i
+                                <a href="/ranting/create" class="btn btn-success waves-effect waves-light"><i
                                         class="mdi mdi-plus me-2"></i> Add New</a>
                             </div>
                         </div>
@@ -44,30 +44,31 @@
 
                     </div>
                     <!-- end row -->
-                    {{-- {{ dd($pcaindex) }} --}}
                     <div class="table-responsive mb-4">
                         <table class="table table-centered table-wrap mb-0">
                             <thead>
                                 <tr>
                                     <th scope="col">Nomor</th>
-                                    <th scope="col">Nama PCA</th>
-                                    <th scope="col">Kecamatan Administrative</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Kelurahan Administrative</th>
                                     <th scope="col">Alamat</th>
                                     <th scope="col" style="width: 200px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pcaindex as $pca )
+                                @foreach ($rantingindex as $ranting )
                                 <tr>
-                                    <td style="width:2%;">{{$pca['nomor']}}</td>
-                                    <td>{{$pca['pca_name']}} <br>
-                                        - {{ $pca['pda_name'] }}
+                                    <td style="width:2%;">{{$ranting['nomor']}}</td>
+                                    <td>Ranting {{$ranting['ranting_name']}}<br>
+                                        - PCA {{$ranting['pca_name']}}<br>
+                                        -- {{$ranting['pda_name']}}
+
                                     </td>
-                                    <td>{{$pca['name']}}</td>
+                                    <td>{{$ranting['villages']}}</td>
 
                                     <td style="width:40%;">
-                                    @if ($pca['address'] != Null)
-                                    {{$pca['address']}}
+                                    @if ($ranting['ranting_address'] != Null)
+                                    {{$ranting['ranting_address']}}
                                     @else
                                     <p>Alamat belum diisi</p>
                                     @endif
@@ -76,11 +77,11 @@
                                     <td>
                                         <ul class="list-inline mb-0">
                                             <li class="list-inline-item">
-                                                <a href="{{url('pca/edit/'. Crypt::encrypt($pca['pca_id']))}}" class="px-2 text-primary"><i
+                                                <a href="{{url('pca/edit/'. Crypt::encrypt($ranting['ranting_id']))}}" class="px-2 text-primary"><i
                                                         class="uil uil-pen font-size-18"></i></a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="{{url('pca/delete/'. Crypt::encrypt($pca['pca_id']))}}" class="px-2 text-danger"><i
+                                                <a href="{{url('pca/delete/'. Crypt::encrypt($ranting['ranting_id']))}}" class="px-2 text-danger"><i
                                                         class="uil uil-trash-alt font-size-18"></i></a>
                                             </li>
                                         </ul>
@@ -95,7 +96,7 @@
                     <div class="row mt-4">
                         <div class="col-sm-6">
                             <div>
-                                <p class="mb-sm-0">Showing 1 to 10 of {{count($pcaindex)}} entries</p>
+                                <p class="mb-sm-0">Showing 1 to 10 of {{count($rantingindex)}} entries</p>
                             </div>
                         </div>
                     </div>

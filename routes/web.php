@@ -98,6 +98,17 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/document/create', [App\Http\Controllers\DocumentController::class, 'storecreatedocument']);
     /*------------------8.Surat-----------------------------------------------*/
     Route::get('/inbox/{id}', [App\Http\Controllers\SuratController::class, 'inbox']);
+    Route::get('/sent/{id}', [App\Http\Controllers\SuratController::class, 'sent']);
     Route::get('/surat/create', [App\Http\Controllers\SuratController::class, 'createsurat']);
     Route::post('/surat/create', [App\Http\Controllers\SuratController::class, 'storecreatesurat']);
+    Route::get('/inbox/read/{id}', [App\Http\Controllers\SuratController::class, 'readinbox']);
+    Route::get('/sent/read/{id}', [App\Http\Controllers\SuratController::class, 'readsend']);
+    /*------------------9.ranting-----------------------------------------------*/
+    Route::get('/ranting', [App\Http\Controllers\RantingController::class, 'rantingindex']);
+    Route::get('/ranting/create', [App\Http\Controllers\RantingController::class, 'createranting']);
+    Route::post('/ranting/create', [App\Http\Controllers\RantingController::class, 'storecreateranting']);
+    Route::get('/ranting/edit/{id}', [App\Http\Controllers\RantingController::class, 'editranting']);
+    Route::post('/ranting/edit/{id}', [App\Http\Controllers\RantingController::class, 'storeeditranting']);
+    Route::post('/ranting/delete/{id}', [App\Http\Controllers\RantingController::class, 'deleteranting']);
+
 });

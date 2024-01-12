@@ -12,4 +12,6 @@ class Detailsurat extends Model
     protected $table = 'surat_detail';
     protected $fillable = ['surat_id','kepada_id','disposisi_to', 'status', 'created_by'];
 
+    protected $primaryKey = 'id_detail';
+
 }

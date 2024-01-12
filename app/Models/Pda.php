@@ -11,4 +11,5 @@ class Pda extends Model
 
     protected $table = 'pda';
     protected $fillable = ['pda_name', 'regencies_id', 'created_by', 'address'];
+    protected $primaryKey = 'pda_id';
 }

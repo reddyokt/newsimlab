@@ -9,7 +9,7 @@
             e-Surat
         @endslot
         @slot('title')
-            Inbox
+            Sent
         @endslot
     @endcomponent
 
@@ -96,61 +96,19 @@
 
             <!-- Right Sidebar -->
             <div class="email-rightbar mb-3">
-
+                {{-- {{ dd($sent) }} --}}
                 <div class="card">
                     <div class="btn-toolbar p-3" role="toolbar">
-                        {{-- <div class="btn-group me-2 mb-2 mb-sm-0">
-                        <button type="button" class="btn btn-primary waves-light waves-effect"><i class="fa fa-inbox"></i></button>
-                        <button type="button" class="btn btn-primary waves-light waves-effect"><i class="fa fa-exclamation-circle"></i></button>
-                        <button type="button" class="btn btn-primary waves-light waves-effect"><i class="far fa-trash-alt"></i></button>
-                    </div> --}}
-                        {{-- <div class="btn-group me-2 mb-2 mb-sm-0">
-                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-folder"></i> <i class="mdi mdi-chevron-down ms-1"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Updates</a>
-                            <a class="dropdown-item" href="#">Social</a>
-                            <a class="dropdown-item" href="#">Team Manage</a>
-                        </div>
-                    </div> --}}
-                        {{-- <div class="btn-group me-2 mb-2 mb-sm-0">
-                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-tag"></i> <i class="mdi mdi-chevron-down ms-1"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Updates</a>
-                            <a class="dropdown-item" href="#">Social</a>
-                            <a class="dropdown-item" href="#">Team Manage</a>
-                        </div>
-                    </div> --}}
-
-                        {{-- <div class="btn-group me-2 mb-2 mb-sm-0">
-                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            More <i class="mdi mdi-dots-vertical ms-2"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Mark as Unread</a>
-                            <a class="dropdown-item" href="#">Mark as Important</a>
-                            <a class="dropdown-item" href="#">Add to Tasks</a>
-                            <a class="dropdown-item" href="#">Add Star</a>
-                            <a class="dropdown-item" href="#">Mute</a>
-                        </div>
-                    </div> --}}
                     </div>
-                    @foreach ($inbox as $inbox)
+                    @foreach ($sent as $sent)
                         <ul class="message-list">
-                            @if ($inbox->isOpened == 'No')
-                            <li class="unread">
-                                @else
-                                <li class="read">
-                            @endif
+                            <li class="">
                                 <div class="col-mail" style="margin-left:20px;">
-                                        <a href="/inbox/read/{{$inbox->id_surat}}" class="title">From : {{ $inbox->dari }} </a>
+                                        <a href="/sent/read/{{$sent->id_detail}}" class="title">To : {{ $sent->kepada }} </a>
                                 </div>
                                 <div class="col-mail col-mail-2">
-                                    <a href="#" class="subject">{{ $inbox->subject }}</a>
-                                    <div class="date">{{ \Carbon\Carbon::parse($inbox->created_at)->format('l,d/m/Y')}}</div>
+                                    <a href="#" class="subject">{{ $sent->subject }}</a>
+                                    <div class="date">{{ \Carbon\Carbon::parse($sent->created_at)->format('l,d/m/Y')}}</div>
                                 </div>
                             </li>
                         </ul>

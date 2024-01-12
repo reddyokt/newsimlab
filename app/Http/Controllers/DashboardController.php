@@ -12,15 +12,19 @@ class DashboardController extends Controller
         //role
         $role = Session::get('role_code');
         $list = [];
-        
+
         if ($role == "SUP" || $role == "PWA1") {
 
-        } else if ($role == "PWA2") {
-
+        } else if ($role == "PDA1") {
         } else if ($role == "MWA1") {
+        } else if ($role == "MWA1") {
+        } else if ($role == "PWA2") {
+        } else if ($role == "PDA2") {
+        } else if ($role == "PDA2") {
+        } else if ($role == "MDA2") {
 
         } else {
-            return view('authentication.login')->with("your user can't be access");
+            return view('authentication.login')->with('error', 'Kamu tidak bisa akses');
         }
 
         return view('dashboard.index', compact('list'));

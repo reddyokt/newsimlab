@@ -14,18 +14,60 @@ class SuratController extends Controller
 {
     public function inbox($id)
     {
+        $reader_id = Session::get('user_id');
+
+        // dd($reader_id);
+
 
         $inbox = DB::table('surat')
             ->leftJoin('surat_detail', 'surat_detail.surat_id', '=', 'surat.id_surat')
             // ->leftJoin('user', 'user.user_id', '=' ,'user_detail.kepada_id')
             ->leftJoin('user', 'user.user_id', '=', 'surat.created_by')
             ->where('surat_detail.kepada_id', $id)
-            ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as dari, surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk'))
+            ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as dari,
+                              surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                              surat_detail.isOpened as isOpened'))
             ->get()->toArray();
 
+        $sent = DB::table('surat')
+            ->leftJoin('surat_detail', 'surat_detail.surat_id', '=', 'surat.id_surat')
+            ->leftJoin('user', 'user.user_id', '=', 'surat_detail.kepada_id')
+            ->where('surat.created_by', $reader_id)
+            ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as kepada,
+                            surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                            surat_detail.isOpened as isOpened, surat_detail.id_detail as id_detail'))
+            ->get()->toArray();
 
+        return view('auth.surat.inbox', compact('inbox','sent'));
+    }
 
-        return view('auth.surat.inbox', compact('inbox'));
+    public function sent($id)
+    {
+        $reader_id = Session::get('user_id');
+
+        $inbox = DB::table('surat')
+        ->leftJoin('surat_detail', 'surat_detail.surat_id', '=', 'surat.id_surat')
+        // ->leftJoin('user', 'user.user_id', '=' ,'user_detail.kepada_id')
+        ->leftJoin('user', 'user.user_id', '=', 'surat.created_by')
+        ->where('surat_detail.kepada_id', $id)
+        ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as dari,
+                          surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                          surat_detail.isOpened as isOpened'))
+        ->get()->toArray();
+
+        $sent = DB::table('surat')
+            ->leftJoin('surat_detail', 'surat_detail.surat_id', '=', 'surat.id_surat')
+            ->leftJoin('user', 'user.user_id', '=', 'surat_detail.kepada_id')
+            ->leftJoin('user_role', 'user_role.user_id', '=' , 'user.user_id')
+            ->leftJoin('roles', 'roles.id', '=' , 'user_role.role_id')
+            ->where('surat_detail.created_by', $id)
+            ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as kepada,
+                            surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                            surat_detail.isOpened as isOpened, surat_detail.id_detail as id_detail, roles.role_name as role_name'))
+            ->get();
+
+        return view('auth.surat.sent', compact('sent','inbox'));
+
     }
 
     public function createsurat()
@@ -81,5 +123,81 @@ class SuratController extends Controller
         }
 
         return redirect('/inbox/{$id}')->with('success', 'Alhamdulillah Surat berhasil dikirim');
+    }
+
+    public function readinbox($id)
+    {
+        $reader_id = Session::get('user_id');
+
+        $readinbox = DB::table('surat')
+        ->leftJoin('surat_detail', 'surat_detail.surat_id', '=', 'surat.id_surat')
+        ->leftJoin('user', 'user.user_id', '=', 'surat.created_by')
+        ->leftJoin('user_role', 'user_role.user_id', '=' , 'user.user_id')
+        ->leftJoin('roles', 'roles.id', '=' , 'user_role.role_id')
+        ->where('surat.id_surat', $id)
+        ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as dari,
+                          surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                          surat_detail.isOpened as isOpened, roles.role_name as role_name,
+                          surat.file_uploaded as uploaded_file, surat_detail.id_detail as id_detail, user.profile_picture as photo'))
+        ->get()->toArray();
+
+        $inbox = DB::table('surat')
+        ->leftJoin('surat_detail', 'surat_detail.surat_id', '=', 'surat.id_surat')
+        // ->leftJoin('user', 'user.user_id', '=' ,'user_detail.kepada_id')
+        ->leftJoin('user', 'user.user_id', '=', 'surat.created_by')
+        ->where('surat_detail.surat_id', $id)
+        ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as dari,
+                          surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                          surat_detail.isOpened as isOpened'))
+        ->get()->toArray();
+
+        $sent = DB::table('surat_detail')
+                ->leftJoin('surat', 'surat.id_surat', '=', 'surat_detail.surat_id')
+                ->leftJoin('user', 'user.user_id', '=', 'surat_detail.kepada_id')
+                ->where('surat_detail.created_by', $reader_id)
+                ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as kepada,
+                                surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                                surat_detail.isOpened as isOpened'))
+                ->get();
+
+        return view('auth.surat.readinbox', compact('readinbox','inbox', 'sent'));
+    }
+
+    public function readsend($id)
+    {
+        $reader_id = Session::get('user_id');
+
+        $readsend = DB::table('surat_detail')
+        ->leftJoin('surat', 'surat.id_surat', '=', 'surat_detail.surat_id')
+        ->leftJoin('user', 'user.user_id', '=', 'surat_detail.kepada_id')
+        ->leftJoin('user_role', 'user_role.user_id', '=' , 'user.user_id')
+        ->leftJoin('roles', 'roles.id', '=' , 'user_role.role_id')
+        ->where('surat_detail.id_detail', $id)
+        ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as kepada,
+                        surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                        surat_detail.isOpened as isOpened, roles.role_name as role_name,
+                        surat.file_uploaded as uploaded_file, surat_detail.id_detail as id_detail, user.profile_picture as photo'))
+        ->get()->toArray();
+
+        $inbox = DB::table('surat')
+        ->leftJoin('surat_detail', 'surat_detail.surat_id', '=', 'surat.id_surat')
+        // ->leftJoin('user', 'user.user_id', '=' ,'user_detail.kepada_id')
+        ->leftJoin('user', 'user.user_id', '=', 'surat.created_by')
+        ->where('surat_detail.kepada_id', $reader_id)
+        ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as dari,
+                          surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                          surat_detail.isOpened as isOpened'))
+        ->get()->toArray();
+
+        $sent = DB::table('surat_detail')
+                ->leftJoin('surat', 'surat.id_surat', '=', 'surat_detail.surat_id')
+                ->leftJoin('user', 'user.user_id', '=', 'surat_detail.kepada_id')
+                ->where('surat_detail.created_by', $reader_id)
+                ->select(DB::raw('surat.id_surat as id_surat, surat.created_at as created_at, user.name as kepada,
+                                surat.subject as subject, surat.body as body, surat_detail.kepada_id as untuk,
+                                surat_detail.isOpened as isOpened'))
+                ->get();
+
+        return view('auth.surat.readsend', compact('readsend','inbox', 'sent'));
     }
 }
