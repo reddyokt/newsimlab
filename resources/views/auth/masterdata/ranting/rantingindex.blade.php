@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    @lang('translation.User_List')
+    Ranting
 @endsection
 
 @section('css')

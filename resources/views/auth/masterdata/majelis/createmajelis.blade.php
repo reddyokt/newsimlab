@@ -28,7 +28,7 @@
                         <input type="hidden" value="{{ Auth::id() }}" name="id">
 
                         <div class="mb-3 row align-middle" >
-                            <label class="col-md-2 col-form-label">Pilih Majelis/Lembaga?</label>
+                            <label class="col-md-2">Pilih Majelis/Lembaga?</label>
                             {{-- <span class="col-md-2 col-form-label">Pilih Majelis/Lembaga?</span> --}}
                             <div class="form-check col-md-1">
                                 <input class="form-check-input" type="radio" name="type" id="formRadios1" checked value="majelis">

@@ -3,21 +3,21 @@
 
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="{{ url('index') }}" class="logo logo-dark">
+        <a href="/" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="40">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('/assets/images/A.png') }}" alt="" height="30">
+                <img src="{{ URL::asset('/assets/images/A.svg') }}" alt="" height="30">
             </span>
         </a>
 
-        <a href="{{ url('index') }}" class="logo logo-light">
+        <a href="/" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="10">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('/assets/images/A.png') }}" alt="" height="30">
+                <img src="{{ URL::asset('/assets/images/A.svg') }}" alt="" height="30">
             </span>
         </a>
     </div>
@@ -33,24 +33,42 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 {{-- <li class="menu-title">@lang('translation.Menu')</li> --}}
                 <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-newspaper"></i>
+                        <span>News<span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/post">All Post</a></li>
+                        <li><a href="/newscategory">News Category</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/inbox/{{Session::get('user_id')}}" class="">
+                        <i class="uil-envelope"></i>
+                        <span>e-Surat</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/kader" class="">
+                        <i class="uil-users-alt"></i>
+                        <span>Kader</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/aum" class="">
+                        <i class="uil-store"></i>
+                        <span>AUM</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/document" class="waves-effect">
                         <i class="uil-file"></i>
                         <span>Document</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/inbox/{{Session::get('user_id')}}" class="">
-                        <i class="uil-envelope"></i>
-                        {{-- <span>@lang('translation.Contacts')</span> --}}
-                        <span>e-Surat</span>
-                    </a>
-                    {{-- <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/inbox/{{Session::get('user_id')}}">Inbox</a></li>
-                    </ul> --}}
-                </li>
-                <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="uil-users-alt"></i>
+                        <i class="uil-apps"></i>
                         {{-- <span>@lang('translation.Contacts')</span> --}}
                         <span>Master Data</span>
                     </a>
@@ -60,7 +78,6 @@
                         <li><a href="/pda">PDA Manajemen</a></li>
                         <li><a href="/pca">PCA Manajemen</a></li>
                         <li><a href="/ranting">Ranting Manajemen</a></li>
-                        <li><a href="/kader">Kader Manajemen</a></li>
                         <li><a href="/majelis">Majelis/Lembaga Manajemen</a></li>
                         <li><a href="/filetype">File Type Manajemen</a></li>
                         <li><a href="/bidangusaha">Bidang Usaha Manajemen</a></li>

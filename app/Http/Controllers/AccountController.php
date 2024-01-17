@@ -47,7 +47,7 @@ class AccountController extends Controller
 
     public function storeaccount(Request $request)
     {
-
+        // dd($request);
         date_default_timezone_set('Asia/Jakarta');
 
         $checkExist = DB::table('user')

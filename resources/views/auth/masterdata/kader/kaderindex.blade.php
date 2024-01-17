@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    @lang('translation.User_List')
+    Kader
 @endsection
 
 @section('css')
@@ -19,7 +19,6 @@
     @endcomponent
 
     <div class="row">
-
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
@@ -53,44 +52,46 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Nomor</th>
-                                    <th scope="col">Nama</th>
+                                    <th scope="col">Nama Kader</th>
                                     <th scope="col">Phone number</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Role</th>
+                                    <th scope="col">Asal Ranting</th>
                                     <th scope="col" style="width: 200px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($accountindex as $acc)
+                                @foreach ($kaderindex as $kader)
                                     <tr>
-                                        <td>{{ $acc['nomor'] }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>
-                                            @if (
-                                                !empty($acc['profile_picture']) &&
-                                                    file_exists(base_path() . '/public/upload/profile_picture/' . $acc['profile_picture']))
-                                                <img src="{{ '/../upload/profile_picture/' . $acc['profile_picture'] }}"
+                                            @if (!empty($kader['pp']) && file_exists(base_path() . '/public/upload/kader/profile_picture/' . $kader->pp))
+                                                <img src="{{ '/../upload/kader/profile_picture/' . $kader->pp }}"
                                                     alt="" class="avatar-md rounded-circle me-2">
                                             @else
                                                 <img class="avatar-md rounded-circle me-2"
                                                     src="{{ asset('assets/media/users/default.jpg') }}" alt="user" />
                                             @endif
-                                            <a href="#" class="text-body">{{ $acc['name'] }}</a>
+                                            <a href="#" class="text-body">{{ $kader['kader_name'] }}</a>
                                         </td>
-                                        <td>{{ $acc['username'] }}</td>
-                                        <td>{{ $acc['phone'] }}</td>
-                                        <td>{{ $acc['email'] }}</td>
-                                        <td>{{ $acc['role_name'] }} <br> {{ $acc['pda_name'] }}</td>
+                                        <td>{{ $kader['kader_phone'] }}</td>
+                                        <td>{{ $kader['kader_email'] }}</td>
+                                        <td>{{ $kader['ranting_name'] }}</td>
                                         <td>
                                             <ul class="list-inline mb-0">
                                                 <li class="list-inline-item">
-                                                    <a href="{{ url('account/edit/' . Crypt::encrypt($acc['user_id'])) }}"
+                                                    <a href="{{ url('kader/edit/' . Crypt::encrypt($kader['kader_id'])) }}"
                                                         class="px-2 text-primary"><i
                                                             class="uil uil-pen font-size-18"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <a href="{{ url('account/delete/' . Crypt::encrypt($acc['user_id'])) }}"
+                                                    <a href="{{ url('kader/delete/' . Crypt::encrypt($kader['kader_id'])) }}"
                                                         class="px-2 text-danger"><i
                                                             class="uil uil-trash-alt font-size-18"></i></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="/kader/detail/{{$kader->kader_id}}" 
+                                                        class="px-2 text-warning"><i
+                                                            class="uil uil-eye font-size-18"></i></a>
                                                 </li>
                                                 {{-- <li class="list-inline-item dropdown">
                                                 <a class="text-muted dropdown-toggle font-size-18 px-2" href="#"

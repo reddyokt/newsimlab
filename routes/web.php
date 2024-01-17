@@ -20,13 +20,17 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'root']);
+// Route::get('/', [App\Http\Controllers\HomeController::class, 'root']);
 // Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 // //Language Translation
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 Route::post('/formsubmit', [App\Http\Controllers\HomeController::class, 'FormSubmit'])->name('FormSubmit');
 
 Route::post('/postlogin', [App\Http\Controllers\AuthenticationController::class, 'postLogin'])->name('authentication.login.post');
+
+Route::get('/', [App\Http\Controllers\LandingPageController::class, 'index']);
+Route::get('/landingpage/post', [App\Http\Controllers\LandingPageController::class, 'postLanding']);
+Route::get('/Category/{id_category}/{news_id}', [App\Http\Controllers\LandingPageController::class, 'postBlog']);
 
 
 Route::group(['middleware' => 'prevent-back-history'], function () {
@@ -76,12 +80,14 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/pca/edit/{id}', [App\Http\Controllers\PcaController::class, 'editpca']);
     Route::post('/pca/edit/{id}', [App\Http\Controllers\PcaController::class, 'storeeditpca']);
     Route::post('/pca/delete/{id}', [App\Http\Controllers\PcaController::class, 'deletepca']);
-    Route::get('/pca/pdabydistricts/{id}', [App\Http\Controllers\PCaController::class, 'pdaBydistricts']);
+    Route::get('/pca/pdabydistricts/{id}', [App\Http\Controllers\PcaController::class, 'pdaBydistricts']);
     /*------------------5.kader-----------------------------------------------*/
     Route::get('/kader', [App\Http\Controllers\KaderController::class, 'kaderindex']);
     Route::get('/kader/create', [App\Http\Controllers\KaderController::class, 'createkader']);
     Route::post('/kader/create', [App\Http\Controllers\KaderController::class, 'storekader']);
     Route::get('/kader/pcabypda/{id}', [App\Http\Controllers\KaderController::class, 'PCAbyPDA']);
+    Route::get('/kader/detail/{id}', [App\Http\Controllers\KaderController::class, 'kaderdetail']);
+    Route::get('/kader/print/{id}', [App\Http\Controllers\KaderController::class, 'kaderprint']);
     /*------------------6.majelis-----------------------------------------------*/
     Route::get('/majelis', [App\Http\Controllers\MajelisController::class, 'majelisindex']);
     Route::get('/majelis/create', [App\Http\Controllers\MajelisController::class, 'createmajelis']);
@@ -112,7 +118,30 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/ranting/edit/{id}', [App\Http\Controllers\RantingController::class, 'editranting']);
     Route::post('/ranting/edit/{id}', [App\Http\Controllers\RantingController::class, 'storeeditranting']);
     Route::post('/ranting/delete/{id}', [App\Http\Controllers\RantingController::class, 'deleteranting']);
-    Route::get('/ranting/pcabyvillages/{id}', [App\Http\Controllers\PCaController::class, 'pcaByvillages']);
+    Route::get('/ranting/pcabyvillages/{id}', [App\Http\Controllers\PcaController::class, 'pcaByvillages']);
+    /*------------------10.AUM-----------------------------------------------*/
+    Route::get('/aum', [App\Http\Controllers\AumController::class, 'aumindex']);
+    Route::get('/aum/create', [App\Http\Controllers\AumController::class, 'createaum']);
+    Route::post('/aum/create', [App\Http\Controllers\AumController::class, 'storecreateaum']);
+    Route::get('/aum/edit/{id}', [App\Http\Controllers\Aumcontroller::class, 'editaum']);
+    Route::post('/aum/edit/{id}', [App\Http\Controllers\AumController::class, 'storeeditaum']);
+    Route::post('/aum/delete/{id}', [App\Http\Controllers\AumController::class, 'deleteaum']);
+    Route::get('/aum/aumbyranting', [App\Http\Controllers\AumController::class, 'aumbyranting']);
+    Route::get('/aum/aumbypca', [App\Http\Controllers\AumController::class, 'aumbypca']);
+    Route::get('/aum/aumbypda', [App\Http\Controllers\AumController::class, 'aumbypda']);
+    /*------------------11.News-----------------------------------------------*/
+    Route::get('/newscategory', [App\Http\Controllers\NewsCategoryController::class, 'categoryindex']);
+    Route::get('/newscategory/create', [App\Http\Controllers\NewsCategoryController::class, 'createcategory']);
+    Route::post('/newscategory/create', [App\Http\Controllers\NewsCategoryController::class, 'storecreatecategory']);
+    Route::get('/newscategory/edit/{id}', [App\Http\Controllers\NewsCategoryController::class, 'editcategory']);
+    Route::post('/newscategory/edit/{id}', [App\Http\Controllers\NewsCategoryController::class, 'storeeditcategory']);
+    Route::post('/newscategory/delete/{id}', [App\Http\Controllers\NewsCategoryController::class, 'deletecategory']);
 
+    Route::get('/post', [App\Http\Controllers\NewsController::class, 'postindex']);
+    Route::get('/post/create', [App\Http\Controllers\NewsController::class, 'createpost']);
+    Route::post('/post/create', [App\Http\Controllers\NewsController::class, 'storecreatepost']);
+    Route::get('/post/edit/{id}', [App\Http\Controllers\NewsController::class, 'editpost']);
+    Route::post('/post/edit/{id}', [App\Http\Controllers\NewsController::class, 'storeeditpost']);
+    Route::post('/post/delete/{id}', [App\Http\Controllers\NewsController::class, 'deletepost']);
 
 });
