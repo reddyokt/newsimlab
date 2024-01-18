@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
 
 class KaderController extends Controller
 {
@@ -236,6 +237,10 @@ class KaderController extends Controller
 
     public function kaderprint($id)
     {
+        $date = Carbon::parse('2021-03-16 08:27:00')->locale('id');
+        $date->settings(['formatFunction' => 'translatedFormat']);
+
+        date_default_timezone_set('Asia/Jakarta');
         $kaderindex = Kader::
                     Join('pekerjaan','pekerjaan.id_pekerjaan', '=' , 'kader_info.pekerjaan_id')
                     ->leftJoin('ranting','ranting.ranting_id', '=' , 'kader_info.ranting_id')
@@ -264,7 +269,7 @@ class KaderController extends Controller
                     ->where('orgext_kader.kader_id', $id)
                     ->get();
 
-        $pdf = Pdf::loadView('auth.masterdata.kader.printkader', compact('kaderindex','kader_edu','kader_training', 'kader_orgint', 'kader_orgext'))->setPaper('a4', 'portrait');
+        $pdf = Pdf::loadView('auth.masterdata.kader.newprint', compact('kaderindex','kader_edu','kader_training', 'kader_orgint', 'kader_orgext','date'))->setPaper('a4', 'portrait');
         return $pdf->stream();
     }     
 
