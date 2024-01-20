@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    @lang('translation.Basic_Elements')
+    Edit_Account
 @endsection
 @section('css')
 <!-- DataTables -->

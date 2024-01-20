@@ -144,4 +144,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/post/edit/{id}', [App\Http\Controllers\NewsController::class, 'storeeditpost']);
     Route::post('/post/delete/{id}', [App\Http\Controllers\NewsController::class, 'deletepost']);
 
+     /*------------------12.Proker-----------------------------------------------*/
+     Route::get('/periode', [App\Http\Controllers\ProgramKerjaController::class, 'periodeindex']);
+     Route::get('/periode/create', [App\Http\Controllers\ProgramKerjaController::class, 'createperiode']);
+     Route::post('/periode/create', [App\Http\Controllers\ProgramKerjaController::class, 'storecreateperiode']);
+
+     Route::get('/proker', [App\Http\Controllers\ProgramKerjaController::class, 'prokerindex']);
+     Route::get('/proker/create', [App\Http\Controllers\ProgramKerjaController::class, 'createproker']);
+     Route::post('/proker/create', [App\Http\Controllers\ProgramKerjaController::class, 'storecreateproker']);
+
 });

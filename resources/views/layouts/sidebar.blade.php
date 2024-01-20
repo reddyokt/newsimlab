@@ -1,23 +1,23 @@
 <!-- ========== Left Sidebar Start ========== -->
-<div class="vertical-menu">
+<div class="vertical-menu" style="background-color: #99e7c5">
 
     <!-- LOGO -->
-    <div class="navbar-brand-box">
-        <a href="/" class="logo logo-dark">
+    <div class="navbar-brand-box" style="background-color: #99e7c5;">
+        <a href="/dashboard" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="40">
+                <img class="" src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="30" style="align-self: center; margin-top: 20px;">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('/assets/images/A.svg') }}" alt="" height="30">
+                <img src="{{ URL::asset('/assets/images/A.svg') }}" alt="" height="30" style="align-self: center; margin-top: 20px;">
             </span>
         </a>
 
-        <a href="/" class="logo logo-light">
+        <a href="/dashboard" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="10">
+                <img src="{{ URL::asset('/assets/images/logo-aisyiyah.png') }}" alt="" height="10"  style="align-self: center; margin-top: 20px;">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('/assets/images/A.svg') }}" alt="" height="30">
+                <img src="{{ URL::asset('/assets/images/A.svg') }}" alt="" height="30" style="align-self: center; margin-top: 20px;">
             </span>
         </a>
     </div>
@@ -32,6 +32,16 @@
         <div id="sidebar-menu">
             <ul class="metismenu list-unstyled" id="side-menu">
                 {{-- <li class="menu-title">@lang('translation.Menu')</li> --}}
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="fas fa-business-time"></i>
+                        <span>Program Kerja<span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/proker">List Proker</a></li>
+                        <li><a href="/periode">Periode</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-newspaper"></i>

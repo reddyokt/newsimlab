@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    @lang('translation.Form_editor')
+ Create_Surat
 @endsection
 
 @section('css')

@@ -19,7 +19,7 @@ class AuthenticationController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return redirect()->intended('dashboard/index');
+            return redirect()->intended('/dashboard');
         } else {
             return view('authentication.login');
         }

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Kader
+    Kader_Detail
 @endsection
 
 @section('css')
