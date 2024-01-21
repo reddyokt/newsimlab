@@ -67,17 +67,6 @@
                                                 <a href="/role/delete/{{$role->id}}" class="px-2 text-danger"><i
                                                         class="uil uil-trash-alt font-size-18"></i></a>
                                             </li>
-                                            {{-- <li class="list-inline-item dropdown">
-                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#"
-                                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                    <i class="uil uil-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </li> --}}
                                         </ul>
                                     </td>
                                 </tr>

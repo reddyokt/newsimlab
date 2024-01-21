@@ -29,7 +29,6 @@
                 <div class="post-footer">
                   <ul class="post-meta">
                     <li class="post-date"><i class="uil uil-calendar-alt"></i><span>{{$post->created_at}}</span></li>
-                    {{-- <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>4</a></li> --}}
                   </ul>
                   <!-- /.post-meta -->
                 </div>

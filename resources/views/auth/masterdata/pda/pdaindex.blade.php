@@ -72,17 +72,6 @@
                                                 <a href="{{url('pda/delete/'. Crypt::encrypt($pda['pda_id']))}}" class="px-2 text-danger"><i
                                                         class="uil uil-trash-alt font-size-18"></i></a>
                                             </li>
-                                            {{-- <li class="list-inline-item dropdown">
-                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#"
-                                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true">
-                                                    <i class="uil uil-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </li> --}}
                                         </ul>
                                     </td>
                                 </tr>
@@ -97,28 +86,7 @@
                             <div>
                                 <p class="mb-sm-0">Showing 1 to 10 of {{count($pdaindex)}} entries</p>
                             </div>
-                        </div>
-                        {{-- <div class="col-sm-6">
-                            <div class="float-sm-end">
-                                <ul class="pagination mb-sm-0">
-                                    <li class="page-item disabled">
-                                        <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">1</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> --}}
+                        </div>                        
                     </div>
                 </div>
             </div>

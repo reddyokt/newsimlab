@@ -112,44 +112,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="mb-3 row">
-                            <div class="col-lg-6">
-                                <label class="form-label col-form-label">Pilih Pengelolaan Oleh</label>
-                                <div class="col-lg-12">
-                                    <select class="select2 form-control select2-multiple" 
-                                        id="pengelola">
-                                        <option selected disabled>Pilih Pengelola</option>
-                                        <option value="1">Ranting</option>
-                                        <option value="2">PCA</option>
-                                        <option value="3">PDA</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6" id="divrantings" style="display: none;">
-                                <label class="form-label col-form-label">Pilih Ranting</label>
-                                <div class="col-lg-12">
-                                    <select class="select2 form-control select2-multiple" 
-                                        name="ranting" id="rantings" data-placeholder="{{ __('account.placeholder_rantings') }}">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6" id="divpcas" style="display: none;">
-                                    <label class="form-label col-form-label">Pilih PCA</label>
-                                <div class="col-lg-12">
-                                    <select class="select2 form-control select2-multiple" 
-                                        name="pca" id="pcas" data-placeholder="{{ __('account.placeholder_pcas') }}">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6" id="divpdas" style="display: none">
-                                    <label class="form-label col-form-label">Pilih PDA</label>
-                                <div class="col-lg-12">
-                                    <select class="select2 form-control select2-multiple" 
-                                        name="pda" id="pdas" data-placeholder="{{ __('account.placeholder_pdas') }}">
-                                    </select>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="d-flex flex-wrap gap-3">
                             {{-- <button type="submit" class="btn btn-primary waves-effect waves-light w-md">Submit</button> --}}
                             <button type="submit" class="btn btn-primary waves-effect waves-light"

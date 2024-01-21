@@ -65,53 +65,10 @@
                         </div>
                     </div>
                 </div>
-
             </div> <!-- end Col-9 -->
-
         </div>
-
     </div><!-- End row -->
 
-    <!-- Modal -->
-    {{-- <div class="modal fade" id="composemodal" tabindex="-1" role="dialog" aria-labelledby="composemodalTitle"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="composemodalTitle">New Message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="create-surat-form" action="{{ url('/surat/create') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-3">
-                            <select class="select2 form-control select2-multiple" name="kepada[]" id="kepada"
-                            data-placeholder="Kepada ...">
-                                @foreach ($user as $key => $value)
-                                    <option value="{{ $value->user_id }}">{{ $value->name }} - {{ $value->role_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Subject" name="judul">
-                        </div>
-                        <div class="mb-3">
-                            <textarea id="email-editor" name="area"></textarea>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Send <i
-                            class="fab fa-telegram-plane ms-1"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 @section('script')
     <script src="{{ URL::asset('/assets/libs/tinymce/tinymce.min.js') }}"></script>

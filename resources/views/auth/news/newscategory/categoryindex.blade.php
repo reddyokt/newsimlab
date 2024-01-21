@@ -26,8 +26,6 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                {{-- <a href="/newscategory/create" class="btn btn-success waves-effect waves-light"><i
-                                        class="mdi mdi-plus me-2"></i> Add New</a> --}}
                                 <button type="button" class="btn btn-success waves-effect waves-light"
                                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-center">Add New</button>
 
@@ -83,27 +81,6 @@
                                 {{-- <p class="mb-sm-0">Showing 1 to 10 of {{$filetypeindex->count()}} entries</p> --}}
                             </div>
                         </div>
-                        {{-- <div class="col-sm-6">
-                            <div class="float-sm-end">
-                                <ul class="pagination mb-sm-0">
-                                    <li class="page-item disabled">
-                                        <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">1</a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a href="#" class="page-link">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
