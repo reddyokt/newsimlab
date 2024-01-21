@@ -732,51 +732,9 @@
         </div>
     </div>
     <!-- end row -->
-    <!-- Center Modal example -->
-    <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form action="/changepassword" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <i class="dripicons-warning p-2"></i>
-                        <h5 class="modal-title">Change Password</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-lg-12">
-                            <label for="code" class="form-label col-form-label">Password saat ini</label>
-                            <div class="col-lg-12">
-                                <input class="form-control" type="password" id="oldpass" name="oldpass"
-                                    placeholder="masukkan password saat ini" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="code" class="form-label col-form-label">Password baru</label>
-                            <div class="col-lg-12">
-                                <input class="form-control" type="password" id="newpass" name="newpass"
-                                    placeholder="masukkan password baru" minlength="6" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <label for="code" class="form-label col-form-label">Konfirmasi Password baru</label>
-                            <div class="col-lg-12">
-                                <input class="form-control" type="password" id="confnewpass" name="confnewpass"
-                                    placeholder="konfirmasi password baru" minlength="6" required>
-                                    <span id='message'></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Save changes</button>
-                        <button type="button" class="btn btn-light waves-effect" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+
+
+
 @endsection
 @section('script')
     <!-- apexcharts -->
