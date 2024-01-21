@@ -10,4 +10,7 @@ class Menu extends Model
     use HasFactory;
 
     protected $table = 'menu';
+    protected $fillable = ['name','code','tipe_menu'];
+    protected $primaryKey = 'menu_id';
+    
 }
