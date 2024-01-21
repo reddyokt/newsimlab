@@ -306,9 +306,9 @@ class AccountController extends Controller
                 Session::flush();
                 return redirect('login')->with('success', 'password berhasil diubah, Silahkan login kembali');
             }        
-            return redirect('/dashboard')->with('warning', 'password lama dan password baru tidak boleh sama');
+            return redirect('dashboard/index')->with('warning', 'password lama dan password baru tidak boleh sama');
         }        
-        return redirect('/dashboard')->with('error', 'password lama salah');
+        return redirect('dashboard/index')->with('error', 'password lama salah');
 
     }
 }
