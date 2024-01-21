@@ -118,7 +118,7 @@
                         
                       <div class="swiper-slide">
                         <article>
-                          <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="/Category/{{$ano->category}}/{{$ano->news_id}}">
+                          <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="/post/{{$ano->news_id}}">
                             <img src="{{ '/../upload/feature_image/' . $ano->feature_image }}" alt="" /></a>
                             <figcaption>
                               <h5 class="from-top mb-0">Read More</h5>
@@ -129,7 +129,7 @@
                               <a href="#" class="hover" rel="category">{{$ano->category}}</a>
                             </div>
                             <!-- /.post-category -->
-                            <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/Category/{{$ano->category}}/{{$ano->news_id}}">
+                            <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/post/{{$ano->news_id}}">
                                 {{$ano->news_title}}</a></h2>
                           </div>
                           <!-- /.post-header -->

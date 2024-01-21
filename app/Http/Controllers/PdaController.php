@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class PdaController extends Controller
 {
-    public function pdaindex()
+    public function pdaIndex()
     {
         $pdaindex = Pda::leftJoin('regencies', 'regencies.id', '=', 'pda.regencies_id')
         ->whereNull('pda.deleted_at')
@@ -24,7 +24,7 @@ class PdaController extends Controller
     return view('auth.masterdata.pda.pdaindex', compact('pdaindex'));
     }
 
-    public function createpda()
+    public function createPda()
     {
         $regencies = DB::table('regencies')
         ->get()->toArray();
@@ -33,7 +33,7 @@ class PdaController extends Controller
 
     }
 
-    public function storecreatepda(Request $request)
+    public function storeCreatePda(Request $request)
     {
         // dd ($request);
 

@@ -40,7 +40,7 @@ class LandingPageController extends Controller
         return view('landing.post', compact('postLanding'));
     }
 
-    public function postBlog($idcategory, $news_id)
+    public function postBlog($news_id)
     {
         $postBlog = DB::table('news')
                     ->where('news.news_id', $news_id)
@@ -66,6 +66,6 @@ class LandingPageController extends Controller
                                     newscategory.category as category, news.created_at as created_at, user.username as author'))
                     ->get()->toArray();
 
-        return view('landing.blog-post',compact('postBlog','anotherpost'));
+        return view('landing.blogpost',compact('postBlog','anotherpost'));
     }
 }

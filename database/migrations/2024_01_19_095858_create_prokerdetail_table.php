@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('prokerdetail', function (Blueprint $table) {
             $table->id('id_prokerdetail');
             $table->unsignedBigInteger('id_proker')->index();
-            $table->foreign('id_proker')->references('id_proker')->on('proker')->onDelete('restrict');
-            $table->longText('description');
+            $table->foreign('id_proker')->references('id_proker')->on('proker')->onDelete('restrict');         
+            $table->longText('note_update')->nullable();
+            $table->enum('initial',['Start', 'Update', 'Finish']);
             $table->string('created_by');
+            $table->string('proker_image')->nullable();
             $table->timestamps();
         });
     }

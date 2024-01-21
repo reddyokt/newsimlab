@@ -8,18 +8,18 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    public function roleindex()
+    public function roleIndex()
     {
         $roleindex = Role::all();
         return view('auth.masterdata.role.roleindex', compact('roleindex'));
     }
 
-    public function addrole()
+    public function addRole()
     {
         return view('auth.masterdata.role.addrole');
     }
 
-    public function storenewrole(Request $request)
+    public function storeNewRole(Request $request)
     {
         // dd ($request);
         $storenewrole = $request->validate([
@@ -37,14 +37,14 @@ class RoleController extends Controller
         return redirect('/role');
     }
 
-    public function roleedit($id)
+    public function roleEdit($id)
     {
         $roleedit = Role::find($id);
 
         return view('auth.masterdata.role.roleedit', compact('roleedit'));
     }
 
-    public function storeroleedit(Request $request, $id)
+    public function storeRoleEdit(Request $request, $id)
     {
         $storeroleedit = Role::find($id);
 

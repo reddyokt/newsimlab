@@ -23,6 +23,8 @@
                     <form action="/proker/create" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{ Auth::id() }}" name="id">
+                        <input type="hidden" value="{{$periode->id_periode}}" name="periode">
+                        <input type="hidden" value="Start" name="initial">
                         <a href="#addproduct-billinginfo-collapse" class="text-dark" data-bs-toggle="collapse"
                             aria-expanded="true" aria-controls="addproduct-billinginfo-collapse">
                             <div class="p-4">
@@ -58,15 +60,15 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="username">Nama Proker</label>
-                                            <input id="username" name="username" type="text" class="form-control"
-                                                placeholder="Enter your username">
+                                            <label class="form-label" for="prokername">Nama Proker</label>
+                                            <input id="prokername" name="prokername" type="text" class="form-control"
+                                                placeholder="Enter your Program Kerja">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row mb-3">
                                             <div class="col-md-6 mb-3">
-                                                <label class="form-label" for="username">Mulai
+                                                <label class="form-label" for="from">Mulai
                                                     Program Kerja</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" id="from" name="from"
@@ -76,7 +78,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 mb-3">
-                                                <label class="form-label" for="username">Selesai
+                                                <label class="form-label" for="to">Selesai
                                                     Program Kerja</label>
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" id="to" name="to"
@@ -91,11 +93,11 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="username">Masukkan Jumlah Anggaran</label>
+                                            <label class="form-label" for="anggaran">Masukkan Jumlah Anggaran</label>
                                             <div class="input-group">
                                                 <div class="input-group-text">Rp.</div>
-                                                <input type="number" class="form-control"
-                                                    id="specificSizeInputGroupUsername" placeholder="Anggaran dalam rupiah">
+                                                <input type="text" class="form-control nums"
+                                                    id="specificSizeInputGroupUsername" placeholder="Anggaran dalam rupiah" name="anggaran">
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +105,7 @@
                                 <div class="row">
                                     <label class="form-label" for="username">Masukkan Deskripsi/RAB/Lain-lain</label>
                                     <div class="col-md-12">
-                                        <textarea class="col-md-12 form-control" id="body" name="body"></textarea>
+                                        <textarea class="col-md-12 form-control" id="body" name="description"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -123,8 +125,8 @@
     </div>
 @endsection
 @section('script')
-    {{-- <script src="{{ asset('assets/js/account.js') }}"></script>
-    <script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/account.js') }}"></script>
+    {{-- <script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script> --}}
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
         $(function() {

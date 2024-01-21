@@ -254,16 +254,20 @@ class AuthenticationController extends Controller
                 Session::put('email', $data->email);
                 Session::put('menu', $menu);
                 Session::put('roles', $dataRole);
+                Session::put('pda_id', $data->pda_id);
                 // Session::put('role_other', $role_other_data);
                 Session::put('role_id', $dataRole->id);
                 Session::put('role_name', $dataRole->role_name);
                 Session::put('role_code', $dataRole->CODE);
                 Session::put('picture', $data->profile_picture);
                 Session::put('username', $data->username);
+                Session::put('password', $data->password);
                 // Session::put('settings', $userSetting->default_settings);
                 Session::put('login', TRUE);
                 // Session::put('dpc_id', $data->dpc_id);
                 // Session::put('dpd_id', $data->dpd_id);
+
+                // dd(Session::get('menu'));
 
                 $arrsetting = explode('|', $userSetting->default_settings);
                 \App::setlocale($arrsetting[count($arrsetting)-1]);

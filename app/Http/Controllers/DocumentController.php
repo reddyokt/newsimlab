@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
-    public function documentindex()
+    public function documentIndex()
     {
         $documentindex = DB::table('document')
                     ->leftJoin('filetype', 'filetype.id_filetype', '=' ,'document.id_filetype')
@@ -26,14 +26,14 @@ class DocumentController extends Controller
         return view('auth.document.documentindex', compact('documentindex'));
     }
 
-    public function createdocument()
+    public function createDocument()
     {
         $filetype = DB::table('filetype')->where('isActive', 'Yes')->get();
 
         return view('auth.document.createdocument', compact('filetype'));
     }
 
-    public function storecreatedocument(Request $request)
+    public function storeCreateDocument(Request $request)
     {
         //  dd($request);
         date_default_timezone_set('Asia/Jakarta');

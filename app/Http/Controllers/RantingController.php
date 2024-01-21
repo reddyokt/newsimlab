@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class RantingController extends Controller
 {
-    public function rantingindex()
+    public function rantingIndex()
     {
         $rantingindex = Ranting::leftJoin('pca', 'pca.pca_id', '=' , 'ranting.pca_id')
         ->leftJoin('pda', 'pda.pda_id', '=' , 'pca.pda_id')
@@ -27,7 +27,7 @@ class RantingController extends Controller
     return view('auth.masterdata.ranting.rantingindex', compact('rantingindex'));
     }
 
-    public function createranting()
+    public function createRanting()
     {
         $villages = DB::table('villages')
             ->get()->toArray();
@@ -39,7 +39,7 @@ class RantingController extends Controller
 
     }
 
-    public function storecreateranting(Request $request)
+    public function storeCreateRanting(Request $request)
     {
         // dd ($request);
 

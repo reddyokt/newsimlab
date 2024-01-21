@@ -32,6 +32,7 @@
         <div id="sidebar-menu">
             <ul class="metismenu list-unstyled" id="side-menu">
                 {{-- <li class="menu-title">@lang('translation.Menu')</li> --}}
+                @if(in_array('pr0k3r', Session::get('menu')))
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="fas fa-business-time"></i>
@@ -39,9 +40,13 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/proker">List Proker</a></li>
+                    @if(in_array('p3r10d3', Session::get('menu')))
                         <li><a href="/periode">Periode</a></li>
+                    @endif
                     </ul>
                 </li>
+				@endif
+                @if(in_array('n3w5', Session::get('menu')))
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-newspaper"></i>
@@ -52,30 +57,44 @@
                         <li><a href="/newscategory">News Category</a></li>
                     </ul>
                 </li>
+                @endif
+
+                @if(in_array('5ur4t', Session::get('menu')))
                 <li>
                     <a href="/inbox/{{Session::get('user_id')}}" class="">
                         <i class="uil-envelope"></i>
                         <span>e-Surat</span>
                     </a>
                 </li>
+                @endif
+
+                @if(in_array('k4d3r', Session::get('menu')))
                 <li>
                     <a href="/kader" class="">
                         <i class="uil-users-alt"></i>
                         <span>Kader</span>
                     </a>
                 </li>
+                @endif
+
+                @if(in_array('4um', Session::get('menu')))
                 <li>
                     <a href="/aum" class="">
                         <i class="uil-store"></i>
                         <span>AUM</span>
                     </a>
                 </li>
+                @endif
+
+                @if(in_array('d0c5', Session::get('menu')))
                 <li>
                     <a href="/document" class="waves-effect">
                         <i class="uil-file"></i>
                         <span>Document</span>
                     </a>
                 </li>
+                @endif
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-apps"></i>
@@ -83,14 +102,38 @@
                         <span>Master Data</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/role">Role Manajemen</a></li>
+                        @if(in_array('r0l3', Session::get('menu')))
+                            <li><a href="/role">Role Manajemen</a></li>
+                        @endif
+                        
+                        @if(in_array('r0l3', Session::get('menu')))
                         <li><a href="/account">Account Manajemen</a></li>
+                        @endif
+
+                        @if(in_array('pd4', Session::get('menu')))
                         <li><a href="/pda">PDA Manajemen</a></li>
+                        @endif                
+
+                        @if(in_array('pc4', Session::get('menu')))
                         <li><a href="/pca">PCA Manajemen</a></li>
+                        @endif                
+
+                        @if(in_array('r4nt1ng', Session::get('menu')))
                         <li><a href="/ranting">Ranting Manajemen</a></li>
+                        @endif                
+
+                        @if(in_array('m47el15', Session::get('menu')))
                         <li><a href="/majelis">Majelis/Lembaga Manajemen</a></li>
+                        @endif                
+
+                        @if(in_array('f1l3', Session::get('menu')))
                         <li><a href="/filetype">File Type Manajemen</a></li>
+                        @endif                
+
+                        @if(in_array('b1d4ng', Session::get('menu')))
                         <li><a href="/bidangusaha">Bidang Usaha Manajemen</a></li>
+                        @endif
+
                     </ul>
                 </li>
             </ul>

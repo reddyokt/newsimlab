@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class BidangUsahaController extends Controller
 {
-    public function bidangusahaindex()
+    public function bidangusahaIndex()
     {
         $bidangusahaindex = DB::table('bidangusaha')
             ->where('isActive', 'Yes')
@@ -17,12 +17,12 @@ class BidangUsahaController extends Controller
         return view('auth.masterdata.bidangusaha.bidangusahaindex', compact('bidangusahaindex'));
     }
 
-    public function createbidangusaha()
+    public function createBidangusaha()
     {
         return view('auth.masterdata.bidangusaha.createbidangusaha');
     }
 
-    public function storecreatebidangusaha(Request $request)
+    public function storeCreateBidangusaha(Request $request)
     {
         // dd($request);
         $storecreatebidangusaha = $request->validate([

@@ -40,6 +40,7 @@
                                                 <div class="tab-pane fade show active" id="product-1"
                                                     role="tabpanel">
                                                     <div class="product-img border">
+                                                        
                                                         @if (!empty($kader['pp']) && file_exists(base_path() . '/public/upload/kader/profile_picture/' . $kader->pp))
                                                             <img src="{{ '/../upload/kader/profile_picture/' . $kader->pp }}"
                                                                 alt=""

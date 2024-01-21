@@ -285,4 +285,19 @@ $(document).on('click', '#pengelola3', function () {
 });
 /*--------------------------------------------------------------------------------------------*/
 
+$(document).on('keydown', '.nums', function(e) {
+    if (!((e.keyCode > 95 && e.keyCode < 106) ||
+            (e.keyCode > 47 && e.keyCode < 58) ||
+            e.keyCode == 8)) {
+        return false;
+    }
+});
 
+$(document).on('keyup', '.nums', function() {
+    var n = parseInt($(this).val().replace(/\D/g, ''), 10);
+    if($(this).val() == ''){
+        $(this).val("0");
+    } else {
+        $(this).val(n.toLocaleString());
+    }
+});

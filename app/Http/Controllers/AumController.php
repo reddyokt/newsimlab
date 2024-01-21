@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class AumController extends Controller
 {
-    public function aumindex()
+    public function aumIndex()
     {
         $aumindex = DB::table('aum')
                     ->leftJoin('bidangusaha', 'bidangusaha.id_bidangusaha', '=' ,'aum.id_bidangusaha')
@@ -24,7 +24,7 @@ class AumController extends Controller
         return view('auth.aum.aumindex', compact('aumindex'));
     }
 
-    public function createaum()
+    public function creatAum()
     {
         $kepemilikan = DB::table('kepemilikan')
                         ->whereNull('deleted_at')
@@ -35,7 +35,7 @@ class AumController extends Controller
         return view('auth.aum.createaum', compact('kepemilikan','bidangusaha'));
     }
 
-    public function storecreateaum(Request $request)
+    public function storeCreateAum(Request $request)
     {
         // dd($request);
 
@@ -60,27 +60,19 @@ class AumController extends Controller
         return redirect('/aum')->with('success', 'Alhamdulillah, data AUM berhasil disimpan');
     }
 
-
-
-
-
-
-
-
-
-    public function aumbyranting()
+    public function aumByRanting()
     {
         $rantings = DB::table('ranting')->get()->toArray();
         return response()->json($rantings);
     }
 
-    public function aumbypca()
+    public function aumByPca()
     {
         $pcas = DB::table('pca')->get()->toArray();
         return response()->json($pcas);
     }
 
-    public function aumbypda()
+    public function aumByPda()
     {
         $pdas = DB::table('pda')->get()->toArray();
         return response()->json($pdas);

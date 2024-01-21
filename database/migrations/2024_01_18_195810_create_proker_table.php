@@ -22,7 +22,10 @@ return new class extends Migration
             $table->string('anggaran');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('user_id')->on('user')->onDelete('restrict');
+            $table->unsignedBigInteger('pda_id');
+            $table->foreign('pda_id')->references('pda_id')->on('pda')->onDelete('restrict');
             $table->string('updated_by')->nullable();
+            $table->longText('description');
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });

@@ -1,3 +1,9 @@
+@extends('layouts-landing.master')
+@section('title')
+@endsection
+
+@section('content')
+
 <section class="wrapper bg-light">
     <div class="container py-14 py-md-16">
       <h2 class="display-4 mb-3 text-center">Berita 'Aisyiyah DKI Jakarta</h2>                  
@@ -42,3 +48,5 @@
     </div>
     <!-- /.container -->
   </section>
+
+  @endsection

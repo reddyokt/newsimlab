@@ -16,7 +16,7 @@ use Illuminate\Support\Carbon;
 
 class KaderController extends Controller
 {
-    public function kaderindex()
+    public function kaderIndex()
     {
         // $kaderindex = Kader::
         //             Join('ranting','ranting.ranting_id', '=' , 'kader_info.ranting_id')
@@ -60,7 +60,7 @@ class KaderController extends Controller
         return view('auth.masterdata.kader.kaderindex', compact('kaderindex'));
     }
 
-    public function createkader()
+    public function createKader()
     {
         $ranting = DB::table('ranting')
             ->whereNull('ranting.deleted_at')
@@ -72,7 +72,7 @@ class KaderController extends Controller
         return view('auth.masterdata.kader.createkader', compact('ranting', 'pekerjaan'));
     }
 
-    public function storekader(Request $request)
+    public function storeKader(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');
 
@@ -198,7 +198,7 @@ class KaderController extends Controller
         return redirect('/dashboard')->with('success', 'Alhamdulillah Akun berhasil dibuat');
     }
 
-    public function kaderdetail($id)
+    public function kaderDetail($id)
     {
         $kaderindex = Kader::Join('pekerjaan', 'pekerjaan.id_pekerjaan', '=', 'kader_info.pekerjaan_id')
             ->leftJoin('ranting', 'ranting.ranting_id', '=', 'kader_info.ranting_id')
@@ -231,7 +231,7 @@ class KaderController extends Controller
         return view('auth.masterdata.kader.kaderdetail', compact('kaderindex', 'kader_edu', 'kader_training', 'kader_orgint', 'kader_orgext'));
     }
 
-    public function kaderprint($id)
+    public function kaderPrint($id)
     {
         $date = Carbon::now()->locale('id');
         $date->settings(['formatFunction' => 'translatedFormat']);
@@ -274,7 +274,7 @@ class KaderController extends Controller
         return $pdf->stream('detail'.'-'.$namepdf.'.pdf');
     }
 
-    public function PCAbyPDA($id)
+    public function pcaByPda($id)
     {
         $pca = DB::table('pca')->where("pda_id", $id)->whereNull('deleted_at')->get()->toArray();
         return response()->json($pca);

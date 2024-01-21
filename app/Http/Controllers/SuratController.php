@@ -70,7 +70,7 @@ class SuratController extends Controller
 
     }
 
-    public function createsurat()
+    public function createSurat()
     {
         $creatorid = Session::get('user_id');
 
@@ -89,7 +89,7 @@ class SuratController extends Controller
         return view('auth.surat.createsurat', compact('user'));
     }
 
-    public function storecreatesurat(Request $request)
+    public function storeCreateSurat(Request $request)
     {
 
         date_default_timezone_set('Asia/Jakarta');
@@ -125,7 +125,7 @@ class SuratController extends Controller
         return redirect('/inbox/{$id}')->with('success', 'Alhamdulillah Surat berhasil dikirim');
     }
 
-    public function readinbox($id)
+    public function readInbox($id)
     {
         $reader_id = Session::get('user_id');
 
@@ -163,7 +163,7 @@ class SuratController extends Controller
         return view('auth.surat.readinbox', compact('readinbox','inbox', 'sent'));
     }
 
-    public function readsend($id)
+    public function readSend($id)
     {
         $reader_id = Session::get('user_id');
 

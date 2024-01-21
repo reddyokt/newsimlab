@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class FiletypeController extends Controller
 {
-    public function filetypeindex()
+    public function filetypeIndex()
     {
         $filetypeindex = DB::table('filetype')
                         ->where('isActive', 'Yes')
@@ -17,12 +17,12 @@ class FiletypeController extends Controller
         return view('auth.masterdata.filetype.filetypeindex', compact('filetypeindex'));
     }
 
-    public function createfiletype()
+    public function createFiletype()
     {
         return view('auth.masterdata.filetype.createfiletype');
     }
 
-    public function storecreatefiletype(Request $request)
+    public function storeCreateFiletype(Request $request)
     {
         // dd($request);
         $storecreatefiletype = $request->validate([

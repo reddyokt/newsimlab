@@ -6,19 +6,17 @@ use App\Models\User;
 use App\Models\UserRole;
 use App\Models\UserSetting;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 Use Illuminate\Support\Facades\Crypt;
 
 class AccountController extends Controller
 {
-    public function accountindex()
+    public function accountIndex()
     {
         $accountindex = User::leftJoin('user_role', 'user_role.user_id', '=', 'user.user_id')
             ->leftJoin('roles', 'roles.id', '=', 'user_role.role_id')
@@ -36,7 +34,7 @@ class AccountController extends Controller
         return view('auth.masterdata.account.accountindex', compact('accountindex'));
     }
 
-    public function createaccount()
+    public function createAccount()
     {
 
         $roleList = DB::table('roles')
@@ -45,7 +43,7 @@ class AccountController extends Controller
         return view('auth.masterdata.account.createaccount', compact('roleList'));
     }
 
-    public function storeaccount(Request $request)
+    public function storeAccount(Request $request)
     {
         // dd($request);
         date_default_timezone_set('Asia/Jakarta');
@@ -99,7 +97,7 @@ class AccountController extends Controller
         }
     }
 
-    public function editaccount($id)
+    public function editAccount($id)
     {
         $enc = $id;
         $roleList = DB::table('roles')
@@ -119,7 +117,7 @@ class AccountController extends Controller
         return view('auth.masterdata.account.editaccount', compact('data','roleList','enc'));
     }
 
-    public function updateaccount(Request $request, $id)
+    public function updateAccount(Request $request, $id)
     {
 
         // dd($request);
@@ -233,7 +231,7 @@ class AccountController extends Controller
         return redirect('/account')->with('success', 'Alhamdulillah Akun berhasil di edit');
     }
 
-    public function deleteaccount($id)
+    public function deleteAccount($id)
     {
         date_default_timezone_set('Asia/Jakarta');
         // try {
@@ -282,5 +280,35 @@ class AccountController extends Controller
     public function getMajelis(){
         $majelis = DB::table('majelis')->where('isActive','Yes')->get()->toArray();
         return response()->json($majelis);
+    }
+
+    public function changePassword(Request $request)
+    {
+        // dd(auth()->user()->password);
+        $request->validate([
+            'oldpass' => 'required',
+            'newpass' => 'min:6|required_with:confnewpass|same:confnewpass',
+            'confnewpass' => 'required|min:6'
+        ]);
+
+        if($request->newpass != $request->confnewpass){
+            return redirect()->back()->with('warning', 'Password Konfirmasi tidak sama');
+        }
+
+        if(Hash::check($request->oldpass , auth()->user()->password)) {
+            if(!Hash::check($request->newpass , auth()->user()->password)) {
+               $user = User::find(auth()->user()->user_id);
+               $user->update([
+                   'password' => bcrypt($request->newpass)
+               ]);
+            //    return redirect()->back()->with('success', 'password berhasil diubah, Silahkan login kembali');
+                Auth::logout();
+                Session::flush();
+                return redirect('login')->with('success', 'password berhasil diubah, Silahkan login kembali');
+            }        
+            return redirect()->back()->with('warning', 'password lama dan password baru tidak boleh sama');
+        }        
+        return redirect()->back()->with('error', 'password lama salah');
+
     }
 }

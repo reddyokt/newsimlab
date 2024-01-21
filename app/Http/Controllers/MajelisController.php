@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class MajelisController extends Controller
 {
-    public function majelisindex()
+    public function majelisIndex()
     {
         $majelisindex = DB::table('majelis')
                         ->where('isActive', 'Yes')
@@ -17,12 +17,12 @@ class MajelisController extends Controller
         return view ('auth.masterdata.majelis.majelisindex', compact('majelisindex'));
     }
 
-    public function createmajelis()
+    public function createMajelis()
     {
         return view('auth.masterdata.majelis.createmajelis');
     }
 
-    public function storecreatemajelis(Request $request)
+    public function storeCreateMajelis(Request $request)
     {
         // dd($request);
         $storecreatemajelis = $request->validate([

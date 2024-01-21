@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class NewsCategoryController extends Controller
 {
-    public function categoryindex()
+    public function categoryIndex()
     {
         $categoryindex = DB::table('newscategory')
         ->whereNull('newscategory.deleted_at')
@@ -17,7 +17,7 @@ class NewsCategoryController extends Controller
         return view('auth.news.newscategory.categoryindex',compact('categoryindex'));
     }
 
-    public function storecreatecategory(Request $request)
+    public function storeCreateCategory(Request $request)
     {
         // dd($request);  
         $storecreatecategory = $request->validate([

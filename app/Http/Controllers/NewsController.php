@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
-    public function postindex()
+    public function postIndex()
     {
         $postindex = DB::table('news')
                     ->leftJoin('user', 'user.user_id', '=' ,'news.created_by')
@@ -29,7 +29,7 @@ class NewsController extends Controller
         return view('auth.news.post.postindex', compact('postindex'));
     }
 
-    public function createpost()
+    public function createPost()
     {
         $category = DB::table('newscategory')
                     ->where('isActive', 'Yes')
@@ -39,7 +39,7 @@ class NewsController extends Controller
         return view('auth.news.post.createpost', compact('category'));
     }
 
-    public function storecreatepost(Request $request)
+    public function storeCreatePost(Request $request)
     {
         // dd($request);
 
@@ -69,7 +69,7 @@ class NewsController extends Controller
         return redirect('/post')->with('success', 'Alhamdulillah News berhasil dibuat');
     }
 
-    public function editpost($id)
+    public function editPost($id)
     {
         $enc = $id;
         $newscategory = DB::table('newscategory')

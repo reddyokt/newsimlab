@@ -40,7 +40,7 @@
                                 <tr>
                                     <td>{{ $proker->name }}</td>
                                     <td>{{ \Carbon\Carbon::parse($proker->start)->locale('id')->format('l, j F Y')}} ~ {{ \Carbon\Carbon::parse($proker->end)->locale('id')->format('l, j F Y')}}</td>
-                                    <td>{{$proker.anggaran}}</td>
+                                    <td>{{$proker->anggaran}}</td>
                                     <td>{{ $proker->status }}</td>
                                     <td>{{ $proker->username }}</td>
                                     <td>
@@ -53,6 +53,11 @@
                                                 <a href="/proker/delete/{{ $proker->id_proker }}"
                                                     class="px-2 text-danger"><i
                                                         class="uil uil-trash-alt font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="/proker/detail/{{$proker->id_proker}}" 
+                                                    class="px-2 text-warning"><i
+                                                        class="uil uil-eye font-size-18"></i></a>
                                             </li>
                                         </ul>
                                     </td>

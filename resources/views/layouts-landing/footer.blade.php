@@ -3,7 +3,7 @@
       <div class="row gy-6 gy-lg-0">
         <div class="col-md-4 col-lg-3">
           <div class="widget">
-            <img class="mb-4" src="{{URL::asset('landing/assets/img/aisyiyah_dki_light.svg')}}" srcset="{{URL::asset('landing/assets/img/aisyiyah_dki_light.svg')}}" alt="" />
+            <img class="mb-4" src="{{URL::asset('landing/assets/img/aisyiyah_dki_light.svg')}}" srcset="{{URL::asset('landing/assets/img/aisyiyah_dki_light.svg')}}" alt="" style="width: 50%;" />
             <p class="mb-4">© 2024 Aisyiyah DKI Jakarta. <br class="d-none d-lg-block" />All rights reserved.</p>
             <nav class="nav social social-white">
               <a href="#"><i class="uil uil-twitter"></i></a>
@@ -17,15 +17,15 @@
           <!-- /.widget -->
         </div>
         <!-- /column -->
-        <div class="col-md-4 col-lg-3">
+        <div class="col-md-4 col-lg-5">
           <div class="widget">
             <h4 class="widget-title text-white mb-3">Get in Touch</h4>
-            <address class="pe-xl-15 pe-xxl-17">Moonshine St. 14/05 Light City, London, United Kingdom</address>
-            <a href="mailto:#">info@email.com</a><br /> 00 (123) 456 78 90
+            <address class="pe-xl-15 pe-xxl-17">Jl. Kramat Raya No.49, RT 5/RW 3, Kel. Kenari, Kec. Senen, Jakarta Pusat, 10430</address>
+            <a href="mailto:#">info@aisyiyahjakarta.org</a><br /> 00 (123) 456 78 90
           </div>
           <!-- /.widget -->
         </div>
-        <!-- /column -->
+        {{-- <!-- /column -->
         <div class="col-md-4 col-lg-3">
           <div class="widget">
             <h4 class="widget-title text-white mb-3">Learn More</h4>
@@ -39,8 +39,8 @@
           </div>
           <!-- /.widget -->
         </div>
-        <!-- /column -->
-        <div class="col-md-12 col-lg-3">
+        <!-- /column --> --}}
+        {{-- <div class="col-md-12 col-lg-3">
           <div class="widget">
             <h4 class="widget-title text-white mb-3">Our Newsletter</h4>
             <p class="mb-5">Subscribe to our newsletter to get our news & deals delivered to you.</p>
@@ -68,7 +68,7 @@
             <!-- /.newsletter-wrapper -->
           </div>
           <!-- /.widget -->
-        </div>
+        </div> --}}
         <!-- /column -->
       </div>
       <!--/.row -->

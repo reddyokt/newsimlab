@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class PCAController extends Controller
 {
-    public function pcaindex()
+    public function pcaIndex()
     {
         $pcaindex = Pca::leftJoin('pda', 'pda.pda_id', '=', 'pca.pda_id')
             ->leftJoin('districts', 'districts.id', '=', 'pca.district_id')
@@ -24,7 +24,7 @@ class PCAController extends Controller
         return view('auth.masterdata.pca.pcaindex', compact('pcaindex'));
     }
 
-    public function createpca()
+    public function creatPca()
     {
         $districts = DB::table('districts')
             ->get()->toArray();
@@ -35,7 +35,7 @@ class PCAController extends Controller
         return view('auth.masterdata.pca.createpca', compact('districts', 'pda'));
     }
 
-    public function storecreatepca(Request $request)
+    public function storeCreatePca(Request $request)
     {
         // dd ($request);
 

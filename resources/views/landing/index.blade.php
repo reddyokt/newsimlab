@@ -55,40 +55,39 @@
     </section>
 
     <section class="wrapper bg-light" id="about">
-        <div class="container py-14 py-md-16">
+        <div class="container py-10 py-md-10">
             <div class="row gy-10 gy-sm-13 gx-md-8 gx-xl-12 align-items-center">
                 <div class="col-lg-6">
                     <div class="row gx-md-5 gy-5">
                         <div class="col-12">
-                            <figure class="rounded mx-5"><img
-                                    src="{{ URL::asset('landing/assets/img/Kemitraan-Aisyiyah.png') }}"
-                                    srcset="{{ URL::asset('landing/assets/img/Kemitraan-Aisyiyah.png') }} 2x"
-                                    alt=""></figure>
+                            <figure class="rounded"><img src="{{ URL::asset('landing/assets/img/Kemitraan-Aisyiyah.png') }}"
+                                    srcset="{{ URL::asset('landing/assets/img/Kemitraan-Aisyiyah.png') }}" alt="">
+                            </figure>
                         </div>
                         <!--/column -->
-                        <div class="col-md-8">
+                        {{-- <div class="col-md-8">
                             <figure class="rounded"><img
                                     src="{{ URL::asset('landing/assets/img/Map-Aisyiyah-1030x755.png') }}"
-                                    srcset="{{ URL::asset('landing/assets/img/Map-Aisyiyah-1030x755.png') }} 2x"
+                                    srcset="{{ URL::asset('landing/assets/img/Map-Aisyiyah-1030x755.png') }}"
                                     alt=""></figure>
-                        </div>
+                        </div> --}}
                         <!--/column -->
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <figure class="rounded"><img
                                     src="{{ URL::asset('landing/assets/img/Wilayah-Kerja-Aisyiyah.png') }}"
-                                    srcset="{{ URL::asset('landing/assets/img/Wilayah-Kerja-Aisyiyah.png') }} 2x"
+                                    srcset="{{ URL::asset('landing/assets/img/Wilayah-Kerja-Aisyiyah.png') }}"
                                     alt=""></figure>
-                        </div>
+                        </div> --}}
                         <!--/column -->
                     </div>
                     <!--/.row -->
                 </div>
                 <!--/column -->
                 <div class="col-lg-6">
-                    <h2 class="fs-16 text-uppercase text-muted mb-3"></h2>
+                    <h2 class="fs-16 text-uppercase text-muted mb-1"></h2>
                     <h3 class="display-3 mb-10"><span class="underline-3 style-2 yellow">Visi Misi</span> <br> PWA 'Aisyiyah
                         DKI Jakarta</h3>
-                    <div class="row gy-8">
+                    <div class="row gy-5">
                         <div class="col-md-6">
                             <div class="d-flex flex-row">
                                 <div>
@@ -156,10 +155,10 @@
         <!-- /.container -->
     </section>
     <!-- /section -->
-    <hr>
+    {{-- <hr> --}}
 
     <section class="wrapper bg-light">
-        <div class="container py-7 py-md-5" id="news">
+        <div class="container py-2 py-md-2" id="news">
             <h2 class="display-4 mb-3 text-center">Berita 'Aisyiyah DKI Jakarta</h2>
             <div class="swiper-container blog grid-view mb-6" data-margin="30" data-dots="true" data-items-xl="4"
                 data-items-md="2" data-items-xs="1" id="blog">
@@ -173,7 +172,8 @@
                             @foreach ($postLanding as $post)
                                 <div class="swiper-slide">
                                     <article>
-                                        <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="/Category/{{$post->category}}/{{$post->news_id}}"> <img
+                                        <figure class="overlay overlay-1 hover-scale rounded mb-5"><a
+                                                href="/post/{{ $post->news_id }}"> <img
                                                     src="{{ '/../upload/feature_image/' . $post->feature_image }}"
                                                     alt="" /></a>
                                             <figcaption>
@@ -187,7 +187,7 @@
                                             </div>
                                             <!-- /.post-category -->
                                             <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark"
-                                                    href="/Category/{{$post->category}}/{{$post->news_id}}">{{ $post->news_title }}</a></h2>
+                                                    href="/post/{{ $post->news_id }}">{{ $post->news_title }}</a></h2>
                                         </div>
                                         <!-- /.post-header -->
                                         <div class="post-footer">
@@ -216,4 +216,21 @@
         </div>
         <!-- /.container -->
     </section>
+    {{-- <hr> --}}
+
+    <section id="snippet-4" class="wrapper py-16">
+        <h2 class="display-4 mb-3 text-center">Youtube 'Aisyiyah DKI Jakarta</h2>
+        <div class="card">
+          <div class="card-body">
+            <div class="ratio ratio-16x9 mxauto d-block text-center">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/BjMcqj6un4I?si=ZC0FQZBsWfu4o0e4" 
+                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+                encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <!--/.ratio -->
+          </div>
+          <!--/.card-body -->
+        </div>
+        <!--/.card -->
+      </section>
+
 @endsection
