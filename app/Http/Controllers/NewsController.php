@@ -14,20 +14,35 @@ class NewsController extends Controller
 {
     public function postIndex()
     {
-        $postindex = DB::table('news')
-                    ->leftJoin('user', 'user.user_id', '=' ,'news.created_by')
-                    ->leftJoin('newscategory', 'newscategory.id_category', '=' ,'news.id_category')
-                    ->leftJoin('user_role', 'user_role.user_id', '=' ,'user.user_id')
-                    ->leftJoin('roles', 'roles.id', '=' ,'user_role.role_id' )
-                    ->whereNull('news.deleted_at')
-                    ->where('news.created_by', Session::get('user_id'))
-                    ->select(DB::raw('news.news_id, news.news_title as news_title,
+
+        $role = Session::get('role_code');
+
+        if ($role == "SUP" || $role == "PWA1") {
+            $postindex = News::leftJoin('user', 'user.user_id', '=' ,'news.created_by')
+            ->leftJoin('newscategory', 'newscategory.id_category', '=' ,'news.id_category')
+            ->leftJoin('user_role', 'user_role.user_id', '=' ,'user.user_id')
+            ->leftJoin('roles', 'roles.id', '=' ,'user_role.role_id' )
+            ->whereNull('news.deleted_at')
+            ->select(DB::raw('news.news_id, news.news_title as news_title,
+                            news.news_body as news_body, news.feature_image as feature_image,
+                            news.images as images, user.name as author,
+                            newscategory.category as category,news.status as status'))
+            ->get()->toArray();
+        }else {
+            $postindex = News::leftJoin('user', 'user.user_id', '=' ,'news.created_by')
+            ->leftJoin('newscategory', 'newscategory.id_category', '=' ,'news.id_category')
+            ->leftJoin('user_role', 'user_role.user_id', '=' ,'user.user_id')
+            ->leftJoin('roles', 'roles.id', '=' ,'user_role.role_id' )
+            ->whereNull('news.deleted_at')
+            ->where('news.created_by', Session::get('user_id'))
+            ->select(DB::raw('news.news_id, news.news_title as news_title,
                                     news.news_body as news_body, news.feature_image as feature_image,
                                     news.images as images, user.name as author,
                                     newscategory.category as category,news.status as status'))
                     ->get()->toArray();
+        }
 
-        return view('auth.news.post.postindex', compact('postindex'));
+        return view('auth.news.post.postindex', compact('postindex','role'));
     }
 
     public function createPosty()
@@ -69,6 +84,15 @@ class NewsController extends Controller
         $storecreatepost->save();
 
         return redirect('/post')->with('success', 'Alhamdulillah News berhasil dibuat');
+    }
+
+    public function validasiPost($news_id)
+    {
+        $validasi = News::find($news_id);
+        $validasi->update(['status'=>'published', 'updated_by' => Session::get('user_id')]);
+
+        return redirect('/post')->with('success', 'Alhamdulillah News berhasil dipublish');
+
     }
 
     public function editPost($id)
