@@ -16,9 +16,9 @@ class LandingPageController extends Controller
                     ->leftJoin('roles', 'roles.id', '=' ,'user_role.role_id' )
                     ->whereNull('news.deleted_at')
                     ->where('news.status', 'published')
-                    ->select(DB::raw('news.news_id, news.news_title as news_title,
+                    ->select(DB::raw('news.news_id, news.news_title as news_title, news.slug as slug,
                                     news.news_body as news_body, news.feature_image as feature_image,
-                                    news.images as images, user.username as author, 
+                                    news.images as images, user.username as author,
                                     newscategory.category as category,news.status as status, news.created_at as created_at'))
                     ->get()->toArray();
         return view('landing.index', compact('postLanding'));
@@ -34,35 +34,35 @@ class LandingPageController extends Controller
                     ->whereNull('news.deleted_at')
                     ->select(DB::raw('news.news_id, news.news_title as news_title,
                                     news.news_body as news_body, news.feature_image as feature_image,
-                                    news.images as images, news.created_by as author, 
+                                    news.images as images, news.created_by as author,
                                     newscategory.category as category,news.status as status, news.created_at as created_at'))
                     ->get()->toArray();
         return view('landing.post', compact('postLanding'));
     }
 
-    public function postBlog($news_id)
+    public function postBlog($slug)
     {
         $postBlog = DB::table('news')
-                    ->where('news.news_id', $news_id)
+                    ->where('news.slug', $slug)
                     ->where('news.status', 'published')
                     ->whereNull('news.deleted_at')
                     ->leftJoin('newscategory', 'newscategory.id_category', '=' ,'news.id_category')
                     ->leftJoin('user', 'user.user_id', '=' , 'news.created_by')
-                    ->select(DB::raw('news.news_id as news_id, news.news_title as news_title, 
-                                    news.news_body as news_body, news.feature_image as feature_image, 
-                                    news.images as images, news.status as status, newscategory.id_category as id_category, 
+                    ->select(DB::raw('news.news_id as news_id, news.slug as slug, news.news_title as news_title,
+                                    news.news_body as news_body, news.feature_image as feature_image,
+                                    news.images as images, news.status as status, newscategory.id_category as id_category,
                                     newscategory.category as category, news.created_at as created_at, user.username as author'))
                     ->first();
-        
+
         $anotherpost = DB::table('news')
-                    ->whereNot('news.news_id', $news_id)
+                    ->whereNot('news.news_id', $slug)
                     ->where('news.status', 'published')
                     ->whereNull('news.deleted_at')
                     ->leftJoin('newscategory', 'newscategory.id_category', '=' ,'news.id_category')
                     ->leftJoin('user', 'user.user_id', '=' , 'news.created_by')
-                    ->select(DB::raw('news.news_id as news_id, news.news_title as news_title, 
-                                    news.news_body as news_body, news.feature_image as feature_image, 
-                                    news.images as images, news.status as status, newscategory.id_category as id_category, 
+                    ->select(DB::raw('news.news_id as news_id, news.news_title as news_title, news.slug as slug,
+                                    news.news_body as news_body, news.feature_image as feature_image,
+                                    news.images as images, news.status as status, newscategory.id_category as id_category,
                                     newscategory.category as category, news.created_at as created_at, user.username as author'))
                     ->get()->toArray();
 

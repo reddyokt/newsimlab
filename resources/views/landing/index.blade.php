@@ -161,7 +161,7 @@
         <div class="container py-2 py-md-2" id="news">
             <h2 class="display-4 mb-3 text-center">Berita 'Aisyiyah DKI Jakarta</h2>
             <div class="swiper-container blog grid-view mb-6" data-margin="30" data-dots="true" data-items-xl="4"
-                data-items-md="2" data-items-xs="1" id="blog">
+                data-items-md="2" data-items-xs="1" id="blog" data-autoplay="true" data-autoplaytime="7000">
                 <div class="swiper">
                     <div class="swiper-wrapper">
                         @if ($postLanding == null)
@@ -173,7 +173,7 @@
                                 <div class="swiper-slide">
                                     <article>
                                         <figure class="overlay overlay-1 hover-scale rounded mb-5"><a
-                                                href="/post/{{ $post->news_id }}"> <img
+                                                href="/read/post/{{ $post->slug }}"> <img
                                                     src="{{ '/../upload/feature_image/' . $post->feature_image }}"
                                                     alt="" /></a>
                                             <figcaption>
@@ -187,7 +187,7 @@
                                             </div>
                                             <!-- /.post-category -->
                                             <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark"
-                                                    href="/post/{{ $post->news_id }}">{{ $post->news_title }}</a></h2>
+                                                    href="/read/post/{{ $post->slug }}">{{ $post->news_title }}</a></h2>
                                         </div>
                                         <!-- /.post-header -->
                                         <div class="post-footer">
@@ -223,8 +223,8 @@
         <div class="card">
           <div class="card-body">
             <div class="ratio ratio-16x9 mxauto d-block text-center">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/BjMcqj6un4I?si=ZC0FQZBsWfu4o0e4" 
-                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/BjMcqj6un4I?si=ZC0FQZBsWfu4o0e4"
+                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
                 encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             <!--/.ratio -->
           </div>

@@ -20,8 +20,8 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">              
-                    <a href="/post/create" type="button" class="btn btn-success waves-effect waves-light mb-3">
+                <div class="card-body">
+                    <a href="/post/add" type="button" class="btn btn-success waves-effect waves-light mb-3">
                         Create New Post </a>
                     <table id="datatable" class="table table-bordered dt-responsive wrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -22,14 +23,14 @@ class NewsController extends Controller
                     ->where('news.created_by', Session::get('user_id'))
                     ->select(DB::raw('news.news_id, news.news_title as news_title,
                                     news.news_body as news_body, news.feature_image as feature_image,
-                                    news.images as images, user.name as author, 
+                                    news.images as images, user.name as author,
                                     newscategory.category as category,news.status as status'))
                     ->get()->toArray();
 
         return view('auth.news.post.postindex', compact('postindex'));
     }
 
-    public function createPost()
+    public function createPosty()
     {
         $category = DB::table('newscategory')
                     ->where('isActive', 'Yes')
@@ -60,6 +61,7 @@ class NewsController extends Controller
 
         $storecreatepost = new News();
         $storecreatepost->news_title = $req['title'];
+        $storecreatepost->slug = Str::slug($req['title']);
         $storecreatepost->news_body = $req['body'];
         $storecreatepost->id_category = $req['category'];
         $storecreatepost->feature_image = $pp;
@@ -81,9 +83,9 @@ class NewsController extends Controller
                     ->whereNull('news.deleted_at')
                     ->leftJoin('newscategory', 'newscategory.id_category', '=' ,'news.id_category')
                     ->leftJoin('user', 'user.user_id', '=' , 'news.created_by')
-                    ->select(DB::raw('news.news_id as news_id, news.news_title as news_title, 
-                                    news.news_body as news_body, news.feature_image as feature_image, 
-                                    news.images as images, news.status as status, newscategory.id_category as id_category, 
+                    ->select(DB::raw('news.news_id as news_id, news.news_title as news_title,
+                                    news.news_body as news_body, news.feature_image as feature_image,
+                                    news.images as images, news.status as status, newscategory.id_category as id_category,
                                     newscategory.category as category'))
                     ->first();
 

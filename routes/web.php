@@ -31,8 +31,8 @@ Route::post('/postlogin', [App\Http\Controllers\AuthenticationController::class,
 // Route::post('/logout', [App\Http\Controllers\AuthenticationController::class, 'logout']);
 
 Route::get('/', [App\Http\Controllers\LandingPageController::class, 'index']);
-Route::get('/landingpage/post', [App\Http\Controllers\LandingPageController::class, 'postLanding']);
-Route::get('/post/{news_id}', [App\Http\Controllers\LandingPageController::class, 'postBlog']);
+// Route::get('/landingpage/post', [App\Http\Controllers\LandingPageController::class, 'postLanding']);
+Route::get('/read/post/{news_id}', [App\Http\Controllers\LandingPageController::class, 'postBlog']);
 
 
 Route::group(['middleware' => 'prevent-back-history'], function () {
@@ -141,7 +141,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/newscategory/delete/{id}', [App\Http\Controllers\NewsCategoryController::class, 'deleteCategory']);
 
     Route::get('/post', [App\Http\Controllers\NewsController::class, 'postIndex']);
-    Route::get('/post/create', [App\Http\Controllers\NewsController::class, 'createPost']);
+    Route::get('/post/add', [App\Http\Controllers\NewsController::class, 'createPosty']);
     Route::post('/post/create', [App\Http\Controllers\NewsController::class, 'storeCreatePost']);
     Route::get('/post/edit/{id}', [App\Http\Controllers\NewsController::class, 'editPost']);
     Route::post('/post/edit/{id}', [App\Http\Controllers\NewsController::class, 'storeEditPost']);

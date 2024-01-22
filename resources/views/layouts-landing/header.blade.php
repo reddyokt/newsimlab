@@ -52,11 +52,11 @@
     <!-- /.navbar -->
 </header>
 
-<script>
+{{-- <script>
       $(document).ready(function(){
       $('.nav li').click(function(){
           $('.nav li').removeClass('active');
           $(this).addClass('active');
       });
   });
-</script>
+</script> --}}

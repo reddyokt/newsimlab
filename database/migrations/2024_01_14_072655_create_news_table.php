@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_category')->index();
             $table->foreign('id_category')->references('id_category')->on('newscategory')->onDelete('restrict');
             $table->string('news_title');
+            $table->string('slug');
             $table->longText('news_body');
             $table->string('feature_image');
             $table->string('images')->nullable();
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->date('deleted_at')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('user_id')->on('user')->onDelete('restrict');
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('updated_by')->references('user_id')->on('user')->onDelete('restrict');
             $table->timestamps();
         });

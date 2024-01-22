@@ -40,16 +40,16 @@
                 <div class="classic-view">
                   <article class="post">
                     <div class="post-content mb-5">
-                      
+
                       <div class="row g-4 mt-3 mb-3">
                         <div class="col-md-6">
                             @if ($postBlog->images != Null)
-                            <figure class="hover-scale rounded cursor-dark"><a href="{{ '/../upload/feature_image/' . $postBlog->images }}" 
-                                data-glightbox="title: Heading; description: Purus Vulputate Sem Tellus Quam" 
+                            <figure class="hover-scale rounded cursor-dark"><a href="{{ '/../upload/feature_image/' . $postBlog->images }}"
+                                data-glightbox="title: Heading; description: Purus Vulputate Sem Tellus Quam"
                                 data-gallery="post"> <img src="{{ '/../upload/feature_image/' . $postBlog->images }}" alt="" /></a></figure>
                             @else
 
-                            @endif                          
+                            @endif
                         </div>
                         <!--/column -->
                       </div>
@@ -80,14 +80,14 @@
                 <hr />
 
                 <h3 class="mb-6">Berita Lainnya</h3>
-                <div class="swiper-container blog grid-view mb-16" data-margin="30" data-dots="true" data-items-md="3" data-items-xs="1">
+                <div class="swiper-container blog grid-view mb-16" data-margin="30" data-dots="true" data-items-md="4" data-items-xs="1">
                   <div class="swiper">
                     <div class="swiper-wrapper">
                         @foreach ( $anotherpost as $ano )
-                        
+
                       <div class="swiper-slide">
                         <article>
-                          <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="/post/{{$ano->news_id}}">
+                          <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="/read/post/{{ $ano->slug }}">
                             <img src="{{ '/../upload/feature_image/' . $ano->feature_image }}" alt="" /></a>
                             <figcaption>
                               <h5 class="from-top mb-0">Read More</h5>
@@ -98,7 +98,7 @@
                               <a href="#" class="hover" rel="category">{{$ano->category}}</a>
                             </div>
                             <!-- /.post-category -->
-                            <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="/post/{{$ano->news_id}}">
+                            <h2 class="post-title h5 mt-1 mb-3"><a class="link-dark" href="/read/post/{{ $ano->slug }}">
                                 {{$ano->news_title}}</a></h2>
                           </div>
                           <!-- /.post-header -->
@@ -114,13 +114,13 @@
                         <!-- /article -->
                       </div>
 
-                        @endforeach   
+                        @endforeach
                       <!--/.swiper-slide -->
                     </div>
                     <!--/.swiper-wrapper -->
                   </div>
                   <!-- /.swiper -->
-                </div>                
+                </div>
                 <!-- /.comment-form -->
               </div>
               <!-- /.card-body -->
