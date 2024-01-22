@@ -55,7 +55,7 @@ class LandingPageController extends Controller
                     ->first();
 
         $anotherpost = DB::table('news')
-                    ->whereNot('news.news_id', $slug)
+                    ->whereNot('news.slug', $slug)
                     ->where('news.status', 'published')
                     ->whereNull('news.deleted_at')
                     ->leftJoin('newscategory', 'newscategory.id_category', '=' ,'news.id_category')
