@@ -71,7 +71,7 @@
                                     <div class="mt-3 text-end">
                                         <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Log
                                             In</button>
-                                    </div>                            
+                                    </div>
                                 </form>
                             </div>
 
@@ -82,7 +82,7 @@
                         <p>© <script>
                                 document.write(new Date().getFullYear())
 
-                            </script> eAiyiyah created with <i class="mdi mdi-heart text-danger"></i> by reddyokt</p>
+                            </script> eAisyiyah created with <i class="mdi mdi-heart text-danger"></i> by rokt</p>
                     </div>
 
                 </div>
