@@ -4,8 +4,7 @@
 @endsection
 @section('css')
 <!-- DataTables -->
-<link href="{{ URL::asset('/assets/libs/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ URL::asset('/assets/libs/dropzone/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
+{{-- <link href="{{ URL::asset('/assets/libs/select2/select2.min.css') }}" rel="stylesheet" type="text/css" /> --}}
 @endsection
 
 @section('content')
@@ -29,7 +28,6 @@
                     <a href="#addproduct-billinginfo-collapse" class="text-dark" data-bs-toggle="collapse"
                         aria-expanded="true" aria-controls="addproduct-billinginfo-collapse">
                         <div class="p-4">
-
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar-xs">
@@ -54,7 +52,7 @@
                         <div class="p-4 border-top">
                             <form>
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="name">Nama PCA</label>
                                             <input id="name" name="name" type="text" class="form-control"
@@ -63,8 +61,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
+                                            <label class="form-label" for="address">Alamat</label>
+                                            <textarea class="form-control" type="text" name="address" id="address"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-12 mb-3">                                            
                                             <label class="form-label" class="control-label">Pilih PDA</label>
-                                            <select class="select2 form-control select2-multiple" name="pda"
+                                            <select class="select2 form-control form-select-solid" name="pda"
                                                 id="pdaforpca" data-live-search="true">
                                                 <option selected disabled>
                                                     Pilih PDA</option>
@@ -75,14 +81,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="address">Alamat</label>
-                                            <textarea class="form-control" type="text" name="address" id="address"></textarea>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-6" id="divdistricts" style="display: none">
                                         <div class="col-md-12 mb-3">
                                             <label class="form-label" class="control-label">Pilih Kecamatan/Administrative</label>
@@ -111,7 +110,6 @@
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/account.js') }}"></script>
-<script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script>
-<script src="{{ URL::asset('/assets/libs/dropzone/dropzone.min.js') }}"></script>
-<script src="{{ URL::asset('/assets/js/pages/ecommerce-add-product.init.js') }}"></script>
+{{-- <script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script> --}}
+{{-- <script src="{{ URL::asset('/assets/js/pages/ecommerce-add-product.init.js') }}"></script> --}}
 @endsection

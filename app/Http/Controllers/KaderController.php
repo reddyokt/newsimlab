@@ -13,35 +13,15 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class KaderController extends Controller
 {
     public function kaderIndex()
     {
-        // $kaderindex = Kader::
-        //             Join('ranting','ranting.ranting_id', '=' , 'kader_info.ranting_id')
-        //             ->Join('pca','pca.pca_id', '=' , 'ranting.pca_id')
-        //             ->Join('pda','pda.pda_id', '=' , 'pca.pda_id')
-        //             ->Join('pekerjaan','pekerjaan.id_pekerjaan', '=' , 'kader_info.pekerjaan_id')
-        //             ->Join('edu_kader','edu_kader.kader_id', '=' , 'kader_info.kader_id')
-        //             ->Join('kader_file','kader_file.kader_id', '=' , 'kader_info.kader_id')
-        //             ->Join('orgext_kader','orgext_kader.kader_id', '=' , 'kader_info.kader_id')
-        //             ->Join('orgint_kader','orgint_kader.kader_id', '=' , 'kader_info.kader_id')
-        //             ->Join('training_kader','training_kader.kader_id', '=' , 'kader_info.kader_id')
-        //             ->whereNull('kader_info.deleted_at')
-        //             ->select(DB::raw('kader_info.kader_id as kader_id, kader_info.kader_name as kader_name,
-        //                             kader_info.kader_email as kader_email, kader_info.kader_phone as kader_phone,
-        //                             kader_info.gender as gender, kader_info.marital as marital, kader_info.anak as anak,
-        //                             kader_info.nba as nba, kader_info.nbm as nbm, ranting.ranting_name as ranting_name,
-        //                             pca.pca_name as pca_name, pda.pda_name as pda_name, edu_kader.jenjang as jenjang,
-        //                             edu_kader.eduyear as eduyear, kader_file.filepp as pp, kader_file.filenbma as nbma,
-        //                             orgext_kader.orgextname as orgextname, orgext_kader.orgextjabatan as orgextjabatan,
-        //                             orgext_kader.orgextstart as orgextstart, orgext_kader.orgextend as orgextend,
-        //                             orgint_kader.orggrade as orggrade, orgint_kader.orgintjabatan as orgintjabatan,
-        //                             orgint_kader.orgintstart as orgintstart, orgint_kader.orgintend as orgintend,
-        //                             training_kader.trainingtype as trainingtype, training_kader.trainingname as trainingname'))
-        //             ->get();
+        $role = Session::get('role_code');
 
+        if ($role == "SUP" || $role == "PWA1" || $role == "PWA2") {
         $kaderindex = Kader::Join('pekerjaan', 'pekerjaan.id_pekerjaan', '=', 'kader_info.pekerjaan_id')
             ->leftJoin('ranting', 'ranting.ranting_id', '=', 'kader_info.ranting_id')
             ->leftJoin('pca', 'pca.pca_id', '=', 'ranting.pca_id')
@@ -54,7 +34,23 @@ class KaderController extends Controller
                                     kader_info.nba as nba, kader_info.nbm as nbm, ranting.ranting_name as ranting_name,
                                     pca.pca_name as pca_name, pda.pda_name as pda_name, kader_file.filepp as pp, kader_file.filenbma as nbma '))
             ->get();
-
+        }
+        else {
+            $kaderindex = Kader::Join('pekerjaan', 'pekerjaan.id_pekerjaan', '=', 'kader_info.pekerjaan_id')
+            ->leftJoin('ranting', 'ranting.ranting_id', '=', 'kader_info.ranting_id')
+            ->leftJoin('pca', 'pca.pca_id', '=', 'ranting.pca_id')
+            ->leftJoin('pda', 'pda.pda_id', '=', 'pca.pda_id')
+            ->leftJoin('kader_file', 'kader_file.kader_id', '=', 'kader_info.kader_id')
+            ->whereNull('kader_info.deleted_at')
+            ->where('pca.pda_id', Session::get('pda_id'))
+            ->select(DB::raw('kader_info.kader_id as kader_id, kader_info.kader_name as kader_name,
+                                    kader_info.kader_email as kader_email, kader_info.kader_phone as kader_phone,
+                                    kader_info.gender as gender, kader_info.marital as marital, kader_info.anak as anak,
+                                    kader_info.nba as nba, kader_info.nbm as nbm, ranting.ranting_name as ranting_name,
+                                    pca.pca_name as pca_name, pda.pda_name as pda_name, kader_file.filepp as pp, kader_file.filenbma as nbma '))
+            ->get();
+        }
+        
         // dd($kaderindex);
 
         return view('auth.masterdata.kader.kaderindex', compact('kaderindex'));

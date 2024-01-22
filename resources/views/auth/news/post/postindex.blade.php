@@ -42,13 +42,14 @@
                                     <td>
 
                                         <ul class="list-inline mb-0">
-                                            @if ($role == "SUP" || $role == "PWA1" && $post['status'] == 'waiting')
+                                            @if ($post['status'] == 'published')
+                                            @elseif ($role == "SUP" || $role == "PWA1" && $post['status'] == 'waiting')
                                             <li class="list-inline-item">
                                                 <a href="/validasiPost/{{ $post['news_id'] }}" onclick="return confirm('Yakin akan publish berita ini?!')"
-                                                    class="px-2 text-success"><i class="uil uil-check font-size-18"></i></a>
-                                            </li>
-                                            @elseif ($role == "SUP" || $role == "PWA1" && $post['status'] != 'waiting')
-                                                <p>asu</p>
+                                                    class="px-2 text-success"><i class="uil uil-check-circle font-size-18"></i></a>
+                                            </li>                                            
+                                            @else
+
                                             @endif
 
                                             <li class="list-inline-item">

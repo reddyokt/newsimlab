@@ -61,7 +61,7 @@
                                 <tr>
                                     <td style="width:2%;">{{$pca['nomor']}}</td>
                                     <td>{{$pca['pca_name']}} <br>
-                                        - {{ $pca['pda_name'] }}
+                                        - PDA {{ $pca['pda_name'] }}
                                     </td>
                                     <td>{{$pca['name']}}</td>
 

@@ -5,19 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\Ranting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class RantingController extends Controller
 {
     public function rantingIndex()
     {
-        $rantingindex = Ranting::leftJoin('pca', 'pca.pca_id', '=' , 'ranting.pca_id')
-        ->leftJoin('pda', 'pda.pda_id', '=' , 'pca.pda_id')
-        ->leftJoin('villages', 'villages.id', '=', 'ranting.villages_id')
-        ->whereNull('ranting.deleted_at')
-        ->select(DB::raw('ranting.ranting_id, ranting.ranting_name,
-                          villages.name, ranting.address as ranting_address, pca.pca_id as pca_id,
-                          pca.pca_name as pca_name, pda.pda_name as pda_name, villages.name as villages'))
-        ->get()->toArray();
+        $role = Session::get('role_code');
+
+        if($role == "SUP" || $role == "PWA1" || $role == "PWA2") {
+
+            $rantingindex = Ranting::leftJoin('pca', 'pca.pca_id', '=' , 'ranting.pca_id')
+            ->leftJoin('pda', 'pda.pda_id', '=' , 'pca.pda_id')
+            ->leftJoin('villages', 'villages.id', '=', 'ranting.villages_id')
+            ->whereNull('ranting.deleted_at')
+            ->select(DB::raw('ranting.ranting_id, ranting.ranting_name,
+                              villages.name, ranting.address as ranting_address, pca.pca_id as pca_id,
+                              pca.pca_name as pca_name, pda.pda_name as pda_name, villages.name as villages'))
+            ->get()->toArray();
+    
+        }
+        else{
+
+            $rantingindex = Ranting::leftJoin('pca', 'pca.pca_id', '=' , 'ranting.pca_id')
+            ->leftJoin('pda', 'pda.pda_id', '=' , 'pca.pda_id')
+            ->leftJoin('villages', 'villages.id', '=', 'ranting.villages_id')
+            ->whereNull('ranting.deleted_at')
+            ->where('pca.pda_id', Session::get('pda_id'))
+            ->select(DB::raw('ranting.ranting_id, ranting.ranting_name,
+                              villages.name, ranting.address as ranting_address, pca.pca_id as pca_id,
+                              pca.pca_name as pca_name, pda.pda_name as pda_name, villages.name as villages'))
+            ->get()->toArray();
+    
+        }
 
 
     foreach ($rantingindex as $key => $value) {

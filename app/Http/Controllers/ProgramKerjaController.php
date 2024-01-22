@@ -41,6 +41,9 @@ class ProgramKerjaController extends Controller
     }
     public function prokerIndex()
     {
+        $role = Session::get('role_code');
+
+        if ($role == "SUP" || $role == "PWA1" || $role == "PWA2") {
         $prokerindex = DB::table('proker')
         ->leftJoin('periode', 'periode.id_periode', '=' ,'proker.id_periode')
         ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
@@ -50,6 +53,30 @@ class ProgramKerjaController extends Controller
             proker.prokerstart as start, proker.prokerend as end, proker.status as status,
             proker.anggaran as anggaran, user.name as username, pda.pda_name as pda_name'))
         ->get()->toArray();
+        }
+
+        else {
+        $prokerindex = DB::table('proker')
+        ->leftJoin('periode', 'periode.id_periode', '=' ,'proker.id_periode')
+        ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
+        ->leftJoin('pda', 'pda.pda_id', '=' ,'user.pda_id')
+        ->whereNull('proker.deleted_at')
+        ->where('proker.pda_id', Session::get('pda_id'))
+        ->select(DB::raw('proker.id_proker as id_proker, proker.proker_name as name, 
+            proker.prokerstart as start, proker.prokerend as end, proker.status as status,
+            proker.anggaran as anggaran, user.name as username, pda.pda_name as pda_name'))
+        ->get()->toArray();  
+        }
+
+        // $prokerindex = DB::table('proker')
+        // ->leftJoin('periode', 'periode.id_periode', '=' ,'proker.id_periode')
+        // ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
+        // ->leftJoin('pda', 'pda.pda_id', '=' ,'user.pda_id')
+        // ->whereNull('proker.deleted_at')
+        // ->select(DB::raw('proker.id_proker as id_proker, proker.proker_name as name, 
+        //     proker.prokerstart as start, proker.prokerend as end, proker.status as status,
+        //     proker.anggaran as anggaran, user.name as username, pda.pda_name as pda_name'))
+        // ->get()->toArray();
 
         return view('auth.proker.prokerindex', compact('prokerindex'));
     }

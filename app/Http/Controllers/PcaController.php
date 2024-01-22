@@ -5,16 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\Pca;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PCAController extends Controller
 {
     public function pcaIndex()
     {
-        $pcaindex = Pca::leftJoin('pda', 'pda.pda_id', '=', 'pca.pda_id')
-            ->leftJoin('districts', 'districts.id', '=', 'pca.district_id')
-            ->whereNull('pca.deleted_at')
-            ->select(DB::raw('pca.pca_id, pca.pca_name, districts.name, pca.address, pda.pda_name as pda_name'))
-            ->get()->toArray();
+        $role = Session::get('role_code');
+
+        if ($role == "SUP" || $role == "PWA1" || $role == "PWA2") {
+        $pcaindex = Pca::leftJoin('pda', 'pda.pda_id', '=' ,'pca.pda_id')
+        ->leftJoin('districts', 'districts.id', '=' ,'pca.district_id')
+        ->whereNull('pca.deleted_at')
+        ->select(DB::raw('pca.pca_id, pca.pca_name, districts.name, pca.address, pda.pda_name as pda_name'))
+        ->get()->toArray();;            
+        }
+        else {
+        $pcaindex = Pca::leftJoin('pda', 'pda.pda_id', '=' ,'pca.pda_id')
+        ->leftJoin('districts', 'districts.id', '=' ,'pca.district_id')
+        ->whereNull('pca.deleted_at')
+        ->where('pca.pda_id', Session::get('pda_id'))
+        ->select(DB::raw('pca.pca_id, pca.pca_name, districts.name, pca.address, pda.pda_name as pda_name'))
+        ->get()->toArray();;     
+        }
+
+        // $pcaindex = Pca::leftJoin('pda', 'pda.pda_id', '=', 'pca.pda_id')
+        //     ->leftJoin('districts', 'districts.id', '=', 'pca.district_id')
+        //     ->whereNull('pca.deleted_at')
+        //     ->select(DB::raw('pca.pca_id, pca.pca_name, districts.name, pca.address, pda.pda_name as pda_name'))
+        //     ->get()->toArray();
 
 
         foreach ($pcaindex as $key => $value) {
@@ -24,7 +43,7 @@ class PCAController extends Controller
         return view('auth.masterdata.pca.pcaindex', compact('pcaindex'));
     }
 
-    public function creatPca()
+    public function createPca()
     {
         $districts = DB::table('districts')
             ->get()->toArray();
