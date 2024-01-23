@@ -45,7 +45,7 @@
                             <div class="col-lg-6">
                                 <label class="form-label col-form-label">Pengelolaan oleh</label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-group form-check-input" type="radio" name="inlineRadioOptions"
+                                    <input required class="form-group form-check-input" type="radio" name="inlineRadioOptions"
                                         id="pengelola1" value="1">
                                     <label class="form-check-label" for="inlineRadio1">Ranting</label>
                                 </div>
@@ -97,7 +97,7 @@
                                 <label class="form-label col-form-label">Pilih Bidang Usaha</label>
                                 <div class="col-lg-12">
                                     <select class="form-group select2 form-control select2-multiple" name="bidangusaha"
-                                        id="bidangusaha">
+                                        id="bidangusaha" required>
                                         <option selected disabled>Pilih Bidang Usaha</option>
                                         @foreach ($bidangusaha as $key => $value)
                                             <option value="{{ $value->id_bidangusaha }}">{{ $value->name }}</option>
@@ -109,7 +109,7 @@
                                 <label class="form-label col-form-label">Pilih Kepemilikan</label>
                                 <div class="col-lg-12">
                                     <select class="form-group select2 form-control select2-multiple" name="kepemilikan"
-                                        id="kepemilikan">
+                                        id="kepemilikan" required>
                                         <option selected disabled>Pilih Kepemilikan</option>
                                         @foreach ($kepemilikan as $key => $value)
                                             <option value="{{ $value->id_kepemilikan }}">{{ $value->name }}</option>

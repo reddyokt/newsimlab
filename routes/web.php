@@ -131,6 +131,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/aum/edit/{id}', [App\Http\Controllers\AumController::class, 'storeEditAum']);
     Route::post('/aum/delete/{id}', [App\Http\Controllers\AumController::class, 'deleteAum']);
     Route::get('/aum/aumbyranting', [App\Http\Controllers\AumController::class, 'aumByRanting']);
+    Route::get('/aum/detail/{id}', [App\Http\Controllers\AumController::class, 'aumDetail']);
     Route::get('/aum/aumbypca', [App\Http\Controllers\AumController::class, 'aumByPca']);
     Route::get('/aum/aumbypda', [App\Http\Controllers\AumController::class, 'aumByPda']);
     /*------------------11.News-----------------------------------------------*/

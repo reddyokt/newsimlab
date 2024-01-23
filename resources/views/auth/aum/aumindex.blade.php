@@ -50,7 +50,7 @@
                                     <th scope="col">Pengelolaan</th>
                                     <th scope="col">Kepemilikan</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Address</th>
+                                    {{-- <th scope="col">Address</th> --}}
                                     <th scope="col" style="width: 200px;">Action</th>
                                 </tr>
                             </thead>
@@ -76,18 +76,23 @@
                                             <div class="badge bg-pill bg-soft-danger font-size-12">Not Active</div>
                                             @endif
                                         </td>
-                                        <td style="width: 30%;">{{$aum->address}}</td>
-                                        <td style="width: 10%">
+                                        {{-- <td style="width: 30%;">{{$aum->address}}</td> --}}
+                                        <td style="width: 15%">
                                             <ul class="list-inline mb-0">
+                                                <li class="list-inline-item">
+                                                    <a href="{{ url('aum/detail/' . Crypt::encrypt($aum->id_aum)) }}"
+                                                        class="px-2 text-warning"><i
+                                                            class="uil uil-eye font-size-14"></i></a>
+                                                </li>
                                                 <li class="list-inline-item">
                                                     <a href="{{ url('aum/edit/' . Crypt::encrypt($aum->id_aum)) }}"
                                                         class="px-2 text-primary"><i
-                                                            class="uil uil-pen font-size-18"></i></a>
+                                                            class="uil uil-pen font-size-14"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <a href="{{ url('aum/delete/' . Crypt::encrypt($aum->id_aum)) }}"
                                                         class="px-2 text-danger"><i
-                                                            class="uil uil-trash-alt font-size-18"></i></a>
+                                                            class="uil uil-trash-alt font-size-14"></i></a>
                                                 </li>
                                             </ul>
                                         </td>

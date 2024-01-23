@@ -7,6 +7,9 @@ use App\Models\AumImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Contracts\Encryption\DecryptException;
+Use Illuminate\Support\Facades\Crypt;
+
 
 class AumController extends Controller
 {
@@ -39,9 +42,12 @@ class AumController extends Controller
 
     public function storeCreateAum(Request $request)
     {
-        // dd($request);
-
-        // $req = $request->all();
+        $aum = $request->validate([
+            'inlineRadioOptions'=>'required',
+            'kepemilikan'=>'required',
+            'bidangusaha'=>'required',
+            'name'=>'required'
+        ]);
 
         date_default_timezone_set('Asia/Jakarta');
         $aum = new Aum;
@@ -55,26 +61,51 @@ class AumController extends Controller
         $aum->created_by = $request->id;
         $aum->save();
 
-        $namafile = str_replace(' ', '_', $request->name);
 
-        $files = [];
         if($request->hasfile('images'))
          {
-            foreach($request->file('images') as $key => $file)
+            foreach($request->file('images') as $image)
             {
-                $name = $namafile.time().rand(1,50).'.'.$file->extension();
-                $file->move(public_path('upload/aum'), $name);
-                $files[] = $name;
+                $namafile = str_replace(' ', '_', $aum->aum_name);
+
+                $name = $namafile.'-'.time().rand(1,50).'.'.$image->extension();
+                File::put(public_path('upload/aum/'.$name), $image);
+   
+                AumImage::create([
+                    'id_aum'=>$aum->id_aum,
+                    'images'=>$name
+                ]);
             }
          }
 
-         $file= new AumImage;
-         $file->id_aum = $aum->id_aum;
-         $file->images = json_encode($files);
-         $file->created_by = $request->created_by;
-         $file->save();
-
+ 
         return redirect('/aum')->with('success', 'Alhamdulillah, data AUM berhasil disimpan');
+    }
+
+    public function aumDetail($id){
+        try {
+            $id = Crypt::decrypt($id);
+        } catch (DecryptException $e) {
+            return view('error.404');
+        }
+
+        $aum = DB::table('aum')
+        ->where('aum.id_aum', $id)
+        ->leftJoin('pda', 'pda.pda_id', '=' ,'aum.pda_id')
+        ->leftJoin('pca', 'pca.pca_id', '=' ,'aum.pca_id')
+        ->leftJoin('ranting', 'ranting.ranting_id', '=' ,'aum.ranting_id')
+        ->leftJoin('bidangusaha', 'bidangusaha.id_bidangusaha', '=' ,'aum.id_bidangusaha')
+        ->leftJoin('kepemilikan', 'kepemilikan.id_kepemilikan', '=' ,'aum.id_kepemilikan')
+        ->select(DB::raw('aum.id_aum, aum.aum_name as aum_name, aum.address as address,
+                    aum.isActive as status, pda.pda_id as pda_id, pda.pda_name as pda_name,
+                    pca.pca_id as pca_id, pca.pca_name as pca_name, ranting.ranting_id as ranting_id, 
+                    ranting.ranting_name as ranting_name, bidangusaha.name as bidangusaha, 
+                    kepemilikan.name as kepemilikan'))
+        ->first();
+        $aum_image = DB::table('aum_image')
+        ->where('aum_image.id_aum', $id)->get()->toArray();
+         
+        return view('auth.aum.aumdetail', compact('aum', 'aum_image'));
     }
 
 
