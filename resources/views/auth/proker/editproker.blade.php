@@ -11,7 +11,7 @@
             Program Kerja
         @endslot
         @slot('title')
-            Create New
+            Edit
         @endslot
     @endcomponent
 
@@ -20,7 +20,7 @@
             <div id="addproduct-accordion" class="custom-accordion">
                 @include('flashmessage')
                 <div class="card">
-                    <form action="/proker/create" method="POST" enctype="multipart/form-data">
+                    <form action="/proker/edit/{{ $editproker->id_proker }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{ Auth::id() }}" name="id">
 
@@ -29,7 +29,7 @@
                             <input type="hidden" value="{{ Session::get('pda_id') }}" name="pda_id">
                         @endif
 
-                        <input type="hidden" value="{{$periode->id_periode}}" name="periode">
+                        {{-- <input type="hidden" value="{{$periode->id_periode}}" name="periode"> --}}
                         <input type="hidden" value="Start" name="initial">
                         <a href="#addproduct-billinginfo-collapse" class="text-dark" data-bs-toggle="collapse"
                             aria-expanded="true" aria-controls="addproduct-billinginfo-collapse">
@@ -51,13 +51,6 @@
                                         <i class="mdi mdi-chevron-up accor-down-icon font-size-24"></i>
                                     </div>
                                 </div>
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <p class="badge bg-soft-success font-size-12" value="{{ $periode->id_periode }}">
-                                        Periode Aktif :
-                                        {{ $datestart->format('l, j F Y') }} ~
-                                        {{ $dateend->format('l, j F Y') }}
-                                    </p>
-                                </div>
                             </div>
                         </a>
                         <div id="addrproker-billinginfo-collapse" class="collapse show"
@@ -68,7 +61,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="prokername">Nama Proker</label>
                                             <input id="prokername" name="prokername" type="text" class="form-control"
-                                                placeholder="Enter your Program Kerja">
+                                                placeholder="Enter your Program Kerja" value="{{ $editproker->name }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -79,7 +72,7 @@
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" id="from" name="from"
                                                         placeholder="pilih Tanggal mulai"
-                                                        value="{{ $datestart->format('l, j F Y') }}">
+                                                        value="{{ $editproker->start }}" minDate="{{ $editproker->start }}">
                                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -89,7 +82,7 @@
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" id="to" name="to"
                                                         placeholder="pilih Tanggal selesai"
-                                                        value="{{ $dateend->format('l, j F Y') }}">
+                                                        value="{{ $editproker->end }}" maxDate="{{ $editproker->end }}">
                                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -102,13 +95,13 @@
                                             <label class="form-label" for="anggaran">Masukkan Jumlah Anggaran</label>
                                             <div class="input-group">
                                                 <div class="input-group-text">Rp.</div>
-                                                <input type="text" class="form-control nums"
+                                                <input type="text" class="form-control nums" value="{{ $editproker->anggaran }}"
                                                     id="specificSizeInputGroupUsername" placeholder="Anggaran dalam rupiah" name="anggaran">
                                             </div>
                                         </div>
                                     </div>
 
-                                    @if ($role == "SUP" || $role == "PWA1" || $role == "PWA2")
+                                    {{-- @if ($role == "SUP" || $role == "PWA1" || $role == "PWA2")
                                     <div class="col-lg-6">
                                         <div class="col-md-12">
                                             <label class="form-label" for="anggaran">Pilih PDA</label>
@@ -122,12 +115,12 @@
                                         </div>
                                     </div>
                                     @else
-                                    @endif
+                                    @endif --}}
                                 </div>
                                 <div class="row">
                                     <label class="form-label" for="username">Masukkan Deskripsi/RAB/Lain-lain</label>
                                     <div class="col-md-12">
-                                        <textarea class="col-md-12 form-control" id="body" name="description"></textarea>
+                                        <textarea class="col-md-12 form-control" id="body" name="description">{{ $editproker->descr }}</textarea>
                                     </div>
                                 </div>
                             </div>

@@ -40,7 +40,7 @@
                             @foreach ($prokerindex as $proker)
                                 <tr>
                                     <td>{{ $proker->name }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($proker->start)->locale('id')->format('l, j F Y')}} ~ {{ \Carbon\Carbon::parse($proker->end)->locale('id')->format('l, j F Y')}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($proker->start)->locale('id')->format('j F Y')}} ~ {{ \Carbon\Carbon::parse($proker->end)->locale('id')->format('j F Y')}}</td>
                                     <td>{{$proker->anggaran}}</td>
                                     <td>{{ $proker->status }}</td>
                                     <td>{{ $proker->username }}</td>

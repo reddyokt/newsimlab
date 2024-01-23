@@ -56,16 +56,20 @@
                                         <td style="width: 5%">{{ $loop->iteration }}</td>
                                         <td style="width: 80%">{{ $cat->category }}</td>
                                         </td>
-                                        <td style="width: 15%">
+                                        <td style="width: 15%" id="tooltip-container">
                                             <ul class="list-inline mb-0">
                                                 <li class="list-inline-item">
                                                     <a href="/newscategory/edit/{{ $cat->id_category }}"
-                                                        class="px-2 text-primary"><i
+                                                        class="px-2 text-primary" data-bs-container="#tooltip-container"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Edit"><i
                                                             class="uil uil-pen font-size-18"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <a href="/newscategory/delete/{{ $cat->id_category }}"
-                                                        class="px-2 text-danger"><i
+                                                        class="px-2 text-danger" data-bs-container="#tooltip-container"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Delete"><i
                                                             class="uil uil-trash-alt font-size-18"></i></a>
                                                 </li>
                                             </ul>

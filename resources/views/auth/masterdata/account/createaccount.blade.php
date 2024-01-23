@@ -88,7 +88,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="image">Profile Picture</label>
                                             <input id="image" name="image" type="file" class="form-control"
-                                                accept="image/png, image/jpeg, application/pdf"placeholder="#">
+                                                accept="image/png, image/jpeg"placeholder="#">
                                         </div>
                                     </div>
                                 </div>

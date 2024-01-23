@@ -23,24 +23,25 @@
             <div class="card">
                 @foreach ($kaderindex as $kader)
                 <div class="card-body">
-                    <div class="print" style="float:right;">
-                        <a href="/kader/print/{{$kader->kader_id}}" target="_blank">
-                            <i class="uil uil-print"></i>
+                    <div class="print" style="float:right;" id="tooltip-container">
+                        <a href="/kader/print/{{$kader->kader_id}}" data-bs-container="#tooltip-container"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="Print" target="_blank"> <i class="uil uil-print"></i>
                         </a>
                     </div>
                     <div class="row">
                         <div class="col-xl-5">
                             <div class="product-detail">
-                                
-                                <div class="row">                                    
-                                    
+
+                                <div class="row">
+
                                         <div class="col-9">
                                             <div class="tab-content position-relative"
-                                                id="v-pills-tabContent">                                    
+                                                id="v-pills-tabContent">
                                                 <div class="tab-pane fade show active" id="product-1"
                                                     role="tabpanel">
                                                     <div class="product-img border">
-                                                        
+
                                                         @if (!empty($kader['pp']) && file_exists(base_path() . '/public/upload/kader/profile_picture/' . $kader->pp))
                                                             <img src="{{ '/../upload/kader/profile_picture/' . $kader->pp }}"
                                                                 alt=""
@@ -59,7 +60,7 @@
                             </div>
                         </div>
                         <div class="col-xl-7">
-                            <div class="mt-4 mt-xl-3 ps-xl-4">  
+                            <div class="mt-4 mt-xl-3 ps-xl-4">
                                 <h4 class="font-size-20 mb-3">{{ $kader['kader_name'] }}</h4>
                                 <div>
                                     <div class="row">
@@ -88,12 +89,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" id="tooltip-container">
                                             <div class="mt-3">
                                                 <h5 class="font-size-14">Data Keanggotaan :</h5>
                                                 <ul class="list-unstyled product-desc-list text-muted">
                                                     <li><i
-                                                        class="mdi mdi-circle-medium me-1 align-middle"></i>Ranting 
+                                                        class="mdi mdi-circle-medium me-1 align-middle"></i>Ranting
                                                         {{ $kader['ranting_name'] }}</li>
                                                     <li><i
                                                             class="mdi mdi-circle-medium me-1 align-middle"></i>NBM
@@ -103,7 +104,10 @@
                                                         : {{ $kader['nba'] }}</li>
                                                     <li><i
                                                             class="mdi mdi-circle-medium me-1 align-middle"></i><a
-                                                            href="{{ '/../upload/kader/nbma/' . $kader->nbma }}" target="_blank">Bukti Upload NBM/NBA</a></li>
+                                                            href="{{ '/../upload/kader/nbma/' . $kader->nbma }}"
+                                                            data-bs-container="#tooltip-container"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Download" target="_blank">Bukti Upload NBM/NBA</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -148,7 +152,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($kader_edu as $edu )
-                                                <tr>                                                    
+                                                <tr>
                                                     <td>{{$edu->jenjang}}</td>
                                                     <td>{{$edu->eduyear}}</td>
                                                 </tr>
@@ -168,7 +172,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($kader_training as $training )
-                                                <tr>                                                    
+                                                <tr>
                                                     <td>{{$training->trainingtype}}</td>
                                                     <td>{{$training->trainingname}}</td>
                                                 </tr>
@@ -189,7 +193,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($kader_orgint as $orgint )
-                                                <tr>                                                    
+                                                <tr>
                                                     <td>{{$orgint->orggrade}}</td>
                                                     <td>{{$orgint->orgintjabatan}}</td>
                                                     <td>{{$orgint->orgintstart}} ~ {{$orgint->orgintend}}</td>
@@ -211,7 +215,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($kader_orgext as $orgext )
-                                                <tr>                                                    
+                                                <tr>
                                                     <td>{{$orgext->orgextname}}</td>
                                                     <td>{{$orgext->orgextjabatan}}</td>
                                                     <td>{{$orgext->orgextstart}} ~ {{$orgext->orgextend}}</td>

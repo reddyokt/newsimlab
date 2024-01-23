@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">              
+                <div class="card-body">
                     <a href="/periode/create" type="button" class="btn btn-success waves-effect waves-light mb-3">
                         Create New Periode </a>
                     <table id="datatable" class="table table-bordered dt-responsive wrap"
@@ -36,12 +36,12 @@
                         <tbody>
                             @foreach ($periodeindex as $periode)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td> 
-                                    <td>{{ \Carbon\Carbon::parse($periode->from)->locale('id')->format('l, j F Y')}} ~ {{ \Carbon\Carbon::parse($periode->to)->locale('id')->format('l, j F Y')}}</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($periode->from)->locale('id')->format('j F Y')}} ~ {{ \Carbon\Carbon::parse($periode->to)->locale('id')->format('j F Y')}}</td>
                                     <td>@if ($periode->isActive == 'Yes')
                                         <div class="badge bg-soft-success font-size-12">Active</div>
                                         @else
-                                        <div class="badge bg-soft-danger font-size-12">Not Active</div>                                       
+                                        <div class="badge bg-soft-danger font-size-12">Not Active</div>
                                         @endif
                                     </td>
                                     <td>

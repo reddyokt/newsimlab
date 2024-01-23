@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('aum_name');
             $table->longText('address')->nullable();
             $table->enum('isActive',['Yes','No'])->default('Yes');
+            $table->integer('created_by')->nullable();
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });

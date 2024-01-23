@@ -15,7 +15,7 @@ class ProgramKerjaController extends Controller
     public function periodeIndex()
     {
         $periodeindex = DB::table('periode')->get()->toArray();
-        
+
         return view('auth.proker.periodeindex', compact('periodeindex'));
     }
 
@@ -36,8 +36,8 @@ class ProgramKerjaController extends Controller
         $periode->save();
 
         return redirect('/periode')->with('success', 'Alhamdulillah Periode berhasil dibuat');
-        
-    
+
+
     }
     public function prokerIndex()
     {
@@ -49,7 +49,7 @@ class ProgramKerjaController extends Controller
         ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
         ->leftJoin('pda', 'pda.pda_id', '=' ,'user.pda_id')
         ->whereNull('proker.deleted_at')
-        ->select(DB::raw('proker.id_proker as id_proker, proker.proker_name as name, 
+        ->select(DB::raw('proker.id_proker as id_proker, proker.proker_name as name,
             proker.prokerstart as start, proker.prokerend as end, proker.status as status,
             proker.anggaran as anggaran, user.name as username, pda.pda_name as pda_name'))
         ->get()->toArray();
@@ -62,42 +62,34 @@ class ProgramKerjaController extends Controller
         ->leftJoin('pda', 'pda.pda_id', '=' ,'user.pda_id')
         ->whereNull('proker.deleted_at')
         ->where('proker.pda_id', Session::get('pda_id'))
-        ->select(DB::raw('proker.id_proker as id_proker, proker.proker_name as name, 
+        ->select(DB::raw('proker.id_proker as id_proker, proker.proker_name as name,
             proker.prokerstart as start, proker.prokerend as end, proker.status as status,
             proker.anggaran as anggaran, user.name as username, pda.pda_name as pda_name'))
-        ->get()->toArray();  
+        ->get()->toArray();
         }
-
-        // $prokerindex = DB::table('proker')
-        // ->leftJoin('periode', 'periode.id_periode', '=' ,'proker.id_periode')
-        // ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
-        // ->leftJoin('pda', 'pda.pda_id', '=' ,'user.pda_id')
-        // ->whereNull('proker.deleted_at')
-        // ->select(DB::raw('proker.id_proker as id_proker, proker.proker_name as name, 
-        //     proker.prokerstart as start, proker.prokerend as end, proker.status as status,
-        //     proker.anggaran as anggaran, user.name as username, pda.pda_name as pda_name'))
-        // ->get()->toArray();
 
         return view('auth.proker.prokerindex', compact('prokerindex'));
     }
 
     public function createProker()
     {
-
+        $role = Session::get('role_code');
+        $pda = DB::table('pda')->whereNull('deleted_at')->get()->toArray();
         $periode = DB::table('periode')->where('periode.isActive', 'Yes')->first();
-        
+
         $datestart = Carbon::parse($periode->from)->locale('id');
         $datestart->settings(['formatFunction' => 'translatedFormat']);
 
         $dateend = Carbon::parse($periode->to   )->locale('id');
         $dateend->settings(['formatFunction' => 'translatedFormat']);
 
-        return view('auth.proker.createproker', compact('periode','datestart', 'dateend'));
+        return view('auth.proker.createproker', compact('periode','datestart', 'dateend', 'role', 'pda'));
     }
 
     public function storeCreateProker(Request $request)
     {
-        // dd (Session::get('pda_id'));
+        dd($request);
+
         date_default_timezone_set('Asia/Jakarta');
 
         // $dataImage = $request->file('image');
@@ -133,8 +125,8 @@ class ProgramKerjaController extends Controller
                     ->leftJoin('pda', 'pda.pda_id', '=' ,'proker.pda_id')
                     ->where('proker.id_proker', $id)
                     ->whereNull('proker.deleted_at')
-                    ->select(DB::raw('proker.id_proker, proker.proker_name, proker.anggaran, proker.description, 
-                                        proker.status, proker.prokerstart, proker.prokerend, 
+                    ->select(DB::raw('proker.id_proker, proker.proker_name, proker.anggaran, proker.description,
+                                        proker.status, proker.prokerstart, proker.prokerend,
                                         prokerdetail.created_at as created_at, pda.pda_name as pda_name'))
                     ->first();
         $prokerdetail = DB::table('prokerdetail')
@@ -142,5 +134,33 @@ class ProgramKerjaController extends Controller
                     ->get()->toArray();
 
         return view('auth.proker.prokerdetail', compact('proker','prokerdetail'));
+    }
+
+    public function editProker($id)
+    {
+        $role = Session::get('role_code');
+        $pda = DB::table('pda')->whereNull('deleted_at')->get()->toArray();
+
+        $editproker = DB::table('proker')
+            ->leftJoin('periode', 'periode.id_periode', '=' ,'proker.id_periode')
+            ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
+            ->leftJoin('pda', 'pda.pda_id', '=' ,'user.pda_id')
+            ->whereNull('proker.deleted_at')
+            ->where('proker.id_proker', $id)
+            ->select(DB::raw('proker.id_proker as id_proker, proker.proker_name as name,
+                proker.description as descr, proker.prokerstart as start, proker.prokerend as end,
+                proker.status as status, proker.anggaran as anggaran, user.name as username,
+                pda.pda_name as pda_name'))
+            ->first();
+
+        return view('auth.proker.editproker', compact('editproker', 'role', 'pda'));
+    }
+
+    public function storeEditProker(Request $request, $id)
+    {
+        $storeeditproker = ProgramKerja::find($id);
+        $storeeditproker->update($request->all());
+
+        return redirect('/proker')->with('success', 'Program Kerja telah diedit');
     }
 }

@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <!-- end row -->
-                    <div class="table-responsive mb-4">                        
+                    <div class="table-responsive mb-4">
                         <table id="datatable" class="table table-bordered dt-responsive wrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
@@ -62,22 +62,25 @@
                                         <td style="vertical-align: middle;">{{ $kader['kader_phone'] }}</td>
                                         <td style="vertical-align: middle;">{{ $kader['kader_email'] }}</td>
                                         <td style="vertical-align: middle;">{{ $kader['ranting_name'] }}</td>
-                                        <td style="vertical-align: middle;">
+                                        <td style="vertical-align: middle;" id="tooltip-container">
                                             <ul class="list-inline mb-0">
                                                 <li class="list-inline-item">
                                                     <a href="{{ url('kader/edit/' . Crypt::encrypt($kader['kader_id'])) }}"
-                                                        class="px-2 text-primary"><i
-                                                            class="uil uil-pen font-size-18"></i></a>
+                                                        class="px-2 text-primary" data-bs-container="#tooltip-container"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Edit"><i class="uil uil-pen font-size-18"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <a href="{{ url('kader/delete/' . Crypt::encrypt($kader['kader_id'])) }}"
-                                                        class="px-2 text-danger"><i
-                                                            class="uil uil-trash-alt font-size-18"></i></a>
+                                                        class="px-2 text-danger" data-bs-container="#tooltip-container"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Delete"><i class="uil uil-trash-alt font-size-18"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <a href="/kader/detail/{{$kader->kader_id}}" 
-                                                        class="px-2 text-warning"><i
-                                                            class="uil uil-eye font-size-18"></i></a>
+                                                    <a href="/kader/detail/{{$kader->kader_id}}"
+                                                        class="px-2 text-warning" data-bs-container="#tooltip-container"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="Detail"><i class="uil uil-eye font-size-18"></i></a>
                                                 </li>
                                             </ul>
                                         </td>

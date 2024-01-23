@@ -126,6 +126,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/aum', [App\Http\Controllers\AumController::class, 'aumIndex']);
     Route::get('/aum/create', [App\Http\Controllers\AumController::class, 'createAum']);
     Route::post('/aum/create', [App\Http\Controllers\AumController::class, 'storeCreateAum']);
+    Route::post('/aum/storeimage', [App\Http\Controllers\AumController::class, 'storeImage']);
     Route::get('/aum/edit/{id}', [App\Http\Controllers\Aumcontroller::class, 'editAum']);
     Route::post('/aum/edit/{id}', [App\Http\Controllers\AumController::class, 'storeEditAum']);
     Route::post('/aum/delete/{id}', [App\Http\Controllers\AumController::class, 'deleteAum']);
@@ -159,6 +160,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      Route::get('/proker/create', [App\Http\Controllers\ProgramKerjaController::class, 'createProker']);
      Route::post('/proker/create', [App\Http\Controllers\ProgramKerjaController::class, 'storeCreateProker']);
      Route::get('/proker/detail/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'prokerDetail']);
+     Route::get('/proker/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'editProker']);
+     Route::post('/proker/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'storeEditProker']);
 
 
 });
