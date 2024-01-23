@@ -147,6 +147,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/post/edit/{id}', [App\Http\Controllers\NewsController::class, 'storeEditPost']);
     Route::post('/post/delete/{id}', [App\Http\Controllers\NewsController::class, 'deletePost']);
     Route::get('validasiPost/{id}', [App\Http\Controllers\NewsController::class, 'validasiPost']);
+    Route::get('downPost/{id}', [App\Http\Controllers\NewsController::class, 'downPost']);
+    Route::get('post/preview/{id}', [App\Http\Controllers\NewsController::class, 'previewPost']);
 
      /*------------------12.Proker-----------------------------------------------*/
      Route::get('/periode', [App\Http\Controllers\ProgramKerjaController::class, 'periodeIndex']);

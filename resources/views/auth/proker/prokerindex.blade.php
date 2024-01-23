@@ -20,7 +20,8 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">              
+            @include('flashmessage')
+                <div class="card-body">
                     <a href="/proker/create" type="button" class="btn btn-success waves-effect waves-light mb-3">
                         Create New </a>
                     <table id="datatable" class="table table-bordered dt-responsive wrap"
@@ -43,21 +44,27 @@
                                     <td>{{$proker->anggaran}}</td>
                                     <td>{{ $proker->status }}</td>
                                     <td>{{ $proker->username }}</td>
-                                    <td>
+                                    <td id="tooltip-container">
                                         <ul class="list-inline mb-0">
                                             <li class="list-inline-item">
                                                 <a href="/proker/edit/{{ $proker->id_proker }}"
-                                                    class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                                    class="px-2 text-primary" data-bs-container="#tooltip-container"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Edit"><i class="uil uil-pen font-size-18"></i></a>
                                             </li>
                                             <li class="list-inline-item">
                                                 <a href="/proker/delete/{{ $proker->id_proker }}"
-                                                    class="px-2 text-danger"><i
-                                                        class="uil uil-trash-alt font-size-18"></i></a>
+                                                    class="px-2 text-danger" data-bs-container="#tooltip-container"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="delete"
+                                                    ><i class="uil uil-trash-alt font-size-18"></i></a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <a href="/proker/detail/{{$proker->id_proker}}" 
-                                                    class="px-2 text-warning"><i
-                                                        class="uil uil-eye font-size-18"></i></a>
+                                                <a href="/proker/detail/{{$proker->id_proker}}"
+                                                    class="px-2 text-warning" data-bs-container="#tooltip-container"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="detail"
+                                                    ><i class="uil uil-eye font-size-18"></i></a>
                                             </li>
                                         </ul>
                                     </td>

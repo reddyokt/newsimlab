@@ -94,6 +94,14 @@ class NewsController extends Controller
         return redirect('/post')->with('success', 'Alhamdulillah News berhasil dipublish');
 
     }
+    public function downPost($news_id)
+    {
+        $takedown = News::find($news_id);
+        $takedown->update(['status'=>'unpublished', 'updated_by' => Session::get('user_id')]);
+
+        return redirect('/post')->with('error', 'News telah di takedown');
+
+    }
 
     public function editPost($id)
     {
@@ -114,5 +122,26 @@ class NewsController extends Controller
                     ->first();
 
         return view('auth.news.post.editpost', compact('editpost', 'newscategory', 'enc'));
+    }
+
+    public function previewPost($id)
+    {
+        $role = Session::get('role_code');
+
+        $preview = DB::table('news')
+        ->where('news.news_id', $id)
+        ->whereNull('news.deleted_at')
+        ->leftJoin('newscategory','newscategory.id_category', '=' ,'news.id_category')
+        ->leftJoin('user','user.user_id', '=' ,'news.created_by')
+        ->leftJoin('user_role', 'user_role.user_id', '=' ,'user.user_id')
+        ->leftJoin('roles', 'roles.id', '=' ,'user_role.role_id')
+        ->leftJoin('pda', 'pda.pda_id', '=' ,'user.pda_id')
+        ->select(DB::raw('news.news_id, newscategory.category as category, news.created_at as created_at,news.news_title as news_title,
+                        news.news_body as news_body, news.feature_image as feature_image, news.images as images,
+                        news.status as status, user.name as author, roles.role_name as role_name,
+                        pda.pda_name as pda_name'))
+        ->first();
+
+        return view('auth.news.post.previewpost', compact('preview','role'));
     }
 }

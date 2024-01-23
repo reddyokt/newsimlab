@@ -20,6 +20,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+            @include('flashmessage')
                 <div class="card-body">
                     <a href="/post/add" type="button" class="btn btn-success waves-effect waves-light mb-3">
                         Create New Post </a>
@@ -42,15 +43,15 @@
                                     <td>
 
                                         <ul class="list-inline mb-0">
-                                            @if ($post['status'] == 'published')
+                                            {{-- @if ($post['status'] == 'published')
                                             @elseif ($role == "SUP" || $role == "PWA1" && $post['status'] == 'waiting')
                                             <li class="list-inline-item">
                                                 <a href="/validasiPost/{{ $post['news_id'] }}" onclick="return confirm('Yakin akan publish berita ini?!')"
                                                     class="px-2 text-success"><i class="uil uil-check-circle font-size-18"></i></a>
-                                            </li>                                            
+                                            </li>
                                             @else
 
-                                            @endif
+                                            @endif --}}
 
                                             <li class="list-inline-item">
                                                 <a href="/post/edit/{{ $post['news_id'] }}" class="px-2 text-primary"><i

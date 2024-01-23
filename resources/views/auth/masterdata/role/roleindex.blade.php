@@ -12,6 +12,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
+            @include('flashmessage')
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-6">
@@ -49,7 +50,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($roleindex as $role )
-                                <tr>                                    
+                                <tr>
                                     <td>
                                         <img src="{{ URL::asset('/assets/images/aisyiyah/logo-aisyiyah.png') }}" alt=""
                                             class="avatar-xs rounded-circle me-2">
@@ -71,7 +72,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                
+
 
                             </tbody>
                         </table>
