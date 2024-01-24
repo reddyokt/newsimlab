@@ -61,23 +61,25 @@ class AumController extends Controller
         $aum->created_by = $request->id;
         $aum->save();
 
-
+        // $images = [];
         if($request->hasfile('images'))
          {
             foreach($request->file('images') as $image)
             {
-                $namafile = str_replace(' ', '_', $aum->aum_name);
+                $namafile = str_replace(' ', '_', $request->name);
+                
+                $name =$namafile.'_'.time().rand(1,50).'.'.$image->extension();
+                // File::put(public_path('upload/aum/'.$name), $dataImage);
+                $image->move(public_path('/upload/aum/'), $name);
 
-                $name = $namafile.'-'.time().rand(1,50).'.'.$image->extension();
-                File::put(public_path('upload/aum/'.$name), $image);
+                $aum_image = new AumImage();
+                $aum_image['id_aum']=$aum->id_aum;
+                $aum_image['images']=str_replace('"', '', $name);
+                $aum_image['created_by']=$request->id;
+                $aum_image->save();
    
-                AumImage::create([
-                    'id_aum'=>$aum->id_aum,
-                    'images'=>$name
-                ]);
             }
          }
-
  
         return redirect('/aum')->with('success', 'Alhamdulillah, data AUM berhasil disimpan');
     }

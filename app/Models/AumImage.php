@@ -14,4 +14,6 @@ class AumImage extends Model
                            'images'
                             ];
     protected $primaryKey = 'id_aum_image';
+
+
 }
