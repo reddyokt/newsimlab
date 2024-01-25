@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -18,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone');
             $table->string('email');
-            $table->string('profile_picture');
+            $table->string('profile_picture')->nullable();
             $table->enum('isActive', ['Y', 'N'])->default('N');
             $table->unsignedBigInteger('pda_id')->nullable();
             $table->foreign('pda_id')->references('pda_id')->on('pda')->onDelete('restrict');
@@ -28,6 +30,9 @@ return new class extends Migration
             $table->date('delete_at')->nullable();
             $table->timestamps();
         });
+
+        User::create(['name' => 'Superadmin', 'username' => 'admin', 'password' => Hash::make('qwerty'), 'phone' => '087885481350', 'email' => 'reddyoktariawan@gmail.com']);
+        User::create(['name' => 'Ketua PWA', 'username' => 'jkt1', 'password' => Hash::make('qwerty'), 'phone' => '087885481350', 'email' => 'reddyoktariawan@gmail.com']);
     }
 
     /**

@@ -37,26 +37,26 @@
                         <h5 class="font-size-16">Amal Usaha Muhammadiyah</h5>
                         <div class="table-responsive mt-4">
                             <div>
-                                <p class="mb-1">Name AUM:</p>
-                                <h5 class="font-size-16">{{ $aum->aum_name }}</h5>
+                                <h5 class="mb-1">Name AUM:</h5>
+                                <p class="font-size-14">{{ $aum->aum_name }}</p>
                             </div>
                             <div class="mt-4">
-                                <p class="mb-1">Pengelola : </p> 
+                                <h5 class="mb-1">Pengelola : </h5> 
                                                             @if ($aum->pda_id != Null)
-                                                            <h5>PDA {{$aum->pda_name}}</h5>
+                                                            <p class="font-size-14">PDA {{$aum->pda_name}}</p>
                                                             @elseif ($aum->pca_id != Null)
-                                                            <h5>PCA {{$aum->pca_name}}</h5>
+                                                            <p class="font-size-14">PCA {{$aum->pca_name}}</p>
                                                             @elseif ($aum->ranting_id != Null)                                                    
-                                                            <h5>Ranting {{$aum->ranting_name}}</h5>
+                                                            <p class="font-size-14">Ranting {{$aum->ranting_name}}</p>
                                                             @endif                                
                             </div>
                             <div class="mt-4">
-                                <p class="mb-1">Bidang Usaha :</p>
-                                <h5 class="font-size-16">{{$aum->bidangusaha}}</h5>
+                                <h5 class="mb-1">Bidang Usaha :</h5>
+                                <p class="font-size-14">{{$aum->bidangusaha}}</p>
                             </div>
                             <div class="mt-4">
-                                <p class="mb-1">Kepemilikan :</p>
-                                <h5 class="font-size-16">{{$aum->kepemilikan}}</h5>
+                                <h5 class="mb-1">Kepemilikan :</h5>
+                                <p class="font-size-14">{{$aum->kepemilikan}}</p>
                             </div>
                         </div>
                     </div>
@@ -71,16 +71,17 @@
                         <div>
                             <div>
                                 <div class="mt-4">
-                                    <p class="mb-1">Alamat :</p>
-                                    <h5 class="font-size-16">{{$aum->address}}</h5>
+                                    {{-- <i class="uil-map-marker"></i><p class="mb-1">Alamat :</p> --}}
+                                    <h5 class="font-size-16 mb-3"><i class="uil uil-map-marker font-size-20 align-middle me-2"></i> Lokasi AUM</h5>
+                                    <p class="font-size-14">{{$aum->address}}</p>
                                 </div>
                                 <div class="mt-4">
                                     <p class="mb-1">Galerry  :</p>
                                     <div class="zoom-gallery">
                                         @foreach ($aum_image as $image)
                                             @if ($image->images != null)
-                                                <a class="border-primary rounded g-2 " href="{{ '/../upload/aum/' . $image->images }}" title="{{$image->images}}">
-                                                    <img  src="{{ '/../upload/aum/' . $image->images }}" class="img-fluid" alt="Responsive image" width="40%;"> 
+                                                <a class="border-primary rounded" href="{{ '/../upload/aum/' . $image->images }}" title="{{$image->images}}">
+                                                    <img  src="{{ '/../upload/aum/' . $image->images }}" class="img-fluid p-3" alt="{{$image->images}}" width="40%;"> 
                                                 </a>
                                             @else
                                                 <img src="{{ URL::asset('assets/media/Image_not_available.png') }}" alt=""

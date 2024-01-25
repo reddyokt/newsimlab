@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_setting', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
-            $table->foreign('user_id')->references('user_id')->on('user')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('user')->onDelete('restrict');
             $table->string('default_setting')->default('0|0|0|id');
             $table->string('created_by');
             $table->date('deleted_at')->nullable();

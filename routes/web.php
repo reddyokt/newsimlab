@@ -68,6 +68,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/account/pda', [App\Http\Controllers\AccountController::class, 'getPDA']);
     Route::get('/account/majelis', [App\Http\Controllers\AccountController::class, 'getMajelis']);
     Route::post('/changepassword', [App\Http\Controllers\AccountController::class, 'changePassword']);
+    Route::get('verified/{token}', [App\Http\Controllers\AuthenticationController::class, 'verifiedAccount'])->name('authentication.verifiedAccount');
 
     /*--------------------3.pda------------------------------------------------*/
     Route::get('/pda', [App\Http\Controllers\PdaController::class, 'pdaIndex']);

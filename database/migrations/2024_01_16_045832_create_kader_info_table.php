@@ -22,8 +22,13 @@ return new class extends Migration
             $table->longText('address')->nullable();
             $table->integer('nba')->nullable();
             $table->integer('nbm')->nullable();
-            $table->unsignedBigInteger('ranting_id')->index()->nullable();
+            $table->unsignedBigInteger('ranting_id')->index();
             $table->foreign('ranting_id')->references('ranting_id')->on('ranting')->onDelete('restrict');
+            $table->unsignedBigInteger('pca_id')->index();
+            $table->foreign('pca_id')->references('pca_id')->on('pca')->onDelete('restrict');
+            $table->unsignedBigInteger('pda_id')->index();
+            $table->foreign('pda_id')->references('pda_id')->on('pda')->onDelete('restrict');
+            
             $table->unsignedBigInteger('pekerjaan_id')->index()->nullable();
             $table->foreign('pekerjaan_id')->references('id_pekerjaan')->on('pekerjaan')->onDelete('restrict');
             $table->enum('status', ['waiting', 'valid', 'declined'])->default('waiting');

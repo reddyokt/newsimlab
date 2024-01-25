@@ -13,6 +13,8 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 Use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class AccountController extends Controller
 {
@@ -47,6 +49,10 @@ class AccountController extends Controller
     {
         // dd($request);
         date_default_timezone_set('Asia/Jakarta');
+
+        $eight_random_str = strtolower(Str::random(6));
+        $three_random_num = mt_rand(1000, 9999);
+        $token_verified =  Str::random(32);
 
         $checkExist = DB::table('user')
         ->where('email', $request->email)
@@ -90,8 +96,31 @@ class AccountController extends Controller
             $user_role->user_id = $user->user_id;
             $user_role->role_id = $request->role;
             $user_role->created_at = date('Y-m-d H:i:s');
-
             $user_role->save();
+
+            $user_settings = new UserSetting();
+            $user_settings->user_id = $user->user_id;
+            $user_settings->created_at = date('Y-m-d H:i:s');
+            $user_settings->created_by = Session::get('username');
+            $user_settings->save();
+
+            if(env('BYPASS_NOTIF')){
+                $dataNotif = array(
+                    'to_name' => $request->name,
+                    'username' =>$request->username,
+                    'password' => $eight_random_str,
+                    'url' => url('verified/'.$token_verified)
+                );
+        
+                $to_name = $request->name;
+                $to_email = $request->email;
+                $subjectMail = "Verifikasi Akun Aisyiyah PWA DKI Jakarta";
+        
+                Mail::send("mail.mailverifiedaccount", $dataNotif, function($message) use ($to_name, $to_email, $subjectMail) {
+                    $message->to($to_email, $to_name)->subject($subjectMail);
+                    $message->from(config('mail.from.address'), config('mail.from.name'));
+                });
+            }
 
             return redirect('/account')->with('success', 'Alhamdulillah Akun berhasil dibuat');
         }
@@ -120,31 +149,11 @@ class AccountController extends Controller
     public function updateAccount(Request $request, $id)
     {
 
-        // dd($request);
 
         date_default_timezone_set('Asia/Jakarta');
         $req = $request->all();
         $id = $req['id'];
         $enc = $id;
-        // try {
-        //     $id = Crypt::decrypt($id);
-        // } catch (DecryptException $e) {
-        //     return view('error.404');
-        // }
-
-        // $dataImage = null;
-        // $extension = '';
-        // if($req['profile_avatar_remove'] == '1'){
-        //     if (preg_match('#^data:image/\w+;base64,#i', $req['image'])) {
-        //         $dataImage = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $req['image']));
-        //         $extension = explode('/', mime_content_type($req['image']))[1];
-        //     }
-        // }else{
-        //     if (preg_match('#^data:image/\w+;base64,#i', $req['image'])) {
-        //         $dataImage = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $req['image']));
-        //         $extension = explode('/', mime_content_type($req['image']))[1];
-        //     }
-        // }
 
         $user = User::where('user_id', $id)->first();
         $userRole = UserRole::where('user_id', $id)
@@ -157,12 +166,10 @@ class AccountController extends Controller
             ->whereNull('delete_at')
             ->first();
 
-            // dd($checkEmail);
-
         if($checkEmail != null){
             return back()->with('warning', 'Email tersebut sudah ada');
         }
-        // dd($user->user_id);
+
         $checkUsername = DB::table('user')
             ->Where('username', $req['username'])
             ->where('user_id','<>',$user->user_id)

@@ -4,7 +4,7 @@
 @endsection
 @section('css')
 <!-- DataTables -->
-<link href="{{ URL::asset('/assets/libs/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+{{-- <link href="{{ URL::asset('/assets/libs/select2/select2.min.css') }}" rel="stylesheet" type="text/css" /> --}}
 <link href="{{ URL::asset('/assets/libs/dropzone/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
@@ -61,9 +61,10 @@
                                                 value="{{$data->name}}">
                                         </div>
                                     </div>
+                                    {{-- <input type="hidden" name="usernmae" value="{{$data->username}}"> --}}
                                     <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="name">Username</label>
+                                            <label class="form-label" for="username">Username</label>
                                             <input id="username" name="username" type="text" class="form-control"
                                                 value="{{$data->username}}">
                                         </div>
@@ -86,29 +87,36 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="image">Profile Picture</label>
-                                            <input id="image" name="image" type="file" class="form-control" accept="image/png, image/jpeg, application/pdf">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" class="control-label">Pilih Role</label>
-                                            <select class="select2 form-control select2-multiple" name="role"
-                                                data-placeholder="Choose ...">
+                                            <label class="form-label" class="control-label">Role</label>
+                                            <select class="form-control select2-multiple" name="role"
+                                                data-placeholder="Choose ..." disabled>
                                                 @foreach($roleList as $key=>$value)
                                                 <option value="{{$value->id}}" {{$value->id == $data->role_id ? 'selected' : ''}}>{{$value->role_name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="image">Profile Picture</label>
+                                            <input id="image" name="image" type="file" class="form-control" accept="image/png, image/jpeg, application/pdf">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
                                         <div class="mb-3">
                                             <input type="hidden" value="{{$data['profile_picture']}}" name="old_image">
-                                            {{-- <label class="form-label" for="image">Your Profile Picture</label> <br> --}}
-                                            <img src="{{ '/../upload/profile_picture/' . $data['profile_picture'] }}"
-                                            class="avatar-lg me-2">
+                                            @if (!empty($data['profile_picture']) && file_exists(base_path() . '/public/upload/profile_picture/' . $data->profile_picture))
+                                            <img src="{{ '/../upload/profile_picture/' . $data->profile_picture }}"
+                                                alt=""  class="rounded avatar-lg">
+                                            @else
+                                            <img src="{{ URL::asset('assets/media/users/default.jpg') }}"
+                                                alt=""
+                                                class="rounded avatar-lg" >
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

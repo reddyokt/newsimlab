@@ -758,19 +758,19 @@ class AuthenticationController extends Controller
     //     return $randomString;
     // }
 
-    // public function verifiedAccount($token){
-    //     $user = User::where('token_verified', $token)->first();
-    //     if($user !== null){
-    //         $user->isActive = 'Y';
-    //         $user->updated_at = date('Y-m-d H:i:s');
-    //         $user->updated_by = Session::get('user_id');
-    //         $user->save();
+    public function verifiedAccount($token){
+        $user = User::where('token_verified', $token)->first();
+        if($user !== null){
+            $user->isActive = 'Y';
+            $user->updated_at = date('Y-m-d H:i:s');
+            $user->updated_by = Session::get('user_id');
+            $user->save();
 
-    //         return redirect('login');
-    //     } else {
-    //         return redirect('login')->with('alert','Gagal melakukan verifikasi akun!');
-    //     }
-    // }
+            return redirect('login');
+        } else {
+            return redirect('login')->with('alert','Gagal melakukan verifikasi akun!');
+        }
+    }
 
     // private function initPaymentGateway(){
     //     // Set your Merchant Server Key

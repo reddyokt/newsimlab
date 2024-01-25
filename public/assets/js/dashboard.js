@@ -1,22 +1,22 @@
 // CHART REGIS
 const regisData = $(".registrationData").val();
-const totalDpd = $(".totalDPD").val();
-const dpdList = $(".dpdList").val();
+const totalPda = $(".totalPDA").val();
+const pdaList = $(".pdaList").val();
 const valRegisData = Object.values(JSON.parse(regisData));
-const valTotalDpd = Object.values(JSON.parse(totalDpd));
-const valDpdList = JSON.parse(dpdList);
+const valTotalPda = Object.values(JSON.parse(totalPda));
+const valPdaList = JSON.parse(pdaList);
 var roleCode = $('#roleCode').val();
-if(roleCode == 'ADM' || roleCode == 'ADPP'){
-	var optionsDpd = {
+if(roleCode == 'SUP' || roleCode == 'PWA1'){
+	var optionsPda = {
 		chart: {
 			type: 'bar',
 		},
 		series: [{
-			name: labelDpdList,
-			data: valTotalDpd
+			name: labelPdaList,
+			data: valTotalPda
 		}],
 		xaxis: {
-			categories: valDpdList
+			categories: valPdaList
 		},
 		yaxis: {
 			labels: {
@@ -26,8 +26,8 @@ if(roleCode == 'ADM' || roleCode == 'ADPP'){
 			}
 		},
 	}
-	var chartDpd = new ApexCharts(document.querySelector("#chartTotalDPD"), optionsDpd);
-	chartDpd.render();
+	var chartPda = new ApexCharts(document.querySelector("#chartTotalPDA"), optionsPda);
+	chartPda.render();
 }
 
 var options = {

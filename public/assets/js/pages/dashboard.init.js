@@ -231,9 +231,11 @@ if (BarchartGrowthColors) {
   var chart2 = new ApexCharts(document.querySelector("#growth-chart"), options2);
   chart2.render();
 } //
-// Sales Analytics Chart
-
-
+// Kader Chart
+const totalPda = $(".totalPDA").val();
+const pdaList = $(".pdaList").val();
+const valTotalPda = Object.values(JSON.parse(totalPda));
+const valPdaList = JSON.parse(pdaList);
 var LinechartsalesColors = getChartColorsArray("sales-analytics-chart");
 
 if (LinechartsalesColors) {
@@ -257,17 +259,9 @@ if (LinechartsalesColors) {
     },
     colors: LinechartsalesColors,
     series: [{
-      name: 'Desktops',
+      name: 'Kader',
       type: 'column',
-      data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-    }, {
-      name: 'Laptops',
-      type: 'area',
-      data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
-    }, {
-      name: 'Tablets',
-      type: 'line',
-      data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
+      data: valTotalPda
     }],
     fill: {
       opacity: [0.85, 0.25, 1],
@@ -280,16 +274,13 @@ if (LinechartsalesColors) {
         stops: [0, 100, 100, 100]
       }
     },
-    labels: ['01/01/2003', '02/01/2003', '03/01/2003', '04/01/2003', '05/01/2003', '06/01/2003', '07/01/2003', '08/01/2003', '09/01/2003', '10/01/2003', '11/01/2003'],
-    markers: {
-      size: 0
-    },
     xaxis: {
-      type: 'datetime'
+      type: 'text',
+      categories: valPdaList,
     },
     yaxis: {
       title: {
-        text: 'Points'
+        text: 'Jumlah Kader'
       }
     },
     tooltip: {
@@ -298,7 +289,7 @@ if (LinechartsalesColors) {
       y: {
         formatter: function formatter(y) {
           if (typeof y !== "undefined") {
-            return y.toFixed(0) + " points";
+            return y.toFixed(0) + " orang";
           }
 
           return y;
@@ -310,6 +301,79 @@ if (LinechartsalesColors) {
     }
   };
   var chart = new ApexCharts(document.querySelector("#sales-analytics-chart"), options);
+  chart.render();
+}
+
+// Kader Chart
+const totalAum = $(".totalPDAAum").val();
+const pdaLists = $(".pdaList").val();
+const valTotalAum = Object.values(JSON.parse(totalAum));
+const valPdaLists = JSON.parse(pdaLists);
+var LinechartsalesColors = getChartColorsArray("aum-chart");
+
+if (LinechartsalesColors) {
+  var options = {
+    chart: {
+      height: 343,
+      type: 'line',
+      stacked: false,
+      toolbar: {
+        show: false
+      }
+    },
+    stroke: {
+      width: [0, 2, 4],
+      curve: 'smooth'
+    },
+    plotOptions: {
+      bar: {
+        columnWidth: '30%'
+      }
+    },
+    colors: LinechartsalesColors,
+    series: [{
+      name: 'AUM',
+      type: 'column',
+      data: valTotalAum
+    }],
+    fill: {
+      opacity: [0.85, 0.25, 1],
+      gradient: {
+        inverseColors: false,
+        shade: 'light',
+        type: "vertical",
+        opacityFrom: 0.85,
+        opacityTo: 0.55,
+        stops: [0, 100, 100, 100]
+      }
+    },
+    xaxis: {
+      type: 'text',
+      categories: valPdaLists,
+    },
+    yaxis: {
+      title: {
+        text: 'Jumlah AUM'
+      }
+    },
+    tooltip: {
+      shared: true,
+      intersect: false,
+      y: {
+        formatter: function formatter(y) {
+          if (typeof y !== "undefined") {
+            return y.toFixed(0) + " AUM";
+          }
+
+          return y;
+        }
+      }
+    },
+    grid: {
+      borderColor: '#f1f1f1'
+    }
+  };
+  var chart = new ApexCharts(document.querySelector("#aum-chart"), options);
   chart.render();
 }
 /******/ })()

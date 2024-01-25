@@ -65,7 +65,7 @@
                                 @foreach ($accountindex as $acc)
                                     <tr>
                                         <td>{{ $acc['nomor'] }}</td>
-                                        <td>
+                                        <td style="width: 30%;">
                                             @if (
                                                 !empty($acc['profile_picture']) &&
                                                     file_exists(base_path() . '/public/upload/profile_picture/' . $acc['profile_picture']))

@@ -5,7 +5,20 @@
 @section('css')
     <!-- DataTables -->
     <link href="{{ URL::asset('/assets/libs/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ URL::asset('/assets/libs/dropzone/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
+    <style>
+        .container {
+            max-width: 500px;
+        }
+        dl, ol, ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .imgPreview img {
+            padding: 8px;
+            max-width: 200px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -86,15 +99,6 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="image">Profile Picture</label>
-                                            <input id="image" name="image" type="file" class="form-control"
-                                                accept="image/png, image/jpeg"placeholder="#">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
                                             <label class="form-label" for="role">Pilih Role</label>
                                             <select class="form-select form-control form-select-solid" name="role"
                                                 id="role">
@@ -104,6 +108,8 @@
                                             </select>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div id="divpda" style="display: none">
                                             <div class="col-md-12 mb-3">
@@ -114,6 +120,8 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div id="divmajelis" style="display: none">
                                             <div class="col-md-12 mb-3">
                                                 <label class="form-label" class="control-label">Pilih Majelis</label>
@@ -122,6 +130,18 @@
                                                     data-placeholder="{{ __('account.placeholder_majelis') }}">
                                                 </select>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-md-6">
+                                        <label class="form-label" for="image">Upload Profile Picture</label>
+                                        <input class="form-control" type="file" name="image" id="image" 
+                                               accept="image/png, image/jpeg, image/jpg">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="user-image mb-3 text-center">
+                                            <div class="imgPreview"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -148,4 +168,25 @@
     <script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/dropzone/dropzone.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/ecommerce-add-product.init.js') }}"></script>
+    <script>
+        $(function() {
+            // Multiple images preview with JavaScript
+            var multiImgPreview = function(input, imgPreviewPlaceholder) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(
+                                imgPreviewPlaceholder);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+            $('#image').on('change', function() {
+                multiImgPreview(this, 'div.imgPreview');
+            });
+        });
+    </script>
 @endsection
