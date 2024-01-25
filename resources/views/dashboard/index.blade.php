@@ -53,7 +53,7 @@
                     <div class="mt-3">
                         <input type="hidden" class="totalPDA" value="{{$allData['totalPDA']}}"/>
                         <input type="hidden" class="pdaList" value="{{$allData['pdaList']}}"/>
-                        <div id="sales-analytics-chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]'
+                        <div id="kader_chart" data-colors='["--bs-primary", "#dfe2e6", "--bs-warning"]'
                             class="apex-charts" dir="ltr"></div>
                     </div>
                 </div> <!-- end card-body-->

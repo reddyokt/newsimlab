@@ -236,7 +236,7 @@ const totalPda = $(".totalPDA").val();
 const pdaList = $(".pdaList").val();
 const valTotalPda = Object.values(JSON.parse(totalPda));
 const valPdaList = JSON.parse(pdaList);
-var LinechartsalesColors = getChartColorsArray("sales-analytics-chart");
+var LinechartsalesColors = getChartColorsArray("kader_chart");
 
 if (LinechartsalesColors) {
   var options = {
@@ -300,7 +300,7 @@ if (LinechartsalesColors) {
       borderColor: '#f1f1f1'
     }
   };
-  var chart = new ApexCharts(document.querySelector("#sales-analytics-chart"), options);
+  var chart = new ApexCharts(document.querySelector("#kader_chart"), options);
   chart.render();
 }
 
