@@ -20,6 +20,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                @include('flashmessage')
                 <div class="card-body">
                     <a href="/periode/create" type="button" class="btn btn-success waves-effect waves-light mb-3">
                         Create New Periode </a>
@@ -37,24 +38,31 @@
                             @foreach ($periodeindex as $periode)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($periode->from)->locale('id')->format('j F Y')}} ~ {{ \Carbon\Carbon::parse($periode->to)->locale('id')->format('j F Y')}}</td>
-                                    <td>@if ($periode->isActive == 'Yes')
-                                        <div class="badge bg-soft-success font-size-12">Active</div>
+                                    <td>{{ \Carbon\Carbon::parse($periode->from)->locale('id')->format('j F Y') }} ~
+                                        {{ \Carbon\Carbon::parse($periode->to)->locale('id')->format('j F Y') }}</td>
+                                    <td>
+                                        @if ($periode->isActive == 'Yes')
+                                            <div class="badge bg-soft-success font-size-12">Active</div>
                                         @else
-                                        <div class="badge bg-soft-danger font-size-12">Not Active</div>
+                                            <div class="badge bg-soft-danger font-size-12">Not Active</div>
                                         @endif
                                     </td>
                                     <td>
                                         <ul class="list-inline mb-0">
-                                            <li class="list-inline-item">
-                                                <a href="/post/edit/{{ $periode->id_periode }}"
-                                                    class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="/post/delete/{{ $periode->id_periode }}"
-                                                    class="px-2 text-danger"><i
-                                                        class="uil uil-trash-alt font-size-18"></i></a>
-                                            </li>
+
+                                            @if ($periode->isActive == 'Yes')
+                                                <li class="list-inline-item">
+                                                    <a href="/periode/edit/{{ $periode->id_periode }}"
+                                                        class="px-2 text-primary"><i
+                                                            class="uil uil-pen font-size-18"></i></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="/periode/delete/{{ $periode->id_periode }}"
+                                                        class="px-2 text-danger"><i
+                                                            class="uil uil-trash-alt font-size-18"></i></a>
+                                                </li>
+                                            @else
+                                            @endif
                                         </ul>
                                     </td>
                                 </tr>

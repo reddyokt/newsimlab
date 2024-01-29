@@ -255,6 +255,7 @@ class AuthenticationController extends Controller
                 Session::put('menu', $menu);
                 Session::put('roles', $dataRole);
                 Session::put('pda_id', $data->pda_id);
+                Session::put('id_majelis', $data->id_majelis);
                 // Session::put('role_other', $role_other_data);
                 Session::put('role_id', $dataRole->id);
                 Session::put('role_name', $dataRole->role_name);

@@ -5,13 +5,17 @@
 
 @section('css')
     <!-- plugin css -->
-    <link href="{{ URL::asset('/assets/libs/dropzone/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('/assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
     @component('common-components.breadcrumb')
-        @slot('pagetitle') Ranting @endslot
-        @slot('title') Ranting List @endslot
+        @slot('pagetitle')
+            Ranting
+        @endslot
+        @slot('title')
+            Ranting List
+        @endslot
     @endcomponent
 
     <div class="row">
@@ -27,25 +31,11 @@
                                         class="mdi mdi-plus me-2"></i> Add New</a>
                             </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-inline float-md-end mb-3">
-                                <div class="search-box ms-2">
-                                    <div class="position-relative">
-                                        <input type="text" class="form-control rounded bg-light border-0"
-                                            placeholder="Search...">
-                                        <i class="mdi mdi-magnify search-icon"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
                     </div>
                     <!-- end row -->
                     <div class="table-responsive mb-4">
-                        <table class="table table-centered table-wrap mb-0">
+                        <table id="datatable" class="table table-bordered dt-responsive wrap"
+                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th scope="col">Nomor</th>
@@ -56,58 +46,51 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($rantingindex as $ranting )
-                                <tr>
-                                    <td style="width:2%;">{{$ranting['nomor']}}</td>
-                                    <td>Ranting {{$ranting['ranting_name']}}<br>
-                                        - PCA {{$ranting['pca_name']}}<br>
-                                        -- PDA {{$ranting['pda_name']}}
+                                @foreach ($rantingindex as $ranting)
+                                    <tr>
+                                        <td style="width:2%;">{{ $ranting['nomor'] }}</td>
+                                        <td>Ranting {{ $ranting['ranting_name'] }}<br>
+                                            - PCA {{ $ranting['pca_name'] }}<br>
+                                            -- PDA {{ $ranting['pda_name'] }}
 
-                                    </td>
-                                    <td>{{$ranting['villages']}}</td>
+                                        </td>
+                                        <td>{{ $ranting['villages'] }}</td>
 
-                                    <td style="width:40%;">
-                                    @if ($ranting['ranting_address'] != Null)
-                                    {{$ranting['ranting_address']}}
-                                    @else
-                                    <p>Alamat belum diisi</p>
-                                    @endif
-                                    </td>
+                                        <td style="width:40%;">
+                                            @if ($ranting['ranting_address'] != null)
+                                                {{ $ranting['ranting_address'] }}
+                                            @else
+                                                <p>Alamat belum diisi</p>
+                                            @endif
+                                        </td>
 
-                                    <td>
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item">
-                                                <a href="{{url('pca/edit/'. Crypt::encrypt($ranting['ranting_id']))}}" class="px-2 text-primary"><i
-                                                        class="uil uil-pen font-size-18"></i></a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="{{url('pca/delete/'. Crypt::encrypt($ranting['ranting_id']))}}" class="px-2 text-danger"><i
-                                                        class="uil uil-trash-alt font-size-18"></i></a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            <ul class="list-inline mb-0">
+                                                <li class="list-inline-item">
+                                                    <a href="{{ url('ranting/edit/' . Crypt::encrypt($ranting['ranting_id'])) }}"
+                                                        class="px-2 text-primary"><i
+                                                            class="uil uil-pen font-size-18"></i></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="{{ url('ranting/delete/' . Crypt::encrypt($ranting['ranting_id'])) }}"
+                                                        class="px-2 text-danger"><i
+                                                            class="uil uil-trash-alt font-size-18"></i></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-6">
-                            <div>
-                                <p class="mb-sm-0">Showing 1 to 10 of {{count($rantingindex)}} entries</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- end row -->
-
 @endsection
 @section('script')
     <!-- Plugins js -->
-    <script src="{{ URL::asset('/assets/libs/dropzone/dropzone.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/datatables/datatables.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
 @endsection

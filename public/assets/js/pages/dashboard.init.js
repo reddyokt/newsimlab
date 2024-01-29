@@ -231,6 +231,7 @@ if (BarchartGrowthColors) {
   var chart2 = new ApexCharts(document.querySelector("#growth-chart"), options2);
   chart2.render();
 } //
+
 // Kader Chart
 const totalPda = $(".totalPDA").val();
 const pdaList = $(".pdaList").val();
@@ -306,10 +307,10 @@ if (LinechartsalesColors) {
 
 // Kader Chart
 const totalAum = $(".totalPDAAum").val();
-const pdaLists = $(".pdaList").val();
+const pdaLists = $(".pdaLists").val();
 const valTotalAum = Object.values(JSON.parse(totalAum));
 const valPdaLists = JSON.parse(pdaLists);
-var LinechartsalesColors = getChartColorsArray("aum-chart");
+var LinechartsalesColors = getChartColorsArray("aum_chart");
 
 if (LinechartsalesColors) {
   var options = {
@@ -373,7 +374,7 @@ if (LinechartsalesColors) {
       borderColor: '#f1f1f1'
     }
   };
-  var chart = new ApexCharts(document.querySelector("#aum-chart"), options);
+  var chart = new ApexCharts(document.querySelector("#aum_chart"), options);
   chart.render();
 }
 /******/ })()

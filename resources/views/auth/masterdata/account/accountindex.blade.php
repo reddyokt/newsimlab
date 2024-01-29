@@ -5,7 +5,7 @@
 
 @section('css')
     <!-- plugin css -->
-    <link href="{{ URL::asset('/assets/libs/dropzone/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('/assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -31,83 +31,63 @@
                                         class="mdi mdi-plus me-2"></i> Add New</a>
                             </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-inline float-md-end mb-3">
-                                <div class="search-box ms-2">
-                                    <div class="position-relative">
-                                        <input type="text" class="form-control rounded bg-light border-0"
-                                            placeholder="Search...">
-                                        <i class="mdi mdi-magnify search-icon"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
                     </div>
                     <!-- end row -->
                     <div class="table-responsive mb-4">
-                        <table class="table table-centered table-wrap mb-0">
-                            <thead>
+                        <table id="datatable" class="table table-bordered dt-responsive wrap"
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%; font-size:12px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nomor</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Phone number/Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col" style="width: 200px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($accountindex as $acc)
                                 <tr>
-                                    <th scope="col">Nomor</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Phone number</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Role</th>
-                                    <th scope="col" style="width: 200px;">Action</th>
+                                    <td>{{ $acc['nomor'] }}</td>
+                                    <td style="width: 40%;">
+                                        @if (
+                                            !empty($acc['profile_picture']) &&
+                                                file_exists(base_path() . '/public/upload/profile_picture/' . $acc['profile_picture']))
+                                            <img src="{{ '/../upload/profile_picture/' . $acc['profile_picture'] }}"
+                                                alt="" class="avatar-sm rounded-circle me-2">
+                                        @else
+                                            <img class="avatar-sm rounded-circle me-2"
+                                                src="{{ asset('assets/media/users/default.jpg') }}" alt="user" />
+                                        @endif
+                                        <span><a href="#" class="text-body">{{ $acc['name'] }}</a></span>
+                                    </td>
+                                    <td>{{ $acc['username'] }}</td>
+                                    <td style="width: 30%;">
+                                        <p> Phone : {{ $acc['phone'] }} </p>
+                                        <p> Email : {{ $acc['email'] }} </p>                                    
+                                    </td>
+                                    <td style="width: 20%;">
+                                        {{ $acc['role_name'] }} <br> {{ $acc['pda_name'] }}
+                                    </td>
+                                    <td>
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <a href="{{ url('account/edit/' . Crypt::encrypt($acc['user_id'])) }}"
+                                                    class="px-2 text-primary"><i
+                                                        class="uil uil-pen font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="{{ url('account/delete/' . Crypt::encrypt($acc['user_id'])) }}"
+                                                    class="px-2 text-danger"><i
+                                                        class="uil uil-trash-alt font-size-18"></i></a>
+                                            </li>
+                                        </ul>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($accountindex as $acc)
-                                    <tr>
-                                        <td>{{ $acc['nomor'] }}</td>
-                                        <td style="width: 30%;">
-                                            @if (
-                                                !empty($acc['profile_picture']) &&
-                                                    file_exists(base_path() . '/public/upload/profile_picture/' . $acc['profile_picture']))
-                                                <img src="{{ '/../upload/profile_picture/' . $acc['profile_picture'] }}"
-                                                    alt="" class="avatar-md rounded-circle me-2">
-                                            @else
-                                                <img class="avatar-md rounded-circle me-2"
-                                                    src="{{ asset('assets/media/users/default.jpg') }}" alt="user" />
-                                            @endif
-                                            <a href="#" class="text-body">{{ $acc['name'] }}</a>
-                                        </td>
-                                        <td>{{ $acc['username'] }}</td>
-                                        <td>{{ $acc['phone'] }}</td>
-                                        <td>{{ $acc['email'] }}</td>
-                                        <td>{{ $acc['role_name'] }} <br> {{ $acc['pda_name'] }}</td>
-                                        <td>
-                                            <ul class="list-inline mb-0">
-                                                <li class="list-inline-item">
-                                                    <a href="{{ url('account/edit/' . Crypt::encrypt($acc['user_id'])) }}"
-                                                        class="px-2 text-primary"><i
-                                                            class="uil uil-pen font-size-18"></i></a>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <a href="{{ url('account/delete/' . Crypt::encrypt($acc['user_id'])) }}"
-                                                        class="px-2 text-danger"><i
-                                                            class="uil uil-trash-alt font-size-18"></i></a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-sm-6">
-                            <div>
-                                <p class="mb-sm-0">Showing 1 to 10 of {{count($accountindex)}} entries</p>
-                            </div>
-                        </div>                        
+                            @endforeach
+                        </tbody>
+                    </table>
                     </div>
                 </div>
             </div>
@@ -117,5 +97,6 @@
 @endsection
 @section('script')
     <!-- Plugins js -->
-    <script src="{{ URL::asset('/assets/libs/dropzone/dropzone.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/datatables/datatables.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
 @endsection

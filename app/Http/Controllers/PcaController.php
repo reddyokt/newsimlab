@@ -93,11 +93,20 @@ class PCAController extends Controller
         $pca = DB::table('pca')->where('pca.pca_id', $id)->first();
         $vill_id = $pca->district_id;
 
-        // dd($reg_id);
-
         $villages = DB::table('villages')->where('villages.district_id', $vill_id)->get()->toArray();
         return response()->json($villages);
 
+
         
+    }
+
+    public function pcaBypdass($id)
+    {
+        $pca = DB::table('pca')->where('pca.pca_id', $id)->first();
+        $pda_id = $pca->pda_id;
+
+        $pdass = DB::table('pda')->where('pda.pda_id', $pda_id)->get()->toArray();
+        return response()->json($pdass);   
+
     }
 }

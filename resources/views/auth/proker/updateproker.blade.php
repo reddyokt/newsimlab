@@ -1,11 +1,30 @@
 @extends('layouts.master')
 @section('title')
-    Detail Program Kerja
+    Update Program Kerja
 @endsection
 @section('css')
     <!-- DataTables -->
     <link href="{{ URL::asset('/assets/libs/owl-carousel/owl-carousel.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('/assets/libs/magnific-popup/magnific-popup.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('/assets/libs/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <style>
+        .container {
+            max-width: 500px;
+        }
+
+        dl,
+        ol,
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .imgPreview img {
+            padding: 8px;
+            max-width: 200px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -14,23 +33,15 @@
             Program Kerja
         @endslot
         @slot('title')
-            Detail
+            Update
         @endslot
     @endcomponent
     <div class="row mb-3">
+        @include('flashmessage')
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-body">
                     <div class="text-center">
-                        <div class="dropdown float-end">
-                            <a class="text-body dropdown-toggle font-size-18" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true">
-                                <i class="uil uil-ellipsis-v"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Edit</a>
-                            </div>
-                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="text-muted">
@@ -65,9 +76,8 @@
                         <h5 class="font-size-16">Gallery Program Kerja</h5>
                         <div class="table-responsive mt-4">
                             <div>
-
                                 @foreach ($prokerimage as $prokers)
-                                    @if ($prokers->images_proker != Null)
+                                    @if ($prokers->images_proker != null)
                                         <div class="zoom-gallery">
                                             <a class="mxauto d-block text-center mb-1"
                                                 href="{{ '/../upload/proker/gallery/' . $prokers->images_proker }}"
@@ -81,7 +91,6 @@
                                             class="img-fluid mx-auto d-block">
                                     @endif
                                 @endforeach
-
                             </div>
                         </div>
                     </div>
@@ -125,19 +134,80 @@
                                     <p class="text-muted">{{ $proker->note_update }}</p>
                                 </li>
                             @endforeach
-
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-12">
+            <div class="card p-4">
+                <div class="card-body">
+                    <h4 class="card-title">Update Program Kerja</h4>
+                    <p class="card-title-desc">Lengkapi field dibawah ini untuk meng-update Program Kerja</p>
+                    <form action="/proker/update/{{ $update->id_proker }}" method="POST" id="createnewperiode"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" value="{{ Auth::id() }}" name="id">
+                        <input type="hidden" value="Update" name="initial">
+
+                        <input type="hidden" value="{{ $update->id_proker }}" name="id_proker">
+
+                        <div class="mb-3 row">
+                            <label class="form-label" for="username">Masukkan Catatan Update</label>
+                            <div class="col-md-12">
+                                <textarea class="col-md-12 form-control" name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <label class="form-label" for="address">Upload Foto-foto Update</label>
+                                <input class="form-control" type="file" name="images[]" id="images"
+                                    multiple="multiple" accept="image/png, image/jpeg, image/jpg">
+                            </div>
+                            <div class="col-md-12">
+                                <div class="user-image mb-3 text-center">
+                                    <div class="imgPreview"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-3">
+                            <button type="submit" class="btn btn-primary waves-effect waves-light"
+                                id="sa-add-success">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- end row -->
 @endsection
 @section('script')
     <script src="{{ URL::asset('/assets/libs/owl-carousel/owl-carousel.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/timeline.init.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/magnific-popup/magnific-popup.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/lightbox.init.js') }}"></script>
+    <script>
+        $(function() {
+            // Multiple images preview with JavaScript
+            var multiImgPreview = function(input, imgPreviewPlaceholder) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(
+                                imgPreviewPlaceholder);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+            $('#images').on('change', function() {
+                multiImgPreview(this, 'div.imgPreview');
+            });
+        });
+    </script>
 @endsection

@@ -41,22 +41,22 @@
 
                         <div class="mb-3 row">
                             <input type="hidden" value="{{ Auth::id() }}" name="id">
-                            <input type="hidden" class="aum_id" name="aum_id" id="aum_id" value="">
+                            {{-- <input type="hidden" class="aum_id" name="aum_id" id="aum_id" value=""> --}}
                             <div class="col-lg-6">
                                 <label class="form-label col-form-label">Pengelolaan oleh</label>
                                 <div class="form-check form-check-inline">
                                     <input required class="form-group form-check-input" type="radio" name="inlineRadioOptions"
-                                        id="pengelola1" value="1">
+                                        id="pengelola" value="1">
                                     <label class="form-check-label" for="inlineRadio1">Ranting</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-group form-check-input" type="radio" name="inlineRadioOptions"
-                                        id="pengelola2" value="2">
+                                        id="pengelola" value="2">
                                     <label class="form-check-label" for="inlineRadio2">PCA</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-group form-check-input" type="radio" name="inlineRadioOptions"
-                                        id="pengelola3" value="3">
+                                        id="pengelola" value="3">
                                     <label class="form-check-label" for="inlineRadio3">PDA</label>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                 <label class="form-label col-form-label">Pilih PDA</label>
                                 <div class="col-lg-12">
                                     <select class="form-group select2 form-control select2-multiple" name="pda"
-                                        id="pdas" data-placeholder="{{ __('account.placeholder_pdas') }}">
+                                        id="pdas" data-placeholder="{{ __('account.placeholder_pdas') }}" required>
                                     </select>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                             <div class="col-md-6">
                                 <label class="form-label" for="address">Upload Foto-foto AUM</label>
                                 <input class="form-control" type="file" name="images[]" id="images"
-                                    multiple="multiple">
+                                    multiple="multiple" accept="image/png, image/jpeg, image/jpg">
                             </div>
                             <div class="col-md-12">
                                 <div class="user-image mb-3 text-center">

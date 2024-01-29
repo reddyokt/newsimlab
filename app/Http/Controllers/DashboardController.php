@@ -5,17 +5,59 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use SebastianBergmann\Type\NullType;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // dd(Session::get('menu'));
-
-        //role
         $role = Session::get('role_code');
         $pda_id = Session::get('pda_id');
 
+        $datamda = DB::table('proker')->where('proker.pda_id', $pda_id)
+                        ->where('proker.status', 'waiting')
+                        ->whereNot('proker.status', 'validatedbypda')
+                        ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
+                        ->leftJoin('pda', 'pda.pda_id', '=' ,'proker.pda_id')
+                        ->leftJoin('majelis', 'majelis.id_majelis', '=' ,'proker.id_majelis')
+                        ->select(DB::raw('proker.id_proker, proker.pelaksana as pelaksana,
+                            proker.typeproker as type, proker.proker_name as name, proker.prokerstart as start,
+                            proker.prokerend as end, proker.anggaran as anggaran, proker.status as status, 
+                            proker.description as description, pda.pda_name as pda_name, pda.pda_id as pda_id, 
+                            majelis.name as majelis_name, majelis.id_majelis as majelis_id, user.name as username,
+                            proker.typeproker as typeproker'))
+                        ->get()->toArray();
+                        
+        $datapda = DB::table('proker')->where('proker.pda_id', $pda_id)
+                        ->where('proker.status', 'validatedbymda')
+                        ->orWhere('proker.typeproker', 'non-majelis')
+                        ->whereNot('proker.status', 'validatedbypda')
+                        ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
+                        ->leftJoin('pda', 'pda.pda_id', '=' ,'proker.pda_id')
+                        ->leftJoin('majelis', 'majelis.id_majelis', '=' ,'proker.id_majelis')
+                        ->select(DB::raw('proker.id_proker, proker.pelaksana as pelaksana,
+                            proker.typeproker as type, proker.proker_name as name, proker.prokerstart as start,
+                            proker.prokerend as end, proker.anggaran as anggaran, proker.status as status, 
+                            proker.description as description, pda.pda_name as pda_name, pda.pda_id as pda_id, 
+                            majelis.name as majelis_name, majelis.id_majelis as majelis_id, user.name as username,
+                            proker.typeproker as typeproker'))
+                        ->get()->toArray();   
+                        
+        $datapwa = DB::table('proker')
+                        ->where('proker.status', 'validatedbypda')
+                        ->whereNot('proker.status', 'validatedbypwa')
+                        ->leftJoin('user', 'user.user_id', '=' ,'proker.created_by')
+                        ->leftJoin('pda', 'pda.pda_id', '=' ,'proker.pda_id')
+                        ->leftJoin('majelis', 'majelis.id_majelis', '=' ,'proker.id_majelis')
+                        ->select(DB::raw('proker.id_proker, proker.pelaksana as pelaksana,
+                            proker.typeproker as type, proker.proker_name as name, proker.prokerstart as start,
+                            proker.prokerend as end, proker.anggaran as anggaran, proker.status as status, 
+                            proker.description as description, pda.pda_name as pda_name, pda.pda_id as pda_id, 
+                            majelis.name as majelis_name, majelis.id_majelis as majelis_id, user.name as username,
+                            proker.typeproker as typeproker'))
+                        ->get()->toArray();
+
+        
         $totalKader = DB::table('kader_info')->where('status', 'valid')->count();
         $totalAUM = DB::table('aum')->where('isActive', 'Yes')->count();
         
@@ -35,15 +77,16 @@ class DashboardController extends Controller
 
         $allData= [
             'pdaList'=> json_encode($pdaList),
+            'pdaLists'=> json_encode($pdaList),
             'totalPDA' => json_encode($totalPDAMember),
             'totalKader' => json_encode($totalKader),
             'totalAum' => json_encode($totalAUM),
-            'totalPDAAum' => json_encode($totalPDAAum)
+            'totalPDAAum' => json_encode($totalPDAAum),
         ];
         
         // dd($allData);
 
-        return view('dashboard.index', compact('allData'));
+        return view('dashboard.index', compact('allData','datamda','datapda','datapwa'));
     }
 
     function setRole($id){

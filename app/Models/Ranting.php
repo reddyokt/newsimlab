@@ -11,6 +11,6 @@ class Ranting extends Model
 
     protected $primaryKey = 'ranting_id';
     protected $table = 'ranting';
-    protected $fillable = ['ranting_name','pca_id','villages_id','address','deleted_at'];
+    protected $fillable = ['ranting_name','pda_id','pca_id','villages_id','address','deleted_at'];
 
 }

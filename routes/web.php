@@ -123,6 +123,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/ranting/edit/{id}', [App\Http\Controllers\RantingController::class, 'storeEditRanting']);
     Route::post('/ranting/delete/{id}', [App\Http\Controllers\RantingController::class, 'deleteRanting']);
     Route::get('/ranting/pcabyvillages/{id}', [App\Http\Controllers\PcaController::class, 'pcaByvillages']);
+    Route::get('/ranting/pcabypdass/{id}', [App\Http\Controllers\PcaController::class, 'pcaBypdass']);
     /*------------------10.AUM-----------------------------------------------*/
     Route::get('/aum', [App\Http\Controllers\AumController::class, 'aumIndex']);
     Route::get('/aum/create', [App\Http\Controllers\AumController::class, 'createAum']);
@@ -157,13 +158,19 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      Route::get('/periode', [App\Http\Controllers\ProgramKerjaController::class, 'periodeIndex']);
      Route::get('/periode/create', [App\Http\Controllers\ProgramKerjaController::class, 'createPeriode']);
      Route::post('/periode/create', [App\Http\Controllers\ProgramKerjaController::class, 'storeCreatePeriode']);
+     Route::get('/periode/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'editPeriode']);
+     Route::post('/periode/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'storeEditPeriode']);
 
      Route::get('/proker', [App\Http\Controllers\ProgramKerjaController::class, 'prokerIndex']);
      Route::get('/proker/create', [App\Http\Controllers\ProgramKerjaController::class, 'createProker']);
      Route::post('/proker/create', [App\Http\Controllers\ProgramKerjaController::class, 'storeCreateProker']);
      Route::get('/proker/detail/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'prokerDetail']);
      Route::get('/proker/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'editProker']);
-     Route::post('/proker/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'storeEditProker']);
+     Route::get('/proker/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'editProker']);
+     Route::get('/proker/validasimda/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'validasiMda']);
+     Route::get('/proker/validasipda/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'validasiPda']);
+     Route::get('/proker/update/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'updateProker']);
+     Route::post('/proker/update/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'storeUpdate']);
 
 
 });

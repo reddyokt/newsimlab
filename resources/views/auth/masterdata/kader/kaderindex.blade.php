@@ -34,19 +34,19 @@
                     <!-- end row -->
                     <div class="table-responsive mb-4">
                         <table id="datatable" class="table table-bordered dt-responsive wrap"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nomor</th>
+                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nomor</th>
                                     <th scope="col">Nama Kader</th>
                                     <th scope="col">Phone number</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Asal Ranting</th>
                                     <th scope="col" style="width: 200px;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($kaderindex as $kader)
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($kaderindex as $kader)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td>
@@ -67,27 +67,27 @@
                                                 <li class="list-inline-item">
                                                     <a href="{{ url('kader/edit/' . Crypt::encrypt($kader['kader_id'])) }}"
                                                         class="px-2 text-primary" data-bs-container="#tooltip-container"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Edit"><i class="uil uil-pen font-size-18"></i></a>
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i
+                                                            class="uil uil-pen font-size-18"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <a href="{{ url('kader/delete/' . Crypt::encrypt($kader['kader_id'])) }}"
                                                         class="px-2 text-danger" data-bs-container="#tooltip-container"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Delete"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i
+                                                            class="uil uil-trash-alt font-size-18"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <a href="/kader/detail/{{$kader->kader_id}}"
+                                                    <a href="/kader/detail/{{ $kader->kader_id }}"
                                                         class="px-2 text-warning" data-bs-container="#tooltip-container"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Detail"><i class="uil uil-eye font-size-18"></i></a>
+                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i
+                                                            class="uil uil-eye font-size-18"></i></a>
                                                 </li>
                                             </ul>
                                         </td>
                                     </tr>
                                 @endforeach
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

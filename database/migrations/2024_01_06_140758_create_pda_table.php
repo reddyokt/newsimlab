@@ -22,12 +22,12 @@ return new class extends Migration
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
-        Pda::create(['pda_name' => 'KEPULAUAN SERIBU','regencies_id' => '3101', 'created_by' => '1']);
-        Pda::create(['pda_name' => 'JAKARTA SELATAN','regencies_id' => '3171', 'created_by' => '1']);
-        Pda::create(['pda_name' => 'JAKARTA TIMUR','regencies_id' => '3172', 'created_by' => '1']);
-        Pda::create(['pda_name' => 'JAKARTA PUSAT','regencies_id' => '3173', 'created_by' => '1']);
-        Pda::create(['pda_name' => 'JAKARTA BARAT','regencies_id' => '3174', 'created_by' => '1']);
-        Pda::create(['pda_name' => 'JAKARTA UTARA','regencies_id' => '3175', 'created_by' => '1']);
+        Pda::create(['pda_name' => 'KEPULAUAN SERIBU','regencies_id' => '3101', 'created_by' => 'admin']);
+        Pda::create(['pda_name' => 'JAKARTA SELATAN','regencies_id' => '3171', 'created_by' => 'admin']);
+        Pda::create(['pda_name' => 'JAKARTA TIMUR','regencies_id' => '3172', 'created_by' => 'admin']);
+        Pda::create(['pda_name' => 'JAKARTA PUSAT','regencies_id' => '3173', 'created_by' => 'admin']);
+        Pda::create(['pda_name' => 'JAKARTA BARAT','regencies_id' => '3174', 'created_by' => 'admin']);
+        Pda::create(['pda_name' => 'JAKARTA UTARA','regencies_id' => '3175', 'created_by' => 'admin']);
         
     }
 

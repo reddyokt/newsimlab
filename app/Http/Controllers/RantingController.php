@@ -67,6 +67,7 @@ class RantingController extends Controller
             'name' => 'required',
             'villages' => 'required',
             'pca' => 'required',
+            'pdass'=> 'required'
         ]);
 
         $storecreateranting['ranting_name'] = $request->name;
@@ -74,6 +75,7 @@ class RantingController extends Controller
         $storecreateranting['address'] = $request->address;
         $storecreateranting['created_by'] = $request->id;
         $storecreateranting['pca_id'] = $request->pca;
+        $storecreateranting['pda_id'] = $request->pdass;
 
         Ranting::create($storecreateranting);
 

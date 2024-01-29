@@ -24,15 +24,15 @@ return new class extends Migration
             $table->enum('isActive', ['Y', 'N'])->default('N');
             $table->unsignedBigInteger('pda_id')->nullable();
             $table->foreign('pda_id')->references('pda_id')->on('pda')->onDelete('restrict');
-            $table->unsignedBigInteger('majelis_id')->nullable();
-            $table->foreign('pda_id')->references('majelis_id')->on('majelis')->onDelete('restrict');
+            $table->unsignedBigInteger('id_majelis')->nullable();
+            $table->foreign('id_majelis')->references('id_majelis')->on('majelis')->onDelete('restrict');
             $table->string('created_by');
             $table->date('delete_at')->nullable();
             $table->timestamps();
         });
 
-        User::create(['name' => 'Superadmin', 'username' => 'admin', 'password' => Hash::make('qwerty'), 'phone' => '087885481350', 'email' => 'reddyoktariawan@gmail.com']);
-        User::create(['name' => 'Ketua PWA', 'username' => 'jkt1', 'password' => Hash::make('qwerty'), 'phone' => '087885481350', 'email' => 'reddyoktariawan@gmail.com']);
+        User::create(['name' => 'Superadmin', 'username' => 'admin', 'password' => Hash::make('qwerty'), 'phone' => '087885481350', 'email' => 'reddyoktariawan@gmail.com', 'created_by' => 'admin']);
+        User::create(['name' => 'Ketua PWA', 'username' => 'jkt1', 'password' => Hash::make('qwerty'), 'phone' => '087885481350', 'email' => 'reddyoktariawan@gmail.com', 'created_by' => 'admin']);
     }
 
     /**

@@ -63,7 +63,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" class="control-label">Pilih PCA</label>
-                                            <select class="select2 form-control select2-multiple" name="pca"
+                                            <select class="form-control select2-multiple" name="pca"
                                                 id="pcaforranting" data-live-search="true">
                                                 <option selected disabled>
                                                     Pilih PCA</option>
@@ -88,6 +88,15 @@
                                             <select class="form-select form-control form-select-solid" name="villages"
                                                     id="villages" data-control="select2"
                                                     data-placeholder="{{ __('account.placeholder_villages') }}">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="divpdass" style="display: none;">
+                                        <div class="col-md-12 mb-3">
+                                            <label class="form-label" class="control-label">PDA</label>
+                                            <select disabled class="form-select form-control form-select-solid" name="pdass"
+                                                    id="pdass" data-control="select2"
+                                                    data-placeholder="{{ __('account.placeholder_pdass') }}">
                                             </select>
                                         </div>
                                     </div>

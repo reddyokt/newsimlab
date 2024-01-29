@@ -27,21 +27,6 @@
                                         class="mdi mdi-plus me-2"></i> Add New</a>
                             </div>
                         </div>
-
-                        <div class="col-md-6">
-                            <div class="form-inline float-md-end mb-3">
-                                <div class="search-box ms-2">
-                                    <div class="position-relative">
-                                        <input type="text" class="form-control rounded bg-light border-0"
-                                            placeholder="Search...">
-                                        <i class="mdi mdi-magnify search-icon"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
                     </div>
                     <!-- end row -->
                     <div class="table-responsive mb-4">

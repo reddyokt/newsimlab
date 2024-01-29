@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('ranting_id');
             $table->unsignedBigInteger('pca_id')->index();
             $table->foreign('pca_id')->references('pca_id')->on('pca')->onDelete('restrict');
+            $table->unsignedBigInteger('pda_id')->index();
+            $table->foreign('pda_id')->references('pda_id')->on('pda')->onDelete('restrict');
             $table->char('villages_id', 10)->index();
             $table->foreign('villages_id')->references('id')->on('villages')->onDelete('restrict');
             $table->string('ranting_name');

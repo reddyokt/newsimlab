@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Create_Periode
+    Edit Periode
 @endsection
 @section('css')
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -12,18 +12,17 @@
             Periode
         @endslot
         @slot('title')
-            Add New
+           Edit
         @endslot
     @endcomponent
 
     <div class="row" style="min-height: 800px;">
         <div class="col-12">
             <div class="card">
-            @include('flashmessage')
                 <div class="card-body">
                     <h4 class="card-title">Isi Data</h4>
                     <p class="card-title-desc">Lengkapi field dibawah ini untuk membuat sebuah Role Baru</p>
-                    <form action="/periode/create" method="POST" id="createnewperiode">
+                    <form action="/periode/edit/{{$editperiode->id_periode}}" method="POST" id="createnewperiode">
                         @csrf
                         <input type="hidden" value="{{ Auth::id() }}" name="id">
 
@@ -33,7 +32,7 @@
                                 <div class="col-md-12">
                                     <label class="form-label">Start Periode</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="from" name="from">
+                                        <input type="text" class="form-control" id="from" name="from" value="{{$editperiode->from}}">
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
                                 </div>
@@ -42,7 +41,7 @@
                                 <div class="col-md-12">
                                     <label class="form-label">End Periode</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="to" name="to">
+                                        <input type="text" class="form-control" id="to" name="to" value="{{$editperiode->to}}">
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
                                 </div>
@@ -52,7 +51,7 @@
                         <div class="mb-3 row">
                             <label for="description" class="col-form-label">Description</label>
                             <div class="col-md-12">
-                                <input class="form-control" type="description" id="description" name="description"
+                                <input class="form-control" type="description" id="description" name="description" value="{{$editperiode->description}}"
                                     placeholder="masukkan deskripsi file" required>
                             </div>
                         </div>

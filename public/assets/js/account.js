@@ -193,7 +193,7 @@ $(document).on('change', '#pdaforpca', function () {
 
 $(document).on('change', '#pcaforranting', function () {
     var id = $(this).val();
-    $('#villages').html("");
+
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -203,39 +203,66 @@ $(document).on('change', '#pcaforranting', function () {
         success: function (data) {
             $.each(data, function (index, option) {
                 $('#villages').append($('<option>').val(option.id).text(option.name));
+                // $('#pdass').append($('<option>').val(option.pda_id).text(option.pda_name));
+
+
+
             });
         }
     });
-    $('#divvillages').css("display", "flex");
 
-});
-
-$(document).on('click', '#pengelola1', function () {
-    var val = $(this).val();
-        $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'GET',
-                url: '/aum/aumbyranting',
-                success: function (data) {
-                    $.each(data, function (index, option) {
-                        $('#rantings').append($('<option>').val(option.ranting_id).text(option.ranting_name));
-                    });
-                }
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        url: '/ranting/pcabypdass/' + id,
+        success: function (data) {
+            $.each(data, function (index, option) {
+                $('#pdass').append($('<option>').val(option.pda_id).text(option.pda_name));
             });
+        }
+    });
 
-            $('#rantings').html("")
-            $('#rantings').removeAttr('disabled');
-            $('#divrantings').css("display", "initial");
-            $('#divpcas').css("display", "none");
-            $('#divpdas').css("display", "none");
-            $('#pdas').attr('disabled', true);
-            $('#pcas').attr('disabled',true);
+    $('#villages').html("");
+    $('#pdass').html("");
+
+    $('#divvillages').css("display", "flex");
+    $('#pdass').removeAttr('disabled');
+
+    // $('#divpdass').css("display", "flex");
+
 });
 
-$(document).on('click', '#pengelola2', function () {
-        var val = $(this).val(); 
+$(document).on('click', '#pengelola', function () {
+    var val = $(this).val();
+    if(val == '3') {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'GET',
+            url: '/aum/aumbypda',
+            success: function (data) {
+                $.each(data, function (index, option) {
+                    $('#pdas').append($('<option>').val(option.pda_id).text(option.pda_name));
+                });
+            }
+        });
+
+        $('#pdas').removeAttr('disabled');
+        $('#rantings').attr('disabled',true);
+        $('#pcas').attr('disabled',true);
+
+        $('#pdas').html("")
+               
+        $('#divpdas').css("display", "initial");
+        $('#divpcas').css("display", "none");
+        $('#divrantings').css("display", "none");
+
+    
+        
+    } else if(val == '2') {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -248,19 +275,7 @@ $(document).on('click', '#pengelola2', function () {
                     });
                 }
             });
-            
-            $('#pcas').html("")
-            $('#pcas').removeAttr('disabled');
-            $('#divpcas').css("display", "initial");
-            $('#divrantings').css("display", "none");
-            $('#divpdas').css("display", "none");
-            $('#pdas').attr('disabled', true);
-            $('#rantings').attr('disabled',true);
 
-});
-
-$(document).on('click', '#pengelola3', function () {
-    var val = $(this).val(); 
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -273,14 +288,56 @@ $(document).on('click', '#pengelola3', function () {
                     });
                 }
             });
-
-            $('#pdas').html("")
+            
+            $('#pcas').removeAttr('disabled');
             $('#pdas').removeAttr('disabled');
-            $('#divpdas').css("display", "initial");
+            $('#rantings').attr('disabled',true);
+
+            $('#pcas').html("")
+            $('#pdas').html("")
+
             $('#divrantings').css("display", "none");
-            $('#divpcas').css("display", "none");
-            $('#rantings').attr('disabled', true);
-            $('#pcas').attr('disabled', true);
+            $('#divpcas').css("display", "initial");
+            $('#divpdas').css("display", "initial");
+            
+    } else if (val == '1') {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'GET',
+            url: '/aum/aumbyranting',
+            success: function (data) {
+                $.each(data, function (index, option) {
+                    $('#rantings').append($('<option>').val(option.ranting_id).text(option.ranting_name));
+                });
+            }
+        });
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'GET',
+            url: '/aum/aumbypda',
+            success: function (data) {
+                $.each(data, function (index, option) {
+                    $('#pdas').append($('<option>').val(option.pda_id).text(option.pda_name));
+                });
+            }
+        });
+        
+        $('#rantings').removeAttr('disabled');
+        $('#pdas').removeAttr('disabled');
+        $('#pcas').attr('disabled',true);
+
+        $('#pdas').html("")
+        $('#rantings').html("")
+    
+        $('#divrantings').css("display", "initial");
+        $('#divpcas').css("display", "none");
+        $('#divpdas').css("display", "initial");
+    }
         
 });
 /*--------------------------------------------------------------------------------------------*/

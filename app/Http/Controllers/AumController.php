@@ -42,6 +42,8 @@ class AumController extends Controller
 
     public function storeCreateAum(Request $request)
     {
+        dd($request);
+
         $aum = $request->validate([
             'inlineRadioOptions'=>'required',
             'kepemilikan'=>'required',
