@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Post
+    Program Kerja
 @endsection
 @section('css')
     <!-- DataTables -->
@@ -10,10 +10,10 @@
 @section('content')
     @component('common-components.breadcrumb')
         @slot('pagetitle')
-            Post
+            Program Kerja
         @endslot
         @slot('title')
-            All Posts
+            List Program Kerja
         @endslot
     @endcomponent
 
