@@ -347,4 +347,40 @@ class ProgramKerjaController extends Controller
         return redirect()->back()->with('success','Program Kerja telah diupdate');
 
     }
+
+    public function unrealized(Request $request, $id)
+    {
+        $unrealized = DB::table('proker')
+                        ->where('proker.id_proker', $id)
+                        ->leftJoin('user','user.user_id','=','proker.created_by')
+                        ->select(DB::raw('proker.id_proker, user.name as name, proker.created_by as created_by'))
+                        ->first();
+
+        if($unrealized->created_by != Session::get('user_id')){
+        return redirect()->back()->with('error','Anda tidak berhak mengubah status Tidak Terealisasi, 
+                                        Yang bisa mengubah adalah '.$unrealized->name);        
+        }
+
+        $unrealized->update(['status'=>'unrealized', 'updated_by' => Session::get('user_id')]);
+        return redirect()->back()->with('warning','Program Kerja telah diubah statusnya menjadi Tidak Terealisasi');
+        
+    }
+
+    public function realized(Request $request, $id)
+    {
+        $realized = DB::table('proker')
+                        ->where('proker.id_proker', $id)
+                        ->leftJoin('user','user.user_id','=','proker.created_by')
+                        ->select(DB::raw('proker.id_proker, user.name as name, proker.created_by as created_by'))
+                        ->first();
+
+        if($realized->created_by != Session::get('user_id')){
+
+        return redirect()->back()->with('error','Anda tidak berhak mengubah status Terealisasi!, 
+                                        Yang bisa mengubah adalah '.$realized->name);
+        }
+
+        $realized->update(['status'=>'realized', 'updated_by' => Session::get('user_id')]);
+        return redirect()->back()->with('success','Program Kerja telah diubah statusnya menjadi Terealisasi');
+    }
 }

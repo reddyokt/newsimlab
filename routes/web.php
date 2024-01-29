@@ -171,6 +171,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      Route::get('/proker/validasipda/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'validasiPda']);
      Route::get('/proker/update/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'updateProker']);
      Route::post('/proker/update/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'storeUpdate']);
-
+     Route::get('/proker/unrealized/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'unrealized']);
+     Route::get('/proker/realized/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'realized']);
 
 });
