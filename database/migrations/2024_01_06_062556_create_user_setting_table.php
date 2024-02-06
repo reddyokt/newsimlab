@@ -23,7 +23,6 @@ return new class extends Migration
         });
 
         UserSetting::create(['user_id' => '1', 'created_by' => 'admin']);
-        UserSetting::create(['user_id' => '2', 'created_by' => 'admin']);
     }
 
     /**

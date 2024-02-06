@@ -3,12 +3,12 @@
       <div class="container flex-lg-row flex-nowrap align-items-center">
         <div class="navbar-brand w-100">
           <a href="{{'/'}}">
-            <img src="{{URL::asset('landing/assets/img/aisyiyah_dki.png')}}" srcset="{{URL::asset('landing/assets/img/aisyiyah_dki.png')}}" alt="" />
+            <img src="{{URL::asset('landing/assets/img/simlab.svg')}}" srcset="{{URL::asset('landing/assets/img/simlab.svg')}}" alt="" style="width: 60%;"/>
           </a>
         </div>
         <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
           <div class="offcanvas-header d-lg-none">
-            <h3 class="text-white fs-30 mb-0">Aisyiyah DKI Jakarta</h3>
+            <h3 class="text-white fs-30 mb-0">SIMLAB FT-UMJ</h3>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div id="nav" class="offcanvas-body ms-lg-auto d-flex flex-column h-100">

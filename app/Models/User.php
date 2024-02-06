@@ -28,8 +28,6 @@ class User extends Authenticatable
         'email',
         'profile_picture',
         'isActive',
-        'pda_id',
-        'majelis_id',
         'created_by',
         'delete_at'
     ];

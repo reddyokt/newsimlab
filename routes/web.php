@@ -3,6 +3,7 @@
 use App\Http\Controllers\PCAController;
 use App\Http\Controllers\RoleController;
 use App\Models\Role;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -136,6 +137,9 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/aum/detail/{id}', [App\Http\Controllers\AumController::class, 'aumDetail']);
     Route::get('/aum/aumbypca', [App\Http\Controllers\AumController::class, 'aumByPca']);
     Route::get('/aum/aumbypda', [App\Http\Controllers\AumController::class, 'aumByPda']);
+    Route::get('/pcas/pcasbyrantings/{id}', [App\Http\Controllers\AumController::class, 'pcasByrantings']);
+    Route::get('/pdas/pdasbyrantings/{id}', [App\Http\Controllers\AumController::class, 'pdasByrantings']);
+    Route::get('/pdas/pdasbypcass/{id}', [App\Http\Controllers\AumController::class, 'pdasBypcass']);
     /*------------------11.News-----------------------------------------------*/
     Route::get('/newscategory', [App\Http\Controllers\NewsCategoryController::class, 'categoryIndex']);
     Route::get('/newscategory/create', [App\Http\Controllers\NewsCategoryController::class, 'createCategory']);
@@ -154,24 +158,91 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('downPost/{id}', [App\Http\Controllers\NewsController::class, 'downPost']);
     Route::get('post/preview/{id}', [App\Http\Controllers\NewsController::class, 'previewPost']);
 
-     /*------------------12.Proker-----------------------------------------------*/
-     Route::get('/periode', [App\Http\Controllers\ProgramKerjaController::class, 'periodeIndex']);
-     Route::get('/periode/create', [App\Http\Controllers\ProgramKerjaController::class, 'createPeriode']);
-     Route::post('/periode/create', [App\Http\Controllers\ProgramKerjaController::class, 'storeCreatePeriode']);
-     Route::get('/periode/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'editPeriode']);
-     Route::post('/periode/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'storeEditPeriode']);
+     /*------------------12.Praktikum-----------------------------------------------*/
+     Route::get('/periode', [App\Http\Controllers\PraktikumController::class, 'periodeIndex']);
+     Route::get('/periode/create', [App\Http\Controllers\PraktikumController::class, 'createPeriode']);
+     Route::post('/periode/create', [App\Http\Controllers\PraktikumController::class, 'storePeriode']);
+     Route::get('/periode/edit/{id}', [App\Http\Controllers\PraktikumController::class, 'editPeriode']);
+     Route::post('/periode/edit/{id}', [App\Http\Controllers\PraktikumController::class, 'storeEditPeriode']);
 
-     Route::get('/proker', [App\Http\Controllers\ProgramKerjaController::class, 'prokerIndex']);
-     Route::get('/proker/create', [App\Http\Controllers\ProgramKerjaController::class, 'createProker']);
-     Route::post('/proker/create', [App\Http\Controllers\ProgramKerjaController::class, 'storeCreateProker']);
-     Route::get('/proker/detail/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'prokerDetail']);
-     Route::get('/proker/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'editProker']);
-     Route::get('/proker/edit/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'editProker']);
+     Route::get('/kelas', [App\Http\Controllers\PraktikumController::class, 'kelasIndex']);
+     Route::get('/kelas/create', [App\Http\Controllers\PraktikumController::class, 'createKelas']);
+     Route::post('/kelas/create', [App\Http\Controllers\PraktikumController::class, 'storeKelas']);
+     Route::get('/kelas/detail/{id}', [App\Http\Controllers\PraktikumController::class, 'kelasDetail']);
+     Route::get('/kelas/edit/{id}', [App\Http\Controllers\PraktikumController::class, 'editKelas']);
+     Route::post('/kelas/edit/{id}', [App\Http\Controllers\PraktikumController::class, 'storeEditProker']);
+     Route::post('/kelas/aslab/{id}', [App\Http\Controllers\PraktikumController::class, 'storeAslab']);
+
+     Route::get('/kelas/detail/{$id}', [App\Http\Controllers\PraktikumController::class, 'detailKelas']);
+
+
+     Route::get('/matkul/kode/{id}', [App\Http\Controllers\PraktikumController::class, 'kodeMatkul']);
+     Route::get('/matkul/moduls/{id}', [App\Http\Controllers\PraktikumController::class, 'idModul']);
+
      Route::get('/proker/validasimda/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'validasiMda']);
      Route::get('/proker/validasipda/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'validasiPda']);
      Route::get('/proker/update/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'updateProker']);
      Route::post('/proker/update/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'storeUpdate']);
      Route::get('/proker/unrealized/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'unrealized']);
      Route::get('/proker/realized/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'realized']);
+
+
+     /*------------------13.Landing Property-----------------------------------------------*/
+     Route::get('/landingproperty', [App\Http\Controllers\LandingPageController::class, 'landingProperty']);
+     Route::post('/landingprop/update', [App\Http\Controllers\LandingPageController::class, 'updateProperty']);
+
+
+     /*------------------Alat Praktikum-----------------------------------------------*/
+     Route::get('/alat', [App\Http\Controllers\AlatPraktikumController::class, 'alatIndex']);
+     Route::get('/alat/create', [App\Http\Controllers\AlatPraktikumController::class, 'createAlat']);
+     Route::post('/alat/create', [App\Http\Controllers\AlatPraktikumController::class, 'storeAlat']);
+
+     /*------------------Bahan Praktikum-----------------------------------------------*/
+     Route::get('/bahan', [App\Http\Controllers\BahanPraktikumController::class, 'bahanIndex']);
+     Route::get('/bahan/create', [App\Http\Controllers\BahanPraktikumController::class, 'createBahan']);
+     Route::post('/bahan/create', [App\Http\Controllers\BahanPraktikumController::class, 'storeBahan']);
+
+
+     /*------------------Lokasi/Lemari-----------------------------------------------*/
+     Route::get('/lokasi', [App\Http\Controllers\LokasiController::class, 'lokasiIndex']);
+     Route::post('/lokasi/create', [App\Http\Controllers\LokasiController::class, 'createLokasi']);
+     Route::post('/lemari/create', [App\Http\Controllers\LokasiController::class, 'createLemari']);
+
+     /*------------------Modul Praktikum-----------------------------------------------*/
+     Route::get('/modul', [App\Http\Controllers\ModulPraktikumController::class, 'modulIndex']);
+     Route::get('/modul/create', [App\Http\Controllers\ModulPraktikumController::class, 'createModul']);
+     Route::post('/modul/create', [App\Http\Controllers\ModulPraktikumController::class, 'storeModul']);
+     Route::get('/modul/used/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'useModul']);
+     Route::get('/tanggal/create/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'createTanggal']);
+     Route::post('/tanggal/create/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'storeTanggal']);
+     Route::get('/tanggal/edit/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'editTanggal']);
+     Route::post('/tanggal/edit/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'storeEditTanggal']);
+
+
+    /*------------------Praktikan Peserta-----------------------------------------------*/
+     Route::get('/peserta', [App\Http\Controllers\PraktikanController::class, 'pesertaIndex']);
+     Route::post('/peserta/import', [App\Http\Controllers\PraktikanController::class, 'import']);
+    
+    /*------------------Praktikan Kelompok-----------------------------------------------*/
+    Route::get('/kelompok', [App\Http\Controllers\PraktikanController::class, 'kelompokIndex']);
+    Route::post('/kelompok/create', [App\Http\Controllers\PraktikanController::class, 'storeKelompok']);
+    Route::get('/kelompok/edit/{id}', [App\Http\Controllers\PraktikanController::class, 'editKelompok']);
+    Route::post('/kelompok/tambahmhs/{id}', [App\Http\Controllers\PraktikanController::class, 'tambahMhs']);
+    Route::get('/kelompok/deletemhs/{id}', [App\Http\Controllers\PraktikanController::class, 'deleteMhs']);
+    Route::get('/kelompok/delete/{id}', [App\Http\Controllers\PraktikanController::class, 'hapusKelompok']);
+
+    /*------------------Praktikan Absen-----------------------------------------------*/
+    Route::get('/absen', [App\Http\Controllers\AbsenController::class, 'absenIndex']);
+
+    /*------------------Asisten Lab-----------------------------------------------*/
+    Route::get('/aslab', [App\Http\Controllers\AslabController::class, 'aslabIndex']);
+    Route::get('/aslab/create', [App\Http\Controllers\AslabController::class, 'createAslab']);
+    Route::post('/aslab/create', [App\Http\Controllers\AslabController::class, 'storeAslab']);
+
+    /*------------------Dosen Lab-----------------------------------------------*/
+    Route::get('/dosen', [App\Http\Controllers\DosenController::class, 'dosenIndex']);
+    Route::get('/dosen/create', [App\Http\Controllers\DosenController::class, 'createDosen']);
+    Route::post('/dosen/create', [App\Http\Controllers\DosenController::class, 'storeDosen']);
+
 
 });

@@ -22,15 +22,11 @@ return new class extends Migration
             $table->timestamps();
         });
         Role::create(['role_name' => 'Superadmin','CODE' => 'SUP', 'created_by' => '1']);
-        Role::create(['role_name' => 'Ketua PWA','CODE' => 'PWA1', 'created_by' => '1']);
-        Role::create(['role_name' => 'Ketua PDA','CODE' => 'PDA1', 'created_by' => '1']);
-        Role::create(['role_name' => 'Ketua Majelis dan Lembaga Wilayah','CODE' => 'MWA1', 'created_by' => '1']);
-        Role::create(['role_name' => 'Ketua Majelis dan Lembaga Daerah','CODE' => 'MDA1', 'created_by' => '1']);
-        Role::create(['role_name' => 'Sekretaris PWA','CODE' => 'PWA2', 'created_by' => '1']);
-        Role::create(['role_name' => 'Sekretaris PDA','CODE' => 'PDA2', 'created_by' => '1']);
-        Role::create(['role_name' => 'Sekretaris Majelis dan Lembaga Wilayah','CODE' => 'MWA2', 'created_by' => '1']);
-        Role::create(['role_name' => 'Sekretaris Majelis dan Lembaga Daerah','CODE' => 'MDA2', 'created_by' => '1']);
-
+        Role::create(['role_name' => 'Kepala Lab','CODE' => 'KAL', 'created_by' => '1']);
+        Role::create(['role_name' => 'Dosen Pengampu','CODE' => 'DPA', 'created_by' => '1']);
+        Role::create(['role_name' => 'Laboran','CODE' => 'LBO', 'created_by' => '1']);
+        Role::create(['role_name' => 'Asisten Lab','CODE' => 'ASL', 'created_by' => '1']);
+        Role::create(['role_name' => 'Mahasiswa','CODE' => 'MHS', 'created_by' => '1']);
     }
 
     /**

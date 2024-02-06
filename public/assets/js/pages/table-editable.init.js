@@ -14,8 +14,8 @@ File: Table editable Init Js File
 $(function () {
   var pickers = {};
   $('.table-edits tr').editable({
-    dropdowns: {
-      gender: ['Male', 'Female']
+    datepicker : {
+      date
     },
     edit: function edit(values) {
       $(".edit i", this).removeClass('fa-pencil-alt').addClass('fa-save').attr('title', 'Save');

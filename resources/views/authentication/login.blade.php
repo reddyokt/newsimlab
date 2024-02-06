@@ -12,9 +12,9 @@
                 <div class="col-lg-12">
                     <div class="text-center">
                         <a href="{{ url('index') }}" class="mb-3 d-block auth-logo">
-                            <img src="{{ URL::asset('/assets/images/A.png') }}" alt="" height="50"
+                            <img src="{{URL::asset('landing/assets/img/simlab.svg')}}" alt="" height="50"
                                 class="logo logo-dark">
-                            <img src="{{ URL::asset('/assets/images/B.png') }}" alt="" height="50"
+                            <img src="{{URL::asset('landing/assets/img/simlab.svg')}}" alt="" height="50"
                                 class="logo logo-light">
                         </a>
                     </div>
@@ -27,7 +27,7 @@
                         <div class="card-body p-4">
                             <div class="text-center mt-2">
                                 <h5 class="text-primary">Assamu'alaikum</h5>
-                                <p class="text-muted">Sign in to continue to eAisyiyah.</p>
+                                <p class="text-muted">Sign in to continue to simlab.</p>
                             </div>
                             <div class="p-2 mt-4">
                                 <form method="POST" action="/postlogin">
@@ -82,7 +82,7 @@
                         <p>© <script>
                                 document.write(new Date().getFullYear())
 
-                            </script> eAisyiyah created with <i class="mdi mdi-heart text-danger"></i> by rokt</p>
+                            </script> simlab </p>
                     </div>
 
                 </div>

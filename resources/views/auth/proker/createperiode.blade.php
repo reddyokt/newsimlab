@@ -22,13 +22,39 @@
             @include('flashmessage')
                 <div class="card-body">
                     <h4 class="card-title">Isi Data</h4>
-                    <p class="card-title-desc">Lengkapi field dibawah ini untuk membuat sebuah Role Baru</p>
+                    <p class="card-title-desc">Lengkapi field dibawah ini untuk membuat sebuah Periode Baru</p>
                     <form action="/periode/create" method="POST" id="createnewperiode">
                         @csrf
                         <input type="hidden" value="{{ Auth::id() }}" name="id">
 
                         <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label class="form-label">Pilih Tahun Ajaran</label>
+                                    <div class="input-group">
+                                        <select class="form-control" name="tahun_ajaran" id="tahun_ajaran" >
+                                            <option selected value="{{ old ('tahun_ajaran') }}" disabled>Tahun Ajaran</option>
+                                            <?php
+                                            $year = now()->year;
+                                            ?>
+                                                <option value="{{$year-1}} - {{$year}}">{{$year-1}} / {{$year}}</option>
+                                                <option value="{{$year}} - {{$year+1}}">{{$year}} / {{$year+1}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label class="form-label">End Periode</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="to" name="to">
+                                        <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="mb-3 row">
                             <div class="col-md-6">
                                 <div class="col-md-12">
                                     <label class="form-label">Start Periode</label>
@@ -46,14 +72,6 @@
                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3 row">
-                            <label for="description" class="col-form-label">Description</label>
-                            <div class="col-md-12">
-                                <input class="form-control" type="description" id="description" name="description"
-                                    placeholder="masukkan deskripsi file" required>
                             </div>
                         </div>
 

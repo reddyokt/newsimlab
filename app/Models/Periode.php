@@ -10,7 +10,7 @@ class Periode extends Model
     use HasFactory;
 
     protected $table = 'periode';
-    protected $fillable = ['from','to', 'description','isActive'];
+    protected $fillable = ['start','end', 'tahun_ajaran','semester', 'isActive', 'deleted_at'];
     protected $primaryKey = 'id_periode';
 
 }

@@ -84,8 +84,6 @@ class AccountController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = str_replace('-', '', $request->phone_number);
-            $user->pda_id = $request->pda;
-            $user->id_majelis = $request->majelis;
             $user->profile_picture = $pp;
             $user->created_at = date('Y-m-d H:i:s');
             $user->created_by = Session::get('user_id');
