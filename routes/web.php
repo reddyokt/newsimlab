@@ -173,7 +173,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      Route::post('/kelas/edit/{id}', [App\Http\Controllers\PraktikumController::class, 'storeEditProker']);
      Route::post('/kelas/aslab/{id}', [App\Http\Controllers\PraktikumController::class, 'storeAslab']);
 
-     Route::get('/kelas/detail/{$id}', [App\Http\Controllers\PraktikumController::class, 'detailKelas']);
+     Route::get('/kelas/detail/{$id}', [App\Http\Controllers\PraktikumController::class, 'detailKelas'])->name('kelas_detail');
 
 
      Route::get('/matkul/kode/{id}', [App\Http\Controllers\PraktikumController::class, 'kodeMatkul']);
@@ -190,6 +190,11 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      /*------------------13.Landing Property-----------------------------------------------*/
      Route::get('/landingproperty', [App\Http\Controllers\LandingPageController::class, 'landingProperty']);
      Route::post('/landingprop/update', [App\Http\Controllers\LandingPageController::class, 'updateProperty']);
+
+
+     /*------------------Komposisi Nilai-----------------------------------------------*/
+     Route::get('/komposisi', [App\Http\Controllers\KomposisiNilaiController::class, 'komposisiIndex']);
+     Route::post('/komposisi/edit/{id}', [App\Http\Controllers\KomposisiNilaiController::class, 'editKomposisi']);
 
 
      /*------------------Alat Praktikum-----------------------------------------------*/
@@ -212,6 +217,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      Route::get('/modul', [App\Http\Controllers\ModulPraktikumController::class, 'modulIndex']);
      Route::get('/modul/create', [App\Http\Controllers\ModulPraktikumController::class, 'createModul']);
      Route::post('/modul/create', [App\Http\Controllers\ModulPraktikumController::class, 'storeModul']);
+     Route::get('/modul/finish/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'finishModul']);
+     Route::post('/modul/finish/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'storeReport']);
      Route::get('/modul/used/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'useModul']);
      Route::get('/tanggal/create/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'createTanggal']);
      Route::post('/tanggal/create/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'storeTanggal']);
@@ -233,6 +240,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
     /*------------------Praktikan Absen-----------------------------------------------*/
     Route::get('/absen', [App\Http\Controllers\AbsenController::class, 'absenIndex']);
+    Route::post('/absen/modul/{id}', [App\Http\Controllers\AbsenController::class, 'storeAbsen']);
+    Route::post('/rekap', [App\Http\Controllers\AbsenController::class, 'rekapAbsen']);
 
     /*------------------Asisten Lab-----------------------------------------------*/
     Route::get('/aslab', [App\Http\Controllers\AslabController::class, 'aslabIndex']);
@@ -244,5 +253,41 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/dosen/create', [App\Http\Controllers\DosenController::class, 'createDosen']);
     Route::post('/dosen/create', [App\Http\Controllers\DosenController::class, 'storeDosen']);
 
+    /*------------------Ujian-----------------------------------------------*/
+    Route::get('/ujian/create/{id}', [App\Http\Controllers\UjianController::class, 'createUjian']);
+    Route::post('/ujian/create/{id}', [App\Http\Controllers\UjianController::class, 'storeUjian']);
+    Route::get('/ujian/detail/{id}', [App\Http\Controllers\UjianController::class, 'detailUjian']);
+
+    
+    /*------------------Tugas-----------------------------------------------*/
+    Route::get('/tugas/create/{id}', [App\Http\Controllers\TugasController::class, 'createTugas']);
+    Route::post('/tugas/create/{id}', [App\Http\Controllers\TugasController::class, 'storeTugas']);
+    Route::get('/tugas/detail/{id}', [App\Http\Controllers\TugasController::class, 'detailTugas']);
+    Route::get('/mhs/tugas/detail/{id}', [App\Http\Controllers\TugasController::class, 'detailTugasMhs']);
+    Route::post('/mhs/tugas/jawab/{id}', [App\Http\Controllers\TugasController::class, 'mhsJawabTugas']);
+    Route::post('/tugas/validasi/{id}', [App\Http\Controllers\TugasController::class, 'validasiTugas']);
+    Route::post('/tugas/publish/{id}', [App\Http\Controllers\TugasController::class, 'publishTugas']);
+    Route::get('/tugas/takedown/', [App\Http\Controllers\TugasController::class, 'takeDownTugas'])->name('takedowntugas');
+
+    /*------------------Penilaian Tugas-----------------------------------------------*/
+    Route::get('/nilaitugas', [App\Http\Controllers\NilaiTugasController::class, 'nilaiTugas']);
+    Route::get('/nilaitugas/modul/{id}', [App\Http\Controllers\NilaiTugasController::class, 'nilaiTugasByModul']);
+    Route::get('nilaitugas/mhs/', [App\Http\Controllers\NilaiTugasController::class, 'detailJawaban'])->name('nilaitugaspermodul');
+    Route::post('tugas/isinilai/{id}', [App\Http\Controllers\NilaiTugasController::class, 'isiNilaiTugas']);
+    Route::post('subjektif/isinilai/{id}', [App\Http\Controllers\NilaiTugasController::class, 'isiNilaiSubjektif']);
+
+    /*------------------Penilaian Ujian-----------------------------------------------*/
+    Route::get('/nilaiujian', [App\Http\Controllers\NilaiUjianController::class, 'nilaiUjian']);
+    Route::get('/nilaiujian/kelas/{id}', [App\Http\Controllers\NilaiUjianController::class, 'nilaiUjianbyKelas']);
+    Route::get('/nilaiujian/mhs/', [App\Http\Controllers\NilaiUjianController::class, 'detailJawaban'])->name('nilaiujianperkelas');
+    Route::post('/ujian/isinilai/{id}', [App\Http\Controllers\NilaiUjianController::class, 'isiNilaiUjian']);
+    Route::post('/ujian/isinilailisan/{id}', [App\Http\Controllers\NilaiUjianController::class, 'isiNilaiLisan']);
+
+    /*------------------Penilaian Ujian-----------------------------------------------*/
+    Route::get('/nilaiakhir', [App\Http\Controllers\KomposisiNilaiController::class, 'indexPenilaianAkhir']);
+    Route::post('/nilaiakhir/byperiode', [App\Http\Controllers\KomposisiNilaiController::class, 'nilaiAkhirByPeriode'])->name('nilaiakhirbyperiode');
+
+
 
 });
+

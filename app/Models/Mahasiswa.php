@@ -18,4 +18,5 @@ class Mahasiswa extends Model
                             'deleted_at'
                             ];
     protected $primaryKey = 'id_mahasiswa';
+    
 }

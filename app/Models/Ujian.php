@@ -13,4 +13,8 @@ class Ujian extends Model
     protected $fillable = ['id_kelas','id_periode','jenis','uraian_ujian','file_ujian','status'];
     protected $primaryKey = 'id_ujian';
 
+    public function klsuji()
+    {
+        return $this->belongsTo(Kelas::class,'id_kelas','id_kelas');
+    }
 }

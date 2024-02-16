@@ -50,4 +50,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function aslab()
+    {
+        return $this->hasOne(Aslab::class, 'user_id', 'user_id');
+    }
+
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'user_id', 'user_id');
+    }
 }

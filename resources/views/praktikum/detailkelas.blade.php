@@ -206,17 +206,18 @@
                                                     @endforeach
                                                 </ul>
                                             </td>
-                                            <td>
-                                                <ul class="list-inline mb-0">
+                                            <td id="tooltip-container">
+                                                <ul class="list-inline mb-0 text-center">
                                                     <li class="list-inline-item">
-                                                        <a href="/modul/edit/{{ $modulkelas->moduls->id_modul }}"
-                                                            class="px-2 text-primary"><i
-                                                                class="uil uil-pen font-size-18"></i></a>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <a href="/modul/delete/{{ $modulkelas->moduls->id_modul }}"
-                                                            class="px-2 text-danger"><i
-                                                                class="uil uil-trash-alt font-size-18"></i></a>
+                                                        @if ($modulkelas->isUsed == 'No')
+                                                            <a href="/modul/finish/{{$modulkelas->id_modulkelas}}"  class="px-2 text-success"
+                                                                data-bs-container="#tooltip-container"
+                                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                title="Report & Finish"><i
+                                                                    class="uil uil-check-circle font-size-18"></i></a>
+                                                        @else
+                                                                <p class="text-success">done</p>
+                                                        @endif
                                                     </li>
                                                 </ul>
                                             </td>
@@ -260,18 +261,38 @@
                                                                 </h5>
                                                                 @if ($xx->uraian_tugas == null && $xx->status == 'draft')
                                                                     <p> Belum ada tugas dibuat </p>
-                                                                    <button class="btn btn-sm btn-primary"> Buat Tugas
-                                                                    </button>
+                                                                    <a href="/tugas/create/{{ $xx->id_tugas }}"
+                                                                        class="btn btn-sm btn-danger">
+                                                                        Buat Tugas
+                                                                    </a>
                                                                 @elseif($xx->uraian_tugas != null && $xx->status == 'waiting')
                                                                     <p> Tugas belum di approve </p>
-                                                                    <button class="btn btn-sm btn-warning"> Validasi Tugas
-                                                                    </button>
-                                                                    <button class="btn btn-sm btn-success"> View Detail
-                                                                        Tugas </button>
+                                                                    <a href="/tugas/detail/{{ $xx->id_tugas }}"
+                                                                        class="btn btn-sm btn-warning">
+                                                                        View Detail
+                                                                    </a>
                                                                 @elseif($xx->uraian_tugas != null && $xx->status == 'approved')
-                                                                    <p> Tugas sudah di approve </p>
-                                                                    <button class="btn btn-sm btn-success"> View Detail
-                                                                        Tugas </button>
+                                                                    <p> Tugas sudah di approve, siap di publish </p>
+                                                                    <a href="/tugas/detail/{{ $xx->id_tugas }}"
+                                                                        class="btn btn-sm btn-success">
+                                                                        View Detail
+                                                                    </a>
+                                                                @elseif($xx->uraian_tugas != null && $xx->status == 'used')
+                                                                    <p> Tugas sedang ditayangkan </p>
+                                                                    <a href="/tugas/detail/{{ $xx->id_tugas }}"
+                                                                        class="btn btn-sm btn-success">
+                                                                        View Detail
+                                                                    </a>
+                                                                    <a href="{{ route('takedowntugas', ['id_kelas' => $xx->id_kelas, 'id_tugas' => $xx->id_tugas]) }}"
+                                                                        class="btn btn-sm btn-danger">
+                                                                        Take down!
+                                                                    </a>
+                                                                @elseif($xx->uraian_tugas != null && $xx->status == 'unused')
+                                                                    <p> Tugas sedang selesai </p>
+                                                                    <a href="/tugas/detail/{{ $xx->id_tugas }}"
+                                                                        class="btn btn-sm btn-success">
+                                                                        View Detail
+                                                                    </a>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -287,18 +308,19 @@
     </div>
 
     <div class="tab-pane" id="navtabs-ujian" role="tabpanel">
-        @foreach ($detailujian->ujian as $x)
-            <div class="row">
-                <div class="col-lg-12">
-                    @if ($x->uraian_tugas == null)
+
+        <div class="row">
+            @foreach ($detailujian->ujian as $x)
+                <div class="col-lg-6">
+                    @if ($x->uraian_ujian == null)
                         <div class="card bg-white border-danger text-primary-50">
-                        @else
+                        @elseif ($x->uraian_ujian != null)
                             <div class="card bg-white border-primary text-primary-50">
                     @endif
                     <div class="card-body">
                         @if ($x->uraian_tugas == null)
                             <h5 class="mb-4 text-danger"><i class="uil uil-notes me-3"></i>
-                            @else
+                            @elseif ($x->uraian_tugas != null)
                                 <h5 class="mb-4 text-primary"><i class="uil uil-notes me-3"></i>
                         @endif
                         @if ($x->jenis == 'awal')
@@ -309,24 +331,31 @@
                         </h5>
                         @if ($x->uraian_ujian == null && $x->status == 'draft')
                             <p> Belum ada soal ujian dibuat </p>
-                            <button class="btn btn-sm btn-primary"> Buat Ujian
-                            </button>
+                            <a href="/ujian/create/{{ $x->id_ujian }}" class="btn btn-sm btn-primary"> Buat Ujian
+                            </a>
                         @elseif($x->uraian_ujian != null && $x->status == 'waiting')
                             <p> Ujian belum di approve </p>
-                            <button class="btn btn-sm btn-warning"> Validasi Ujian
-                            </button>
-                            <button class="btn btn-sm btn-success"> View Detail
-                                Ujian </button>
+                            <a href="/ujian/detail/{{ $x->id_ujian }}" class="btn btn-sm btn-success"> View Detail
+                            </a>
                         @elseif($x->uraian_ujian != null && $x->status == 'approved')
                             <p> Ujian sudah di approve </p>
-                            <button class="btn btn-sm btn-success"> View Detail
-                                Ujian </button>
+                            <a href="/ujian/detail/{{ $x->id_ujian }}" class="btn btn-sm btn-success"> View Detail
+                            </a>
+                            <a href="/publishUjian/{{ $x->id_ujian }}" class="btn btn-sm btn-warning"> Publish Ujian
+                            </a>
+                        @elseif($x->uraian_ujian != null && $x->status == 'used')
+                            <p> Ujian sedang ditayangkan </p>
+                            <a href="/ujian/detail/{{ $x->id_ujian }}" class="btn btn-sm btn-success"> View Detail
+                            </a>
+                            <a href="/publishUjian/{{ $x->id_ujian }}" class="btn btn-sm btn-warning"> Publish Ujian
+                            </a>
                         @endif
                     </div>
                 </div>
-            </div>
+        </div>
+        @endforeach
     </div>
-    @endforeach
+
     </div>
     </div>
     </div>

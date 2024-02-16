@@ -2,223 +2,276 @@
 @section('title')
 @endsection
 
+@section('css')
+    {{-- <link href="{{ URL::asset('/assets/libs/fullcalendar/fullcalendar.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+@endsection
+
 @section('content')
-<section class="wrapper bg-soft-primary">
-    <div class="container pt-10 pb-15 pt-md-14 pb-md-20">
-        <div class="row gx-lg-8 gx-xl-12 gy-10 mb-5 align-items-center">
-            <div class="col-md-10 offset-md-1 offset-lg-0 col-lg-5 text-center text-lg-start order-2 order-lg-0" data-cues="slideInDown" data-group="page-title" data-delay="600">
-                <h1 class="display-1 mb-5 mx-md-n5 mx-lg-0">Creative. Smart. Awesome.</h1>
-                <p class="lead fs-lg mb-7">We specialize in web, mobile and identity design. We love to turn ideas into beautiful things.</p>
-                <div class="d-flex justify-content-center justify-content-lg-start" data-cues="slideInDown" data-group="page-title-buttons" data-delay="900">
-                    <span><a class="btn btn-primary rounded me-2">See Projects</a></span>
-                    <span><a class="btn btn-yellow rounded">Learn More</a></span>
+    <section class="wrapper bg-soft-primary">
+        <div class="container pt-10 pb-15 pt-md-14 pb-md-20">
+            <div class="row gx-lg-8 gx-xl-12 gy-10 mb-5 align-items-center">
+                <div class="col-md-10 offset-md-1 offset-lg-0 col-lg-4 text-center text-lg-start order-2 order-lg-0"
+                    data-cues="slideInDown" data-group="page-title" data-delay="600">
+                    <h1 class="display-1 mb-5 mx-md-n5 mx-lg-0">Sistem Informasi Laboratorium.</h1>
+                    <p class="lead fs-lg mb-7">Teknik Kimia, Fakultas Teknik <br> Universitas Muhammadiyah Jakarta</p>
                 </div>
+                <!-- /column -->
+                <div class="col-lg-8" data-cue="slideInDown">
+                    <figure><img class="w-auto" src="{{ asset('landing/assets/img/bg-image-3.svg') }}" alt="" />
+                    </figure>
+                </div>
+                <!-- /column -->
             </div>
-            <!-- /column -->
-            <div class="col-lg-7" data-cue="slideInDown">
-                <figure><img class="w-auto" src="@@webRoot/assets/img/illustrations/i6.png" srcset="@@webRoot/assets/img/illustrations/i6@2x.png 2x" alt="" /></figure>
-            </div>
-            <!-- /column -->
+            <!-- /.row -->
         </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</section>
-<!-- /section -->
-<section class="wrapper bg-light">
-    <div class="container py-14 py-md-16 pb-md-17">
-        <div class="row gx-md-5 gy-5 mt-n18 mt-md-n21 mb-14 mb-md-17">
-            <div class="col-md-6 col-xl-3">
-                <div class="card shadow-lg card-border-bottom border-soft-yellow">
-                    <div class="card-body">
-                        <img src="@@webRoot/assets/img/icons/lineal/browser.svg" class="svg-inject icon-svg icon-svg-md text-yellow mb-3" alt="" />
-                        <h4>Content Marketing</h4>
-                        <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus cras justo.</p>
-                        <a href="#" class="more hover link-yellow">Learn More</a>
-                    </div>
-                    <!--/.card-body -->
-                </div>
-                <!--/.card -->
-            </div>
-            <!--/column -->
-            <div class="col-md-6 col-xl-3">
-                <div class="card shadow-lg card-border-bottom border-soft-green">
-                    <div class="card-body">
-                        <img src="@@webRoot/assets/img/icons/lineal/chat-2.svg" class="svg-inject icon-svg icon-svg-md text-green mb-3" alt="" />
-                        <h4>Social Engagement</h4>
-                        <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus cras justo.</p>
-                        <a href="#" class="more hover link-green">Learn More</a>
-                    </div>
-                    <!--/.card-body -->
-                </div>
-                <!--/.card -->
-            </div>
-            <!--/column -->
-            <div class="col-md-6 col-xl-3">
-                <div class="card shadow-lg card-border-bottom border-soft-orange">
-                    <div class="card-body">
-                        <img src="@@webRoot/assets/img/icons/lineal/id-card.svg" class="svg-inject icon-svg icon-svg-md text-orange mb-3" alt="" />
-                        <h4>Identity & Branding</h4>
-                        <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus cras justo.</p>
-                        <a href="#" class="more hover link-orange">Learn More</a>
-                    </div>
-                    <!--/.card-body -->
-                </div>
-                <!--/.card -->
-            </div>
-            <!--/column -->
-            <div class="col-md-6 col-xl-3">
-                <div class="card shadow-lg card-border-bottom border-soft-blue">
-                    <div class="card-body">
-                        <img src="@@webRoot/assets/img/icons/lineal/gift.svg" class="svg-inject icon-svg icon-svg-md text-blue mb-3" alt="" />
-                        <h4>Product Design</h4>
-                        <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus cras justo.</p>
-                        <a href="#" class="more hover link-blue">Learn More</a>
-                    </div>
-                    <!--/.card-body -->
-                </div>
-                <!--/.card -->
-            </div>
-            <!--/column -->
-        </div>
-        <!--/.row -->
-        <div class="row gx-lg-8 gx-xl-12 gy-10 mb-14 mb-md-17 align-items-center">
-            <div class="col-lg-7">
-                <figure><img class="w-auto" src="@@webRoot/assets/img/illustrations/i8.png" srcset="@@webRoot/assets/img/illustrations/i8@2x.png 2x" alt="" /></figure>
-            </div>
-            <!--/column -->
-            <div class="col-lg-5">
-                <h3 class="display-4 mb-7">Our three process steps on creating awesome projects.</h3>
-                <div class="d-flex flex-row mb-6">
-                    <div>
-                        <span class="icon btn btn-circle btn-soft-primary pe-none me-5"><span class="number fs-18">1</span></span>
-                    </div>
-                    <div>
-                        <h4 class="mb-1">Collect Ideas</h4>
-                        <p class="mb-0">Nulla vitae elit libero pharetra augue dapibus. Praesent commodo cursus. Donec ullamcorper nulla non metus.</p>
-                    </div>
-                </div>
-                <div class="d-flex flex-row mb-6">
-                    <div>
-                        <span class="icon btn btn-circle btn-soft-primary pe-none me-5"><span class="number fs-18">2</span></span>
-                    </div>
-                    <div>
-                        <h4 class="mb-1">Data Analysis</h4>
-                        <p class="mb-0">Vivamus sagittis lacus vel augue laoreet. Etiam porta sem malesuada magna auctor fringilla augue.</p>
-                    </div>
-                </div>
-                <div class="d-flex flex-row">
-                    <div>
-                        <span class="icon btn btn-circle btn-soft-primary pe-none me-5"><span class="number fs-18">3</span></span>
-                    </div>
-                    <div>
-                        <h4 class="mb-1">Finalize Product</h4>
-                        <p class="mb-0">Cras mattis consectetur purus sit amet. Aenean lacinia bibendum nulla sed. Nulla vitae elit libero pharetra.</p>
-                    </div>
-                </div>
-            </div>
-            <!--/column -->
-        </div>
-        <!--/.row -->
-        <div class="row gx-lg-8 gx-xl-12 gy-10 align-items-center">
-            <div class="col-lg-7 order-lg-2">
-                <figure><img class="w-auto" src="@@webRoot/assets/img/illustrations/i2.png" srcset="@@webRoot/assets/img/illustrations/i2@2x.png 2x" alt="" /></figure>
-            </div>
-            <!--/column -->
-            <div class="col-lg-5">
-                <h3 class="display-4 mb-7 mt-lg-10">Few reasons why our valued customers choose us.</h3>
-                <div class="accordion accordion-wrapper" id="accordionExample">
-                    <div class="card plain accordion-item">
-                        <div class="card-header" id="headingOne">
-                            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Professional Design </button>
+        <!-- /.container -->
+    </section>
+    <!-- /section -->
+    <section class="wrapper bg-light">
+        <div class="container py-14 py-md-16 pb-md-17">
+            <div class="row gx-md-5 gy-5 mt-n18 mt-md-n21 mb-14 mb-md-10">
+                <div class="col-md-6 col-xl-3">
+                    <div class="card shadow-lg card-border-bottom border-soft-yellow">
+                        <div class="card-body">
+                            <img src="{{ asset('landing/assets/img/1.svg') }}"
+                                class="svg-inject icon-svg icon-svg-md text-yellow mb-3" alt="" />
+                            <h4>Laboratorium Proses Kimia dan Bioproses</h4>
+                            <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida
+                                at eget metus cras justo.</p>
+
                         </div>
-                        <!--/.card-header -->
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="card-body">
-                                <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+                        <!--/.card-body -->
+                    </div>
+                    <!--/.card -->
+                </div>
+                <!--/column -->
+                <div class="col-md-6 col-xl-3">
+                    <div class="card shadow-lg card-border-bottom border-soft-green">
+                        <div class="card-body">
+                            <img src="{{ asset('landing/assets/img/2.svg') }}"
+                                class="svg-inject icon-svg icon-svg-md text-green mb-3" alt="" />
+                            <h4>Laboratorium Kimia Analisis dan Kimia Fisika</h4>
+                            <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida
+                                at eget metus cras justo.</p>
+
+                        </div>
+                        <!--/.card-body -->
+                    </div>
+                    <!--/.card -->
+                </div>
+                <!--/column -->
+                <div class="col-md-6 col-xl-3">
+                    <div class="card shadow-lg card-border-bottom border-soft-orange">
+                        <div class="card-body">
+                            <img src="{{ asset('landing/assets/img/3.svg') }}"
+                                class="svg-inject icon-svg icon-svg-md text-orange mb-3" alt="" />
+                            <h4>Laboratorium Kimia Proses</h4>
+                            <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida
+                                at eget metus cras justo.</p>
+
+                        </div>
+                        <!--/.card-body -->
+                    </div>
+                    <!--/.card -->
+                </div>
+                <!--/column -->
+                <div class="col-md-6 col-xl-3">
+                    <div class="card shadow-lg card-border-bottom border-soft-blue">
+                        <div class="card-body">
+                            <img src="{{ asset('landing/assets/img/4.svg') }}"
+                                class="svg-inject icon-svg icon-svg-md text-blue mb-3" alt="" />
+                            <h4>Laboratorium Unit Operasi Kimia</h4>
+                            <p class="mb-2">Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida
+                                at eget metus cras justo.</p>
+
+                        </div>
+                        <!--/.card-body -->
+                    </div>
+                    <!--/.card -->
+                </div>
+                <!--/column -->
+            </div>
+            <!--/.row -->
+            <div class="row gx-lg-8 gx-xl-12 gy-10 mb-4 mb-md-5 align-items-center">
+                <section class="wrapper bg-light">
+                    <div class="container py-14 py-md-16">
+                        <div class="row">
+                            <div class="col-lg-10 col-xl-9 col-xxl-8 mx-auto text-center">
+                                <h2 class="fs-15 text-uppercase text-muted mb-3">Sewa Lab</h2>
+                                <h3 class="display-4 mb-15 mb-md-6 px-lg-10">Kami Menyewakan Laboratorium untuk Umum dan
+                                    Internal Kampus.</h3>
                             </div>
-                            <!--/.card-body -->
+                            <!--/column -->
                         </div>
-                        <!--/.accordion-collapse -->
-                    </div>
-                    <!--/.accordion-item -->
-                    <div class="card plain accordion-item">
-                        <div class="card-header" id="headingTwo">
-                            <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Top-Notch Support </button>
-                        </div>
-                        <!--/.card-header -->
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="card-body">
-                                <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+                        <!--/.row -->
+                        <div class="pricing-wrapper position-relative">
+                            <div class="shape bg-dot primary rellax w-16 h-18" data-rellax-speed="1"
+                                style="top: 2rem; right: -2.4rem;"></div>
+                            <div class="shape rounded-circle bg-line red rellax w-18 h-18 d-none d-lg-block"
+                                data-rellax-speed="1" style="bottom: 0.5rem; left: -2.5rem;"></div>
+
+                            <div class="row gy-6 mt-3 mt-md-5">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="pricing card text-center">
+                                        <div class="card-body">
+                                            <img src="{{ asset('landing/assets/img/5.svg') }}"
+                                                class="svg-inject icon-svg icon-svg-lg text-primary mb-3" alt="" />
+                                            <h4 class="card-title">Basic Plan</h4>
+                                            <div class="prices text-dark">
+                                                <div class="price price-show"><span class="price-currency">$</span><span
+                                                        class="price-value">9</span> <span class="price-duration">mo</span>
+                                                </div>
+                                                <div class="price price-hide price-hidden"><span
+                                                        class="price-currency">$</span><span class="price-value">99</span>
+                                                    <span class="price-duration">yr</span>
+                                                </div>
+                                            </div>
+                                            <!--/.prices -->
+                                            <ul class="icon-list bullet-bg bullet-soft-primary mt-7 mb-8 text-start">
+                                                <li><i class="uil uil-check"></i><span><strong>1</strong> Project </span>
+                                                </li>
+                                                <li><i class="uil uil-check"></i><span><strong>100K</strong> API Access
+                                                    </span></li>
+                                                <li><i class="uil uil-check"></i><span><strong>100MB</strong> Storage
+                                                    </span></li>
+                                                <li><i class="uil uil-times bullet-soft-red"></i><span> Weekly
+                                                        <strong>Reports</strong> </span></li>
+                                                <li><i class="uil uil-times bullet-soft-red"></i><span> 7/24
+                                                        <strong>Support</strong></span></li>
+                                            </ul>
+                                            <a href="#" class="btn btn-primary rounded-pill">Choose Plan</a>
+                                        </div>
+                                        <!--/.card-body -->
+                                    </div>
+                                    <!--/.pricing -->
+                                </div>
+                                <!--/column -->
+                                <div class="col-md-6 col-lg-4 popular">
+                                    <div class="pricing card text-center">
+                                        <div class="card-body">
+                                            <img src="{{ asset('landing/assets/img/6.svg') }}"
+                                                class="svg-inject icon-svg icon-svg-lg text-primary mb-3" alt="" />
+                                            <h4 class="card-title">Premium Plan</h4>
+                                            <div class="prices text-dark">
+                                                <div class="price price-show"><span class="price-currency">$</span><span
+                                                        class="price-value">19</span> <span class="price-duration">mo</span>
+                                                </div>
+                                                <div class="price price-hide price-hidden"><span
+                                                        class="price-currency">$</span><span class="price-value">199</span>
+                                                    <span class="price-duration">yr</span>
+                                                </div>
+                                            </div>
+                                            <!--/.prices -->
+                                            <ul class="icon-list bullet-bg bullet-soft-primary mt-7 mb-8 text-start">
+                                                <li><i class="uil uil-check"></i><span><strong>5</strong> Projects </span>
+                                                </li>
+                                                <li><i class="uil uil-check"></i><span><strong>100K</strong> API Access
+                                                    </span></li>
+                                                <li><i class="uil uil-check"></i><span><strong>200MB</strong> Storage
+                                                    </span></li>
+                                                <li><i class="uil uil-check"></i><span> Weekly
+                                                        <strong>Reports</strong></span></li>
+                                                <li><i class="uil uil-times bullet-soft-red"></i><span> 7/24
+                                                        <strong>Support</strong></span></li>
+                                            </ul>
+                                            <a href="#" class="btn btn-primary rounded-pill">Choose Plan</a>
+                                        </div>
+                                        <!--/.card-body -->
+                                    </div>
+                                    <!--/.pricing -->
+                                </div>
+                                <!--/column -->
+                                <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-0">
+                                    <div class="pricing card text-center">
+                                        <div class="card-body">
+                                            <img src="{{ asset('landing/assets/img/7.svg') }}"
+                                                class="svg-inject icon-svg icon-svg-lg text-primary mb-3"
+                                                alt="" />
+                                            <h4 class="card-title">Corporate Plan</h4>
+                                            <div class="prices text-dark">
+                                                <div class="price price-show"><span class="price-currency">$</span><span
+                                                        class="price-value">49</span> <span
+                                                        class="price-duration">mo</span></div>
+                                                <div class="price price-hide price-hidden"><span
+                                                        class="price-currency">$</span><span
+                                                        class="price-value">499</span> <span
+                                                        class="price-duration">yr</span></div>
+                                            </div>
+                                            <!--/.prices -->
+                                            <ul class="icon-list bullet-bg bullet-soft-primary mt-7 mb-8 text-start">
+                                                <li><i class="uil uil-check"></i><span><strong>20</strong> Projects </span>
+                                                </li>
+                                                <li><i class="uil uil-check"></i><span><strong>300K</strong> API Access
+                                                    </span></li>
+                                                <li><i class="uil uil-check"></i><span><strong>500MB</strong> Storage
+                                                    </span></li>
+                                                <li><i class="uil uil-check"></i><span> Weekly
+                                                        <strong>Reports</strong></span></li>
+                                                <li><i class="uil uil-check"></i><span> 7/24
+                                                        <strong>Support</strong></span></li>
+                                            </ul>
+                                            <a href="#" class="btn btn-primary rounded-pill">Choose Plan</a>
+                                        </div>
+                                        <!--/.card-body -->
+                                    </div>
+                                    <!--/.pricing -->
+                                </div>
+                                <!--/column -->
                             </div>
-                            <!--/.card-body -->
+                            <!--/.row -->
                         </div>
-                        <!--/.accordion-collapse -->
+                        <!--/.pricing-wrapper -->
                     </div>
-                    <!--/.accordion-item -->
-                    <div class="card plain accordion-item">
-                        <div class="card-header" id="headingThree">
-                            <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Header and Slider Options </button>
-                        </div>
-                        <!--/.card-header -->
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                            <div class="card-body">
-                                <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
-                            </div>
-                            <!--/.card-body -->
-                        </div>
-                        <!--/.accordion-collapse -->
-                    </div>
-                    <!--/.accordion-item -->
-                </div>
-                <!--/.accordion -->
+                    <!-- /.container -->
+                </section>
+                <!-- /section -->
             </div>
-            <!--/column -->
         </div>
-        <!--/.row -->
-    </div>
-    <!-- /.container -->
-</section>
-<!-- /section -->
-<section class="wrapper bg-soft-primary">
-    <div class="container py-14 pt-md-17 pb-md-20">
-        <div class="row gx-lg-8 gx-xl-12 gy-10 gy-lg-0">
-            <div class="col-lg-4 text-center text-lg-start">
-                <h3 class="display-4 mb-3 pe-xl-15">We are proud of our works</h3>
-                <p class="lead fs-lg mb-0 pe-xxl-10">We bring solutions to make life easier for our customers.</p>
-            </div>
-            <!-- /column -->
-            <div class="col-lg-8 mt-lg-2">
+        <!-- /.container -->
+    </section>
+    <!-- /section -->
+    <section class="wrapper bg-soft-primary">
+        <div class="container py-1 pt-md-1 pb-md-6">
+            <h3 class="display-6 mb-1 pe-xl-1 text-center">Tanggal Praktikum</h3>
+            <div class="card p-5 mb-4">
                 <div class="row align-items-center counter-wrapper gy-6 text-center">
-                    <div class="col-md-4">
-                        <img src="@@webRoot/assets/img/icons/lineal/check.svg" class="svg-inject icon-svg icon-svg-md text-primary mb-3" alt="" />
-                        <h3 class="counter">7518</h3>
-                        <p>Completed Projects</p>
-                    </div>
-                    <!--/column -->
-                    <div class="col-md-4">
-                        <img src="@@webRoot/assets/img/icons/lineal/user.svg" class="svg-inject icon-svg icon-svg-md text-primary mb-3" alt="" />
-                        <h3 class="counter">3472</h3>
-                        <p>Happy Customers</p>
-                    </div>
-                    <!--/column -->
-                    <div class="col-md-4">
-                        <img src="@@webRoot/assets/img/icons/lineal/briefcase-2.svg" class="svg-inject icon-svg icon-svg-md text-primary mb-3" alt="" />
-                        <h3 class="counter">2184</h3>
-                        <p>Expert Employees</p>
-                    </div>
-                    <!--/column -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Kelas</th>
+                                <th scope="col">Modul Praktikum</th>
+                                <th scope="col">Tanggal Praktikum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($jadwal as $dt)
+                                <tr>
+                                    <td style="width: 5%;">{{ $loop->iteration }}</td>
+                                    <td>
+                                        Kelas  {{ $dt->nama_kelas }} Tahun Ajaran {{ $dt->tahun_ajaran }} - {{ $dt->semester }}
+                                    </td>
+                                    <td>{{ $dt->modul_name }}</td>
+                                    <td>
+                                        @if ($dt->tanggal_praktek == null)
+                                            Tanggal Praktek Belum ditentukan
+                                        @else
+                                            {{ $dt->tanggal_praktek }}
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <!--/.row -->
             </div>
             <!-- /column -->
         </div>
         <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</section>
-<!-- /section -->
-<section class="wrapper bg-light">
+    </section>
+    <!-- /section -->
+    {{-- <section class="wrapper bg-light">
     <div class="container py-14 py-md-16 pb-md-17">
         <div class="grid mb-14 mb-md-18 mt-3">
             <div class="row isotope gy-6 mt-n19 mt-md-n22">
@@ -342,9 +395,9 @@
         <!-- /.projects-tiles -->
     </div>
     <!-- /.container -->
-</section>
-<!-- /section -->
-<section class="wrapper bg-soft-primary">
+</section> --}}
+    <!-- /section -->
+    {{-- <section class="wrapper bg-soft-primary">
     <div class="container py-14 py-md-17">
         <div class="row gx-lg-8 gx-xl-12 gy-10 align-items-center">
             <div class="col-lg-7">
@@ -386,6 +439,15 @@
         <!--/.row -->
     </div>
     <!-- /.container -->
-</section>
-<!-- /section -->
+</section> --}}
+    <!-- /section -->
 @endsection
+{{-- @section('script')
+    <!-- apexcharts -->
+    <script src="{{ URL::asset('/assets/libs/moment/moment.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/jquery-ui-dist/jquery-ui-dist.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/fullcalendar/fullcalendar.min.js') }}"></script>
+
+    <!-- Calendar init -->
+    <script src="{{ URL::asset('/assets/js/pages/calendar.init.js') }}"></script>
+@endsection --}}

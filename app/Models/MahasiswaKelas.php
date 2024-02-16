@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Expr\FuncCall;
+
 
 class MahasiswaKelas extends Model
 {
@@ -17,6 +17,31 @@ class MahasiswaKelas extends Model
 
     public function mhs()
     {
-        return $this->belongsTo(Mahasiswa::class,'id_mahasiswa', 'id_mahasiswa');
+        return $this->hasOne(Mahasiswa::class,'id_mahasiswa', 'id_mahasiswa');
+    }
+
+    public function mhskel()
+    {
+        return $this->belongsTo(Kelompok::class, 'id_kelompok', 'id_kelompok');
+    }
+
+    public function mhskls()
+    {
+        return $this->hasOne(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function nilaitugasmhs()
+    {
+        return $this->hasOne(NilaiTugas::class, 'id_mahasiswa_kelas' ,'id_mahasiswa_kelas');
+    }
+
+    public function nilaiujianmhs()
+    {
+        return $this->hasOne(NilaiUjian::class, 'id_mahasiswa_kelas' ,'id_mahasiswa_kelas');
+    }
+
+    public function absensimhs()
+    {
+        return $this->hasMany(Absen::class, 'id_mahasiswa_kelas' ,'id_mahasiswa_kelas');
     }
 }

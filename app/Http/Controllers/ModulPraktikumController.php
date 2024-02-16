@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aslab;
 use App\Models\BahanPraktikum;
+use App\Models\Dosen;
 use App\Models\Kelas;
+use App\Models\Matkul;
 use App\Models\ModulAlat;
 use App\Models\ModulBahan;
 use App\Models\ModulKelas;
 use App\Models\ModulPraktikum;
+use App\Models\ModulReport;
+use App\Models\Periode;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use PhpParser\Node\Expr\FuncCall;
-use Sabberworm\CSS\Property\Selector;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Carbon;
 
 class ModulPraktikumController extends Controller
 {
@@ -130,6 +136,50 @@ class ModulPraktikumController extends Controller
     {
         ModulKelas::find($id)->update(['tanggal_praktek'=> \DateTime::createFromFormat('m/d/Y', $request->tanggal)]);
         return redirect('/kelas')->with('success', 'Tanggal Praktek sudah diUpdate');
+    }
+
+    public function finishModul($id)
+    {
+        $modulkelas = ModulKelas::find($id);
+        $periode = Periode::where('id_periode', $modulkelas->id_periode)->first();
+        $kelas = Kelas::where('id_kelas', $modulkelas->id_kelas)->first();
+        $matkul = Matkul::where('id_matkul', $kelas->id_matkul)->first();
+        $modul = ModulPraktikum::where('id_modul', $modulkelas->id_modul)->first();
+        $dosen = Dosen::where('id_dosen', $kelas->id_dosen)->first();
+        $aslab = Aslab::where('id_aslab', $kelas->id_aslab)->first();
+        $userdosen = User::where('user_id', $dosen->user_id)->first();
+        $useraslab = User::where('user_id', $aslab->user_id)->first();
+
+    
+        return view('modul.finishmodul', compact('modulkelas', 'kelas', 'modul', 'dosen', 'aslab', 'matkul', 'periode','userdosen','useraslab'));
+    }
+
+    public function storeReport(Request $request, $id)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $waktu = Carbon::now()->format('YmdHis');
+        $pp = null;
+
+        if ($request->file('report_file')) {
+
+            $extension = $request->file('report_file')->getClientOriginalExtension();
+            $pp = 'report' . '_' . $waktu . '.' . $extension;
+            $dataImage = $request->file('report_file')->get();
+            File::put(public_path('upload/report/' . $pp), $dataImage);
+        }
+        $report = new ModulReport();
+        $report->id_modulkelas = $id;
+        $report->id_kelas = $request->id_kelas;
+        $report->id_periode = $request->id_periode;
+        $report->uraian_report = $request->body;
+        $report->image_report = $pp;
+        $report->created_by = Session::get('username');
+        $report->save();
+
+        ModulKelas::find($id)->update(['isUsed' => 'Yes']);
+
+        return redirect()->to('kelas/detail/' . $request->id_kelas)->with('success', 'Laporan Praktikum berhasil dibuat');
+
     }
 
 }

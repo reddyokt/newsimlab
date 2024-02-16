@@ -10,21 +10,19 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        $landingprop = DB::table('landing_page')->where('landing_page.id_landing', '1')->first();
-
-        $postLanding = DB::table('news')
-                    ->leftJoin('user', 'user.user_id', '=' ,'news.created_by')
-                    ->leftJoin('newscategory', 'newscategory.id_category', '=' ,'news.id_category')
-                    ->leftJoin('user_role', 'user_role.user_id', '=' ,'user.user_id')
-                    ->leftJoin('roles', 'roles.id', '=' ,'user_role.role_id' )
-                    ->whereNull('news.deleted_at')
-                    ->where('news.status', 'published')
-                    ->select(DB::raw('news.news_id, news.news_title as news_title, news.slug as slug,
-                                    news.news_body as news_body, news.feature_image as feature_image,
-                                    news.images as images, user.username as author,
-                                    newscategory.category as category,news.status as status, news.created_at as created_at'))
+        $jadwal = DB::table('modulkelas')
+                    ->leftJoin('kelas', 'kelas.id_kelas','=','modulkelas.id_kelas')
+                    ->leftJoin('matkul', 'matkul.id_matkul','=','kelas.id_matkul')
+                    ->leftJoin('modul', 'modul.id_modul','=','modulkelas.id_modul')
+                    ->leftJoin('periode', 'periode.id_periode','=','modulkelas.id_periode')
+                    ->whereNull('modulkelas.deleted_at')
+                    ->where('isUsed', 'No')
+                    ->where('periode.isActive', 'Yes')
+                    ->select(DB::raw('modulkelas.id_modulkelas, kelas.nama_kelas, matkul.nama_matkul, modul.modul_name,
+                                        periode.tahun_ajaran, periode.semester, modulkelas.tanggal_praktek'))
                     ->get()->toArray();
-        return view('landing.index', compact('postLanding','landingprop'));
+
+        return view('landing.index', compact('jadwal'));
     }
 
     public function postLanding()

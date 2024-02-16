@@ -41,7 +41,9 @@
                         <span>Praktikum<span>
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
-                        <li><a href="/periode">Periode</a></li>
+                        @if(in_array('p3r10d3', Session::get('menu')))
+                            <li><a href="/periode">Periode</a></li>                                                   
+                        @endif
                         <li><a href="/kelas">Kelas</a></li>
                     </ul>
                 </li>
@@ -54,6 +56,17 @@
                         <li><a href="/peserta">Peserta Aktif</a></li>
                         <li><a href="/kelompok">Kelompok</a></li>
                         <li><a href="/absen">Absen</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-comment-alt-edit"></i>
+                        <span>Penilaian<span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/nilaitugas">Nilai Tugas</a></li>
+                        <li><a href="/nilaiujian">Nilai Ujian</a></li>
+                        <li><a href="/nilaiakhir">Nilai Akhir</a></li>
                     </ul>
                 </li>
                 <li>
@@ -72,7 +85,7 @@
                         <span>Master Data</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="/lokasi">Lokasi/Lemari</a></li>
+                        <li><a href="/komposisi">Komposisi Nilai</a></li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/modul">Modul Praktikum</a></li>
@@ -85,6 +98,9 @@
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/aslab">Asisten Lab</a></li>
+                    </ul>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/lokasi">Lokasi/Lemari</a></li>
                     </ul>
                 </li>
 

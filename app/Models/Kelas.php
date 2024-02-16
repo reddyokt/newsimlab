@@ -23,7 +23,7 @@ class Kelas extends Model
 
     public function matkul()
     {
-        return $this->hasOne(Matkul::class, 'id_matkul', 'id_matkul');
+        return $this->belongsTo(Matkul::class, 'id_matkul', 'id_matkul');
     }
     public function dosen()
     {
@@ -62,5 +62,10 @@ class Kelas extends Model
     public function ujian()
     {
         return $this->hasMany(Ujian::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function absen()
+    {
+        return $this->hasMany(Absen::class, 'id_kelas', 'id_kelas');
     }
 }

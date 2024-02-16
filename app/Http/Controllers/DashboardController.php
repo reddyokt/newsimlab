@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
+use App\Models\Mahasiswa;
+use App\Models\MahasiswaKelas;
+use App\Models\ModulKelas;
+use App\Models\NilaiTugas;
+use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -12,11 +18,46 @@ class DashboardController extends Controller
     public function index()
     {
         $role = Session::get('role_code');
-        $pdaID = Session::get('pda_id');
-
         
+        if ($role == 'MHS') {
+            $mhs = Mahasiswa::where('user_id', Session::get('user_id'))->first();
+            $mhskelas = MahasiswaKelas::where('id_mahasiswa', $mhs->id_mahasiswa)->first();
+            $kelas = Kelas::where('id_kelas', $mhskelas->id_kelas)->first();
 
-        return view('dashboard.index');
+            $tugaspre = Tugas::where('id_kelas', $mhskelas->id_kelas)->where('status', 'used')->where('jenis', 'pre_test')->first();
+            $tugaspost = Tugas::where('id_kelas', $mhskelas->id_kelas)->where('status', 'used')->where('jenis', 'post_test')->first();
+            $tugasrep = Tugas::where('id_kelas', $mhskelas->id_kelas)->where('status', 'used')->where('jenis', 'report')->first();
+
+            if ($tugaspre == null) {
+                $nilaitugaspre = null;
+            } else {
+                $nilaitugaspre = NilaiTugas::where('id_mahasiswa_kelas', $mhskelas->id_mahasiswa_kelas)->where('id_tugas', $tugaspre->id_tugas)->where('jenis', 'pre_test')->first();
+            }
+
+            if ($tugaspost == null) {
+                $nilaitugaspost = null;
+            } else {
+                $nilaitugaspost = NilaiTugas::where('id_mahasiswa_kelas', $mhskelas->id_mahasiswa_kelas)->where('id_tugas', $tugaspost->id_tugas)->where('jenis', 'post_test')->first();
+            }
+
+            if ($tugasrep == null) {
+                $nilaitugasrep = null;
+            } else {
+                $nilaitugasrep = NilaiTugas::where('id_mahasiswa_kelas', $mhskelas->id_mahasiswa_kelas)->where('id_tugas', $tugasrep->id_tugas)->where('jenis', 'report')->first();
+            }
+        }
+        else{
+            $mhs = null;
+            $mhskelas = null;
+            $kelas =  null;
+            $tugaspre =  null;
+            $tugaspost =  null;
+            $tugasrep =  null;
+            $nilaitugaspre = null;
+            $nilaitugaspost = null;
+            $nilaitugasrep = null;
+        }
+        return view('dashboard.index', compact('role', 'mhs', 'mhskelas', 'tugaspre', 'tugaspost', 'tugasrep', 'nilaitugaspre', 'nilaitugaspost', 'nilaitugasrep', 'kelas'));
     }
 
     function setRole($id)
@@ -68,12 +109,12 @@ class DashboardController extends Controller
             ->orderBy('kader_info.pda_id')
             ->groupBy('kader_info.pda_id', 'pda_name');
 
-            if ($role == "SUP" || $role == "PWA1") {
-                $allData = $allData->get()->toArray();
-            } else if ($role == "PDA1" || $role == "PDA2") {
-                $allData = $allData->where('kader_info.pda_id', $pdaID)->get()->toArray();
-            }
-    
+        if ($role == "SUP" || $role == "PWA1") {
+            $allData = $allData->get()->toArray();
+        } else if ($role == "PDA1" || $role == "PDA2") {
+            $allData = $allData->where('kader_info.pda_id', $pdaID)->get()->toArray();
+        }
+
 
         $listPDA = DB::table('pda')
             ->whereNull('deleted_at')
@@ -105,23 +146,23 @@ class DashboardController extends Controller
             ->orderBy('aum.pda_id')
             ->groupBy('aum.pda_id', 'pda_name');
 
-            if ($role == "SUP" || $role == "PWA1") {
-                $allData = $allData->get()->toArray();
-            } else if ($role == "PDA1" || $role == "PDA2") {
-                $allData = $allData->where('aum.pda_id', $pdaID)->get()->toArray();
-            }
-    
+        if ($role == "SUP" || $role == "PWA1") {
+            $allData = $allData->get()->toArray();
+        } else if ($role == "PDA1" || $role == "PDA2") {
+            $allData = $allData->where('aum.pda_id', $pdaID)->get()->toArray();
+        }
+
 
         $listPDA = DB::table('pda')
             ->whereNull('deleted_at')
             ->orderBy('pda_id', 'asc');
-        
-            if ($role == "SUP" || $role == "PWA1") {
-                $listPDA = $listPDA->get()->toArray();
-            } else if ($role == "PDA1" || $role == "PDA2") {
-                $listPDA = $listPDA->where('pda_id', $pdaID)->get()->toArray();
-            }
-    
+
+        if ($role == "SUP" || $role == "PWA1") {
+            $listPDA = $listPDA->get()->toArray();
+        } else if ($role == "PDA1" || $role == "PDA2") {
+            $listPDA = $listPDA->where('pda_id', $pdaID)->get()->toArray();
+        }
+
 
         $listData = array();
         foreach ($listPDA as $k => $v) {
@@ -188,13 +229,13 @@ class DashboardController extends Controller
             ->orderBy('proker.pda_id')
             ->groupBy("proker.pda_id", 'pda_name');
 
-            if ($role == "SUP" || $role == "PWA1") {
-                $allData = $allData->get()->toArray();
-            } else if ($role == "PDA1" || $role == "PDA2") {
-                $allData = $allData->where('proker.pda_id', $pdaID)->get()->toArray();
-            }
-    
-        
+        if ($role == "SUP" || $role == "PWA1") {
+            $allData = $allData->get()->toArray();
+        } else if ($role == "PDA1" || $role == "PDA2") {
+            $allData = $allData->where('proker.pda_id', $pdaID)->get()->toArray();
+        }
+
+
         $listPDA = DB::table('pda')
             ->whereNull('deleted_at')
             ->orderBy('pda_id', 'asc')

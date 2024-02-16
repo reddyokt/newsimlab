@@ -20,4 +20,19 @@ class Tugas extends Model
                             'jenis'
                         ];
     protected $primaryKey ='id_tugas';
+    
+    public function tgskls()
+    {
+        return $this->hasOne(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function tgsmdl()
+    {
+        return $this->hasOne(ModulKelas::class, 'id_modulkelas', 'id_modulkelas');
+    }
+
+    public function tgsnilaitugas()
+    {
+        return $this->hasMany(NilaiTugas::class,'id_tugas', 'id_tugas');
+    }
 }

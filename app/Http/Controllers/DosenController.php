@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\RoleMenu;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserRole;

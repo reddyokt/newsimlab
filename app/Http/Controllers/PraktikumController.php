@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aslab;
+use App\Models\Dosen;
 use App\Models\Kelas;
 use App\Models\ModulKelas;
 use App\Models\Periode;
@@ -73,12 +74,44 @@ class PraktikumController extends Controller
 
     public function kelasIndex()
     {
+        $role = Session::get('role_code');
+
         $kelas = Kelas::whereHas('periode', function ($q) {
             $q->where('periode.isActive', 'Yes');
         })->get();
+
+        if ($role == 'DPA') {
+            $dosen = Dosen::where('user_id', Session::get('user_id'))->first();
+            $kelas = Kelas::where('id_dosen', $dosen->id_dosen)->whereHas('periode', function ($q) {
+                $q->where('periode.isActive', 'Yes');
+            })->get();
+        }
+
+        if ($role == 'ASL') {
+            $aslab = Aslab::where('user_id', Session::get('user_id'))->first();
+            $kelas = Kelas::where('id_aslab', $aslab->id_aslab)->whereHas('periode', function ($q) {
+                $q->where('periode.isActive', 'Yes');
+            })->get();
+        }
+
         $kelasx = Kelas::whereHas('periode', function ($q) {
             $q->where('periode.isActive', 'Yes');
         })->get();
+
+        if ($role == 'DPA') {
+            $dosen = Dosen::where('user_id', Session::get('user_id'))->first();
+            $kelasx = Kelas::where('id_dosen', $dosen->id_dosen)->whereHas('periode', function ($q) {
+                $q->where('periode.isActive', 'Yes');
+            })->get();
+        }
+
+        if ($role == 'ASL') {
+            $aslab = Aslab::where('user_id', Session::get('user_id'))->first();
+            $kelasx = Kelas::where('id_aslab', $aslab->id_aslab)->whereHas('periode', function ($q) {
+                $q->where('periode.isActive', 'Yes');
+            })->get();
+        }    
+        
         $modkls = ModulKelas::whereHas('kels')->get();
         $aslab = DB::table('aslab')
             ->where('aslab.status', 'active')
@@ -120,7 +153,7 @@ class PraktikumController extends Controller
         $idkel = $request->matkul;
         $allmodul = $this->idModul($idkel);
         $jenistugas = ['pre_test', 'post_test', 'report'];
-        $jenisujian = ['awal','akhir'];
+        $jenisujian = ['awal', 'akhir'];
 
         $kelas = new Kelas();
         $kelas->id_periode = $req['id_periode'];
@@ -137,7 +170,7 @@ class PraktikumController extends Controller
                 'created_by' => Session::get('user_id'),
                 'id_periode' => $req['id_periode'],
             ]);
-    
+
             foreach ($jenistugas as $key =>  $tugas) {
                 $tugasmodul = Tugas::create([
                     'id_kelas' => $kelas->id_kelas,
@@ -201,11 +234,11 @@ class PraktikumController extends Controller
         $detailujian = Kelas::find($id);
         $detailx = Kelas::find($id);
         $aslab = DB::table('aslab')
-                ->where('aslab.status', 'active')
-                ->whereNull('deleted_at')
-                ->select(DB::raw('aslab.id_aslab as id_aslab, aslab.nama_aslab as nama_aslab'))
-                ->get()->toArray();
+            ->where('aslab.status', 'active')
+            ->whereNull('deleted_at')
+            ->select(DB::raw('aslab.id_aslab as id_aslab, aslab.nama_aslab as nama_aslab'))
+            ->get()->toArray();
 
-        return view('praktikum.detailkelas', compact('detail','detailx','aslab','detailmhs','detailmodul','detailtugas','detailujian'));
+        return view('praktikum.detailkelas', compact('detail', 'detailx', 'aslab', 'detailmhs', 'detailmodul', 'detailtugas', 'detailujian'));
     }
 }

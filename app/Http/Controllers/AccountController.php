@@ -55,10 +55,10 @@ class AccountController extends Controller
         $token_verified =  Str::random(32);
 
         $checkExist = DB::table('user')
-        ->where('email', $request->email)
-        ->orWhere('username', $request->username)
-        ->whereNull('delete_at')
-        ->first();
+                    ->where('email', $request->email)
+                    ->orWhere('username', $request->username)
+                    ->whereNull('delete_at')
+                    ->first();
 
         // $dataImage = $request->file('image');
 
