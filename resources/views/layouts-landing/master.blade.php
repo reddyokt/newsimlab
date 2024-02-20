@@ -6,7 +6,7 @@
     @include('layouts-landing.head')
 </head>
 
-<body class="onepage">
+<body>
     <div class="content-wrapper">
         @include('layouts-landing.header')
         @yield('content')
@@ -17,8 +17,10 @@
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
         </svg>
     </div>
-    <script src="{{ URL::asset('landing/assets/js/plugins.js') }}"></script>
-    <script src="{{ URL::asset('landing/assets/js/theme.js') }}"></script>
+    <script src="{{ asset('landing/assets/js/plugins.js') }}"></script>
+    <script src="{{ asset('landing/assets/js/theme.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
 </body>
 
 </html>

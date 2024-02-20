@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Absen
+    Absen Kelas {{$kelas->nama_kelas}} - {{$kelas->matkul->nama_matkul}} | Periode {{$kelas->periode->tahun_ajaran}} | {{$kelas->periode->semester}}
 @endsection
 @section('css')
     <!-- DataTables -->
@@ -21,11 +21,15 @@
             <div class="card">
                 @include('flashmessage')
                 <div class="card-body">
-                    <table id="datatable" class="table table-bordered dt-responsive wrap"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="datatable-buttons" class="table table-bordered dt-responsive wrap"
+                        style="border-collapse: collapse; border-spacing: 10; width: 100%;">
+                        
                         <thead>
                             <tr>
-
+                                <th colspan="3" class="text-center">Kelas {{$kelas->nama_kelas}} - {{$kelas->matkul->nama_matkul}}</th>
+                            </tr>
+                            <tr>
+                                <th>#</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>Rekap</th>
                             </tr>
@@ -33,13 +37,13 @@
                         <tbody>
                             @foreach ($rekap as $rek)
                                 <tr>
-                                    <td>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td style="width:40%">
                                         {{ $rek->mhs->nim }} - {{ $rek->mhs->nama_mahasiswa }}
                                     </td>
                                     <td>
-
-                                        Hadir : {{$rek->absensimhs()->where("isAbsen", "=", 1)->count()}} 
-                                        Tidak Hadir : {{$rek->absensimhs()->where("isAbsen", "=", 0)->count()}} 
+                                        Hadir : {{$rek->absensimhs()->where("isAbsen", "=", 'Hadir')->count()}}
+                                        Tidak Hadir : {{$rek->absensimhs()->where("isAbsen", "=", 'Tidak Hadir')->count()}}
                                     </td>
 
                                 </tr>

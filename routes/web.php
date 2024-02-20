@@ -29,7 +29,6 @@ Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang'
 Route::post('/formsubmit', [App\Http\Controllers\HomeController::class, 'FormSubmit'])->name('FormSubmit');
 
 Route::post('/postlogin', [App\Http\Controllers\AuthenticationController::class, 'postLogin'])->name('authentication.login.post');
-// Route::post('/logout', [App\Http\Controllers\AuthenticationController::class, 'logout']);
 
 Route::get('/', [App\Http\Controllers\LandingPageController::class, 'index']);
 // Route::get('/landingpage/post', [App\Http\Controllers\LandingPageController::class, 'postLanding']);
@@ -40,6 +39,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 // Route::group(['middleware'], function () {
 
     Route::get('login', [App\Http\Controllers\AuthenticationController::class, 'index'])->name('login');
+    Route::post('/logout', [App\Http\Controllers\AuthenticationController::class, 'logout'])->name('logout');
 
     /* Dashboard */
     Route::group(['middleware' => ['auth:web']], function () {
@@ -240,6 +240,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
     /*------------------Praktikan Absen-----------------------------------------------*/
     Route::get('/absen', [App\Http\Controllers\AbsenController::class, 'absenIndex']);
+    // Route::get('/isiabsen/modul/{id}', [App\Http\Controllers\AbsenController::class, 'isiAbsen']);
     Route::post('/absen/modul/{id}', [App\Http\Controllers\AbsenController::class, 'storeAbsen']);
     Route::post('/rekap', [App\Http\Controllers\AbsenController::class, 'rekapAbsen']);
 

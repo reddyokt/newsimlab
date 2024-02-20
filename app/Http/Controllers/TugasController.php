@@ -75,7 +75,7 @@ class TugasController extends Controller
             $mhstugas->save();
         }
 
-        if($request->jenis == 'report') {
+        if ($request->jenis == 'report') {
             foreach ($allmhs as $key => $mhs) {
                 $mhssubject = new NilaiSubjektif();
                 $mhssubject->id_kelas = $req['id_kelas'];
@@ -100,27 +100,29 @@ class TugasController extends Controller
 
     public function validasiTugas(Request $request, $id)
     {
-        Tugas::find($id)->update(['status'=>'approved']);
-        
+        Tugas::find($id)->update(['status' => 'approved']);
+
         $req = $request->all();
         $mhsabsen = DB::table('mahasiswa_kelas')->where('mahasiswa_kelas.id_kelas', $request->id_kelas)
-                        ->select(DB::raw('id_mahasiswa_kelas'))
-                        ->get();
+            ->select(DB::raw('id_mahasiswa_kelas'))
+            ->get();
         $checked = [];
         foreach ($mhsabsen as $k => $v) {
             $checked[$k] = $v->id_mahasiswa_kelas;
         }
-
-        foreach ($checked as $absen) {
-            $absensi = new Absen();
-            $absensi->id_mahasiswa_kelas = $absen;
-            $absensi->id_modulkelas = $req['id_modulkelas'];
-            $absensi->id_periode = $req['id_periode'];
-            $absensi->id_kelas = $req['id_kelas'];
-            $absensi->isAbsen = 0;
-            $absensi->save();
-        }
         
+        if ($request->jenis == 'pre_test') {
+            foreach ($checked as $absen) {
+                $absensi = new Absen();
+                $absensi->id_mahasiswa_kelas = $absen;
+                $absensi->id_modulkelas = $req['id_modulkelas'];
+                $absensi->id_periode = $req['id_periode'];
+                $absensi->id_kelas = $req['id_kelas'];
+                $absensi->isAbsen = 0;
+                $absensi->save();
+            }
+        }
+
         return redirect()->to('kelas/detail/' . $request->id_kelas)->with('success', 'Tugas telah di-approve');
     }
 
@@ -135,21 +137,21 @@ class TugasController extends Controller
         $detailtugas = Tugas::find($id);
         $modulkelas = ModulKelas::where('id_modulkelas', $detailtugas->id_modulkelas)->first();
         $modul = ModulPraktikum::where('id_modul', $modulkelas->id_modul)->first();
-        $nilaitugas = NilaiTugas::where('jenis', $detailtugas->jenis)->where('id_mahasiswa_kelas',$mhskelas->id_mahasiswa_kelas)
-                        ->where('id_tugas', $id)->first();
-        
+        $nilaitugas = NilaiTugas::where('jenis', $detailtugas->jenis)->where('id_mahasiswa_kelas', $mhskelas->id_mahasiswa_kelas)
+            ->where('id_tugas', $id)->first();
+
         // dd($modul);
 
 
 
-        return view('tugas.tugasformhs', compact('detailtugas', 'role', 'nilaitugas','matkul','modulkelas','modul'));
+        return view('tugas.tugasformhs', compact('detailtugas', 'role', 'nilaitugas', 'matkul', 'modulkelas', 'modul'));
     }
 
     public function mhsJawabTugas(Request $request, $id)
     {
 
         // dd($request);
-        
+
         date_default_timezone_set('Asia/Jakarta');
         $req = $request->all();
 
@@ -162,12 +164,12 @@ class TugasController extends Controller
         if ($request->file('tugas_file')) {
 
             $extension = $request->file('tugas_file')->getClientOriginalExtension();
-            $pp = 'Tugas'.'_'.Session::get('username') . '_'. $request->kelas . '_' . $matkul . '_' . $mods . '_' . $periode . '.' . $extension;
+            $pp = 'Tugas' . '_' . Session::get('username') . '_' . $request->kelas . '_' . $matkul . '_' . $mods . '_' . $periode . '.' . $extension;
             $dataImage = $request->file('tugas_file')->get();
             File::put(public_path('upload/jawaban/tugas/' . $pp), $dataImage);
         }
 
-        NilaiTugas::find($id)->update(['uraian_jawaban' => $request->body, 'file_jawaban'=> $pp]);
+        NilaiTugas::find($id)->update(['uraian_jawaban' => $request->body, 'file_jawaban' => $pp]);
 
         return redirect('/dashboard/index')->with('success', 'Jawaban berhasil diupload');
     }
@@ -177,10 +179,10 @@ class TugasController extends Controller
         $id_tugas = $request->id_tugas;
         $id_kelas = $request->id_kelas;
 
-        Tugas::find($id_tugas)->update(['status'=>'unused']);
+        Tugas::find($id_tugas)->update(['status' => 'unused']);
 
-        NilaiTugas::where('id_tugas', $id_tugas)->where('nilai', Null)->update([ 'nilai' => 0]);
+        NilaiTugas::where('id_tugas', $id_tugas)->where('nilai', Null)->update(['nilai' => 0]);
 
-        return redirect()->to('kelas/detail/' . $id_kelas)->with('warning', 'Tugas telah di-takedown');        
+        return redirect()->to('kelas/detail/' . $id_kelas)->with('warning', 'Tugas telah di-takedown');
     }
 }

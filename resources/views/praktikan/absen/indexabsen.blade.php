@@ -29,7 +29,8 @@
                                 <select class="select form-control" name="id_kelas" id="id_kelas">
                                     <option selected disabled>Pilih Kelas</option>
                                     @foreach ($allkelas as $klss)
-                                        <option value="{{ $klss->id_kelas }}">Kelas {{ $klss->id_kelas }} {{ $klss->nama_kelas }} -
+                                        <option value="{{ $klss->id_kelas }}">Kelas {{ $klss->id_kelas }}
+                                            {{ $klss->nama_kelas }} -
                                             {{ $klss->matkul->nama_matkul }}</option>
                                     @endforeach
                                 </select>
@@ -87,81 +88,84 @@
     </div> <!-- end row -->
 
     <!-- Center Modal example -->
-    @foreach ($kelas->modulkelas as $x)
-        <div class="modal fade" id="absenmodul{{ $x->id_modulkelas }}" tabindex="-1" role="dialog"
-            aria-labelledby="myMediumModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Isi Absensi {{ $x->moduls->modul_name }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/absen/modul/{{ $x->id_modulkelas }}" method="POST" id="createabsen">
-                            @csrf
-                            <div class="row" id="tblmhs">
-                                <input type="hidden" name="id_kelas" value="{{ $kelas->id_kelas }}">
-                                <input type="hidden" name="id_modulkelas" value="{{ $x->id_modulkelas }}">
-                                <input type="hidden" name="id_periode" value="{{ $kelas->periode->id_periode }}">
-                                <div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <label class="form-label" class="control-label">List Mahasiswa</label>
-                                        <table id="mhs" class="table table-bordered dt-responsive wrap"
-                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>NIM</th>
-                                                    <th>Nama Mahasiswa</th>
-                                                    <th>Kehadiran</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($x->absmod as $xxx)
+    @foreach ($allkelas as $kelas)
+        @foreach ($kelas->modulkelas as $x)
+            <div class="modal fade" id="absenmodul{{ $x->id_modulkelas }}" tabindex="-1" role="dialog"
+                aria-labelledby="myMediumModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Isi Absensi {{ $x->moduls->modul_name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/absen/modul/{{ $x->id_modulkelas }}" method="POST" id="createabsen">
+                                @csrf
+                                <div class="row" id="tblmhs">
+                                    <input type="hidden" name="id_kelas" value="{{ $kelas->id_kelas }}">
+                                    <input type="hidden" name="id_modulkelas" value="{{ $x->id_modulkelas }}">
+                                    <input type="hidden" name="id_periode" value="{{ $kelas->periode->id_periode }}">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label" class="control-label">List Mahasiswa</label>
+                                            <table id="mhs" class="table table-bordered dt-responsive wrap"
+                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
                                                     <tr>
-                                                        <td>
-                                                            @if ($xxx->isAbsen == 0)
-                                                                <input type="checkbox" value="{{ $xxx->id_absen }}"
-                                                                    name="id_absen[]">
-                                                            @elseif ($xxx->isAbsen == 1)
-                                                                <input type="checkbox" value="{{ $xxx->id_absen }}"
-                                                                    name="id_absen_not[]" checked>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @foreach ($xxx->absenmhs as $yyy)
-                                                                {{ $yyy->mhs->nim }}
-                                                            @endforeach
-
-                                                        </td>
-                                                        <td>
-                                                            @foreach ($xxx->absenmhs as $yyy)
-                                                                {{ $yyy->mhs->nama_mahasiswa }}
-                                                            @endforeach
-                                                        </td>
-                                                        <td>
-                                                            @if ($xxx->isAbsen == 0)
-                                                                Tidak Hadir
-                                                            @else
-                                                                Hadir
-                                                            @endif
-                                                        </td>
+                                                        <th>#</th>
+                                                        <th>NIM</th>
+                                                        <th>Nama Mahasiswa</th>
+                                                        <th>Kehadiran</th>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($x->absmod as $xxx)
+                                                        <tr>
+                                                            <td>
+                                                                {{ $loop->iteration }}
+                                                            </td>
+                                                            <td>
+                                                                @foreach ($xxx->absenmhs as $yyy)
+                                                                    {{ $yyy->mhs->nim }}
+                                                                @endforeach
+
+                                                            </td>
+                                                            <td>
+                                                                @foreach ($xxx->absenmhs as $yyy)
+                                                                    {{ $yyy->mhs->nama_mahasiswa }}
+                                                                @endforeach
+                                                            </td>
+                                                            <td>
+                                                                @if ($xxx->isAbsen == 'Hadir')
+                                                                    <select  name="tidakabsen[]">
+                                                                        <option selected disabled>Hadir</option>
+                                                                        <option value="{{ $xxx->id_absen }}">Tidak Hadir
+                                                                        </option>
+                                                                    </select>
+                                                                @elseif ($xxx->isAbsen == 'Tidak Hadir')
+                                                                    <select  name="absen[]">
+                                                                        <option selected disabled>Tidak Hadir</option>
+                                                                        <option value="{{ $xxx->id_absen }}">Hadir</option>
+                                                                    </select>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary waves-effect waves-light"
-                                style="float: right;">Simpan
-                                Absen</button>
-                        </form>
+                                <button type="submit" class="btn btn-primary waves-effect waves-light"
+                                    style="float: right;">Simpan
+                                    Absen</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     @endforeach
 @endsection
 @section('script')

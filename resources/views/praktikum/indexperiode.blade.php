@@ -43,8 +43,8 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $periode->tahun_ajaran }}</td>
                                     <td>{{ $periode->semester }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($periode->start)->locale('id')->format('j F Y') }} ~
-                                        {{ \Carbon\Carbon::parse($periode->end)->locale('id')->format('j F Y') }}
+                                    <td>{{ \Carbon\Carbon::parse($periode->start)->isoFormat('dddd, D MMMM Y')  }} ~
+                                        {{ \Carbon\Carbon::parse($periode->end)->isoFormat('dddd, D MMMM Y') }}
                                     </td>
                                     <td>
                                         @if ($periode->isActive == 'Yes')

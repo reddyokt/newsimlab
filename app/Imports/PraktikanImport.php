@@ -39,8 +39,8 @@ class PraktikanImport implements ToCollection, WithHeadingRow
             );
             $newmhs = Mahasiswa::updateOrcreate(
                 [
-                    'nim' => $row['nim'],
-                    'nama_mahasiswa' => $row['nama_mahasiswa'],
+                    'nim' => $user->username,
+                    'nama_mahasiswa' => $user->name,
                     'user_id' => $user->user_id
                 ]
             );
@@ -57,12 +57,10 @@ class PraktikanImport implements ToCollection, WithHeadingRow
                     'created_by' => Session::get('user_id')
                 ]
             );
-            $kelas = Kelas::with(['matkul', 'periode'])
-                ->whereHas('matkul', function ($q) use ($row) {
-                    $q->where('kode_matkul', $row['kode_kelas']);
-                })
-                ->where('kelas.id_periode', $this->id_periode)
-                ->first();
+                
+            $kelas = Kelas::where('kode_kelas', $row['kode_kelas'])                
+            ->where('kelas.id_periode', $this->id_periode)
+            ->first();
 
             MahasiswaKelas::updateOrcreate([
                 'id_mahasiswa' => $newmhs->id_mahasiswa,

@@ -1,5 +1,5 @@
 @yield('css')
 
-<link rel="shortcut icon" href="{{ URL::asset('assets/images/logo_aisyiyah.svg')}}">
-<link rel="stylesheet" href="{{URL::asset('landing/assets/css/plugins.css')}}">
-<link rel="stylesheet" href="{{URL::asset('landing/assets/css/style.css')}}">
+<link rel="shortcut icon" href="{{ asset('landing/assets/img/simlab-ftumj.svg')}}">
+<link rel="stylesheet" href="{{ asset('landing/assets/css/plugins.css')}}">
+<link rel="stylesheet" href="{{ asset('landing/assets/css/style.css')}}">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LandingPage;
+use App\Models\ModulKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,17 +11,9 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        $jadwal = DB::table('modulkelas')
-                    ->leftJoin('kelas', 'kelas.id_kelas','=','modulkelas.id_kelas')
-                    ->leftJoin('matkul', 'matkul.id_matkul','=','kelas.id_matkul')
-                    ->leftJoin('modul', 'modul.id_modul','=','modulkelas.id_modul')
-                    ->leftJoin('periode', 'periode.id_periode','=','modulkelas.id_periode')
-                    ->whereNull('modulkelas.deleted_at')
-                    ->where('isUsed', 'No')
-                    ->where('periode.isActive', 'Yes')
-                    ->select(DB::raw('modulkelas.id_modulkelas, kelas.nama_kelas, matkul.nama_matkul, modul.modul_name,
-                                        periode.tahun_ajaran, periode.semester, modulkelas.tanggal_praktek'))
-                    ->get()->toArray();
+        $jadwal = ModulKelas::whereHas('periode', function($q){
+            $q->where('isActive', 'Yes');
+        })->get();
 
         return view('landing.index', compact('jadwal'));
     }

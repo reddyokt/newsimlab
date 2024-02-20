@@ -19,7 +19,12 @@
             Dashboard
         @endslot
     @endcomponent
-    @include('flashmessage')
+    <div class="row">
+        <div class="col-lg-12">
+            @include('flashmessage')
+        </div>
+    </div>
+    
     @if ($role == 'MHS' || 'SUP')
         @if ($tugaspre == null && $tugaspost == null && $tugasrep == null)
         @else
@@ -27,7 +32,8 @@
                 <div class="col-lg-12">
                     <div class="card bg-white border-primary text-primary-50">
                         <div class="card-body">
-                            <h5 class="mb-4 text-primary"><i class="uil uil-notes me-3"></i>Kelas : {{ $kelas->nama_kelas }} |
+                            <h5 class="mb-4 text-primary"><i class="uil uil-notes me-3"></i>Kelas : {{ $kelas->nama_kelas }}
+                                |
                                 {{ $kelas->matkul->nama_matkul }}
                             </h5>
                             <div class="row">
@@ -89,12 +95,12 @@
                                                     <i class="uil uil-question-circle me-3"></i>
                                                     Laporan
                                                     @if ($nilaitugasrep->uraian_jawaban == null)
-                                                    <label class="text-danger mt-2"> Anda belum membuat jawaban tugas
-                                                        ini!</label>
-                                                @else
-                                                    <label class="text-success mt-2"> Anda sudah menjawab tugas
-                                                        ini!</label>
-                                                @endif
+                                                        <label class="text-danger mt-2"> Anda belum membuat jawaban tugas
+                                                            ini!</label>
+                                                    @else
+                                                        <label class="text-success mt-2"> Anda sudah menjawab tugas
+                                                            ini!</label>
+                                                    @endif
                                                 </h5>
                                                 <a href="/mhs/tugas/detail/{{ $tugasrep->id_tugas }}"
                                                     class="btn btn-sm btn-warning">

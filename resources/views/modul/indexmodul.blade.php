@@ -31,8 +31,8 @@
                                 <th>#</th>
                                 <th>Nama Kelas</th>
                                 <th>Nama Modul</th>
-                                <th>Alat</th>
-                                <th>Bahan</th>
+                                <th>Alat dipakai</th>
+                                <th>Bahan dipakai</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

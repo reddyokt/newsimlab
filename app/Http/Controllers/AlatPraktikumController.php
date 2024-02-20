@@ -14,23 +14,32 @@ class AlatPraktikumController extends Controller
     public function alatIndex()
     {
         $alat = DB::table('alat')->whereNull('alat.deleted_at')
-                    ->leftJoin('lemari', 'lemari.id_lemari', '=' ,'alat.id_lemari')
-                    ->leftJoin('lokasi', 'lokasi.id_lokasi', '=' ,'lemari.id_lokasi')
-                    ->select(DB::raw('alat.id_alat, alat.jenis as jenis, alat.nama_alat as nama,
+            ->leftJoin('lemari', 'lemari.id_lemari', '=', 'alat.id_lemari')
+            ->leftJoin('lokasi', 'lokasi.id_lokasi', '=', 'lemari.id_lokasi')
+            ->select(DB::raw('alat.id_alat, alat.jenis as jenis, alat.nama_alat as nama,
                                         alat.merk_alat as merk, alat.ukuran_alat as ukuran,
                                         alat.jumlah as jumlah, alat.baris as baris, alat.kolom as kolom,
                                         lemari.nama_lemari as lemari, lokasi.nama_lokasi as lokasi,
                                         alat.images as images'))
-                    ->get()->toArray();
-        return view('inventory.alat.indexalat', compact('alat'));
+            ->get()->toArray();
+        $alats = DB::table('alat')->whereNull('alat.deleted_at')
+            ->leftJoin('lemari', 'lemari.id_lemari', '=', 'alat.id_lemari')
+            ->leftJoin('lokasi', 'lokasi.id_lokasi', '=', 'lemari.id_lokasi')
+            ->select(DB::raw('alat.id_alat, alat.jenis as jenis, alat.nama_alat as nama,
+                                        alat.merk_alat as merk, alat.ukuran_alat as ukuran,
+                                        alat.jumlah as jumlah, alat.baris as baris, alat.kolom as kolom,
+                                        lemari.nama_lemari as lemari, lokasi.nama_lokasi as lokasi,
+                                        alat.images as images'))
+            ->get()->toArray();
+        return view('inventory.alat.indexalat', compact('alat','alats'));
     }
 
     public function createAlat()
     {
-        $lemari = DB::table('lemari')->leftJoin('lokasi', 'lokasi.id_lokasi' ,'=', 'lemari.id_lokasi')
-                    ->select(DB::raw('lemari.id_lemari as id_lemari, lemari.nama_lemari as nama_lemari,
+        $lemari = DB::table('lemari')->leftJoin('lokasi', 'lokasi.id_lokasi', '=', 'lemari.id_lokasi')
+            ->select(DB::raw('lemari.id_lemari as id_lemari, lemari.nama_lemari as nama_lemari,
                                         lokasi.nama_lokasi as nama_lokasi'))
-                    ->get()->toArray();
+            ->get()->toArray();
 
         return view('inventory.alat.createalat', compact('lemari'));
     }
@@ -46,7 +55,7 @@ class AlatPraktikumController extends Controller
         if ($request->file('images')) {
             $namafile = str_replace(' ', '_', $request->name);
             $extension = $request->file('images')->getClientOriginalExtension();
-            $pp = 'images'. '-' .$namafile. '-' . $waktu . '.' . $extension;
+            $pp = 'images' . '-' . $namafile . '-' . $waktu . '.' . $extension;
             $dataImage = $request->file('images')->get();
             File::put(public_path('upload/inventory/alat/' . $pp), $dataImage);
         }

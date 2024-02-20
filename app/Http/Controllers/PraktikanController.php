@@ -16,7 +16,6 @@ class PraktikanController extends Controller
 {
     public function import(Request $request)
     {
-        // dd($request);
         Excel::import(new PraktikanImport($request->id_periode), $request->file('dataimport'));
         return redirect('/peserta');
     }

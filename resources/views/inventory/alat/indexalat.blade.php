@@ -81,18 +81,22 @@
                                         <td>
                                             <ul class="list-inline mb-0">
                                                 <li class="list-inline-item">
-                                                    <a href="/alat/edit/" class="px-2 text-primary"><i
+                                                    <a href="/alat/edit/{{ $alat->id_alat }}" class="px-2 text-primary"><i
                                                             class="uil uil-pen font-size-18"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <a href="/alat/delete/" class="px-2 text-danger"><i
+                                                    <a href="/alat/delete/{{ $alat->id_alat }}" class="px-2 text-danger"><i
                                                             class="uil uil-trash-alt font-size-18"></i></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="px-2 text-success" data-bs-toggle="modal"
+                                                        data-bs-target="#modalAlat-{{ $alat->id_alat }}"><i
+                                                            class="mdi mdi-qrcode-scan font-size-18"></i></a>
                                                 </li>
                                             </ul>
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -101,6 +105,30 @@
         </div>
     </div>
     <!-- end row -->
+
+    @foreach ($alats as $x)
+        <div class="modal fade" id="modalAlat-{{ $x->id_alat }}" tabindex="-1" role="dialog"
+            aria-labelledby="myMediumModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">QR Code</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img class="text-center mx-auto d-block mb-3"
+                            src="data:image/png;base64, 
+                        {!! base64_encode(QrCode::format('png')->generate(URL('alat/showcode/' . $x->id_alat))) !!}"
+                            style="width: 200px;">
+                        <a href="data:image/png;base64, 
+                        {!! base64_encode(QrCode::size(200)->format('png')->generate(URL('alat/showcode/' . $x->id_alat))) !!}" download
+                            class="text-center mx-auto d-block mb-3"> Downnload </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 @section('script')
     <!-- Plugins js -->
@@ -108,4 +136,16 @@
     <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/magnific-popup/magnific-popup.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/lightbox.init.js') }}"></script>
+    <script>
+        function save2() {
+            window.open(canvas.toDataURL('image/png'));
+            var gh = canvas.toDataURL('png');
+
+            var a = document.createElement('a');
+            a.href = gh;
+            a.download = 'image.png';
+
+            a.click()
+        }
+    </script>
 @endsection

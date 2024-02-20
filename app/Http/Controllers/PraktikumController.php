@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aslab;
 use App\Models\Dosen;
 use App\Models\Kelas;
+use App\Models\MahasiswaKelas;
 use App\Models\ModulKelas;
 use App\Models\Periode;
 use App\Models\Tugas;
@@ -228,6 +229,7 @@ class PraktikumController extends Controller
     public function kelasDetail($id)
     {
         $detail = Kelas::find($id);
+        $mhskelas = MahasiswaKelas::where('id_kelas', $detail->id_kelas)->get();
         $detailmhs = Kelas::find($id);
         $detailmodul = Kelas::find($id);
         $detailtugas = Kelas::find($id);
@@ -239,6 +241,6 @@ class PraktikumController extends Controller
             ->select(DB::raw('aslab.id_aslab as id_aslab, aslab.nama_aslab as nama_aslab'))
             ->get()->toArray();
 
-        return view('praktikum.detailkelas', compact('detail', 'detailx', 'aslab', 'detailmhs', 'detailmodul', 'detailtugas', 'detailujian'));
+        return view('praktikum.detailkelas', compact('detail', 'detailx', 'aslab', 'detailmhs', 'detailmodul', 'detailtugas', 'detailujian','mhskelas'));
     }
 }

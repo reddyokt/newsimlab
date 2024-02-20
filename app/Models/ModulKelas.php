@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+
 
 class ModulKelas extends Model
 {
@@ -39,5 +41,16 @@ class ModulKelas extends Model
     public function absmod()
     {
         return $this->hasMany(Absen::class, 'id_modulkelas', 'id_modulkelas');
+    }
+
+    public function getTanggal()
+    {
+        return Carbon::parse($this->attributes['tanggal_praktek'])
+            ->translatedFormat('l, d F Y');
+    }
+
+    public function periode()
+    {
+        return $this->hasOne(Periode::class, 'id_periode', 'id_periode');
     }
 }

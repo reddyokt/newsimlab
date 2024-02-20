@@ -206,7 +206,8 @@ class AuthenticationController extends Controller
     //     }
     // }
 
-    public function postLogin(Request $request){
+    public function postLogin(Request $request)
+    {
 
         // dd($request);
         date_default_timezone_set('Asia/Jakarta');
@@ -215,36 +216,37 @@ class AuthenticationController extends Controller
 
         $data = DB::table('user')->where('user.username', $username)
             ->whereNull('user.delete_at')
-            ->where('user.isActive','Y')
+            ->where('user.isActive', 'Y')
             ->first();
 
         $login = Auth::attempt(['username' => $username, 'password' => $password]);
 
-        if($data!=null){ //apakah user tersebut ada atau tidak
-            if(Hash::check($password, $data->password)){
+        if ($data != null) { //apakah user tersebut ada atau tidak
+            if (Hash::check($password, $data->password)) {
                 // define user settings
                 $userSetting = UserSetting::where(
-                    'user_id',$data->user_id
+                    'user_id',
+                    $data->user_id
                 )->whereNull('deleted_at')
-                ->first();
+                    ->first();
 
                 //get role name
                 $dataRole = DB::table('user_role')
-                    ->join('user','user.user_id','=','user_role.user_id')
-                    ->join('roles','roles.id','=','user_role.role_id')
-                    ->where('user.user_id','=',$data->user_id)
+                    ->join('user', 'user.user_id', '=', 'user_role.user_id')
+                    ->join('roles', 'roles.id', '=', 'user_role.role_id')
+                    ->where('user.user_id', '=', $data->user_id)
                     ->select(DB::raw('roles.role_name, roles.CODE, roles.id'))
                     ->first();
 
                 $menu = array();
 
                 $dataMenu = DB::table('menu')
-                    ->join('role_menu','role_menu.menu_id','=','menu.menu_id')
-                    ->where('role_menu.role_id',$dataRole->id)
+                    ->join('role_menu', 'role_menu.menu_id', '=', 'menu.menu_id')
+                    ->where('role_menu.role_id', $dataRole->id)
                     ->whereNull('menu.deleted_at')
                     ->select(DB::raw('menu.code'))
                     ->get()->toArray();
-                foreach($dataMenu as $key=>$value){
+                foreach ($dataMenu as $key => $value) {
                     $menu[$key] = $value->code;
                 }
 
@@ -269,16 +271,16 @@ class AuthenticationController extends Controller
                 // dd(Session::get('menu'));
 
                 $arrsetting = explode('|', $userSetting->default_settings);
-                \App::setlocale($arrsetting[count($arrsetting)-1]);
-                Session::put('locale', $arrsetting[count($arrsetting)-1]);
+                \App::setlocale($arrsetting[count($arrsetting) - 1]);
+                Session::put('locale', $arrsetting[count($arrsetting) - 1]);
 
                 //redirect to main page
-                return redirect('dashboard');
-            }else{
-                return redirect('/login')->with('error','Password atau Username, Salah!');
+                return redirect('/dashboard/index')->with('success', 'Login Sukses');
+            } else {
+                return redirect('/login')->with('error', 'Password atau Username, Salah!');
             }
-        }else{
-            return redirect('/login')->with('error','Password atau Username, Salah!');
+        } else {
+            return redirect('/login')->with('error', 'Password atau Username, Salah!');
         }
     }
 
@@ -719,12 +721,12 @@ class AuthenticationController extends Controller
     //     ]);
     // }
 
-    // public function logout(Request $request)
-    // {
-    //     Auth::logout();
-    //     Session::flush();
-    //     return response()->json(['status'=>true]);
-    // }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        Session::flush();
+        return redirect('login')->with('error', 'Anda Telah Logout');
+    }
 
     // /**
     //  * Show the form for creating a new resource.
@@ -757,9 +759,10 @@ class AuthenticationController extends Controller
     //     return $randomString;
     // }
 
-    public function verifiedAccount($token){
+    public function verifiedAccount($token)
+    {
         $user = User::where('token_verified', $token)->first();
-        if($user !== null){
+        if ($user !== null) {
             $user->isActive = 'Y';
             $user->updated_at = date('Y-m-d H:i:s');
             $user->updated_by = Session::get('user_id');
@@ -767,7 +770,7 @@ class AuthenticationController extends Controller
 
             return redirect('login');
         } else {
-            return redirect('login')->with('alert','Gagal melakukan verifikasi akun!');
+            return redirect('login')->with('alert', 'Gagal melakukan verifikasi akun!');
         }
     }
 

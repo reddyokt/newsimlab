@@ -61,7 +61,7 @@
                                                     @else
                                                         <a href="/tanggal/edit/{{ $kelas->id_kelas }}">
                                                             <span class="text-primary">
-                                                                {{ \Carbon\Carbon::parse($x->tanggal_praktek)->locale('id')->format('j F Y') }}
+                                                                {{ \Carbon\Carbon::parse($x->tanggal_praktek)->isoFormat('dddd, D MMMM Y') }}
                                                             </span>
                                                         </a>
                                                     @endif

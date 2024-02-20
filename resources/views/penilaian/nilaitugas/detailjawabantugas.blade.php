@@ -3,11 +3,6 @@
     Jawaban Tugas
 @endsection
 
-@section('css')
-    <!-- DataTables -->
-    <link href="{{ URL::asset('/assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
-
 @section('content')
     @component('common-components.breadcrumb')
         @slot('pagetitle')
@@ -94,7 +89,7 @@
         </div>
     </div>
 
-    <div class="row justify-content-end">
+    <div class="row">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header bg-primary border-primary">
@@ -104,12 +99,11 @@
                     @if ($pre_test == null)
                         <h5 class="text-danger">Pre Test Belum bisa dinilai</h5>
                     @elseif ($pre_test->uraian_jawaban == null)
+                        <label class="text-primary">Uraian Jawaban</label>
                         <h5>Jawaban Belum di-Upload</h5>
                     @elseif($pre_test->uraian_jawaban != null)
                         <label class="text-primary">Uraian Jawaban</label>
-                        <div class="col-md-12 mb-2 p-4 border border-primary rounded">
-                            {!! $pre_test->uraian_jawaban !!}
-                        </div>
+                        {!! $pre_test->uraian_jawaban !!}
                     @endif
 
                     @if ($pre_test == null)
@@ -126,35 +120,35 @@
                     <div class="col-md-12 mt-4">
                         @if ($pre_test == null)
                         @elseif ($pre_test->nilai == null)
-                            <div class="col-md-2 p-2 border border-primary rounded  text-center" style="float: right;">
+                            <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
                                 <form action="/tugas/isinilai/{{ $pre_test->id_nilai_tugas }}" method="POST">
                                     @csrf
-                                    <label class="text-primary text-center"> Masukkan Nilai </label>
+                                    <h4 class="card-title display-3 text-primary text-center">Masukkan Nilai</h4>
                                     <input type="number" name="nilai" class="form-control mb-3" min="0"
                                         max="100">
                                     <button type="submit" class="btn btn-sm btn-warning" style="width: 100%;">Simpan Nilai
                                     </button>
                                 </form>
-                            @elseif ($pre_test->nilai != null)
-                                <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
-                                    <h4 class="card-title display-3 text-primary text-center">Nilai <i
-                                            class="uil uil-check-circle"></i>
-                                    </h4>
-                                    <h5 class="display-3 text-primary text-center"> {{ $pre_test->nilai }}
-                                    </h5>
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editNilaiPreTest{{ $pre_test->id_nilai_tugas }}"
-                                        style="width: 100%;">Edit !?</button>
-                                </div>
+                            </div>
+                        @elseif ($pre_test->nilai != null)
+                            <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
+                                <h4 class="card-title display-3 text-primary text-center">Nilai <i
+                                        class="uil uil-check-circle"></i>
+                                </h4>
+                                <h5 class="display-3 text-primary text-center"> {{ $pre_test->nilai }}
+                                </h5>
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#editNilaiPreTest{{ $pre_test->id_nilai_tugas }}"
+                                    style="width: 100%;">Edit !?</button>
+                            </div>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
-    <div class="row justify-content-end">
+    <div class="row">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header bg-primary border-primary">
@@ -164,12 +158,11 @@
                     @if ($post_test == null)
                         <h5 class="text-danger">Pre Test Belum bisa dinilai</h5>
                     @elseif ($post_test->uraian_jawaban == null)
+                        <label class="text-primary">Uraian Jawaban</label>
                         <h5>Jawaban Belum di-Upload</h5>
                     @elseif($post_test->uraian_jawaban != null)
                         <label class="text-primary">Uraian Jawaban</label>
-                        <div class="col-md-12 mb-2 p-4 border border-primary rounded">
-                            {!! $post_test->uraian_jawaban !!}
-                        </div>
+                        {!! $post_test->uraian_jawaban !!}
                     @endif
 
                     @if ($post_test == null)
@@ -187,35 +180,35 @@
                     <div class="col-md-12 mt-4">
                         @if ($post_test == null)
                         @elseif ($post_test->nilai == null)
-                            <div class="col-md-2 p-2 border border-primary rounded  text-center" style="float: right;">
+                            <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
                                 <form action="/tugas/isinilai/{{ $post_test->id_nilai_tugas }}" method="POST">
                                     @csrf
-                                    <label class="text-primary text-center"> Masukkan Nilai </label>
+                                    <h4 class="card-title display-3 text-primary text-center">Masukkan Nilai</h4>
                                     <input type="number" name="nilai" class="form-control mb-3" min="0"
                                         max="100">
                                     <button type="submit" class="btn btn-sm btn-warning" style="width: 100%;">Simpan Nilai
                                     </button>
                                 </form>
-                            @elseif ($post_test->nilai != null)
-                                <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
-                                    <h4 class="card-title display-3 text-primary text-center">Nilai <i
-                                            class="uil uil-check-circle"></i>
-                                    </h4>
-                                    <h5 class="display-3 text-primary text-center"> {{ $post_test->nilai }}
-                                    </h5>
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editNilaiPostTest{{ $post_test->id_nilai_tugas }}"
-                                        style="width: 100%;">Edit !?</button>
-                                </div>
+                            </div>
+                        @elseif ($post_test->nilai != null)
+                            <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
+                                <h4 class="card-title display-3 text-primary text-center">Nilai <i
+                                        class="uil uil-check-circle"></i>
+                                </h4>
+                                <h5 class="display-3 text-primary text-center"> {{ $post_test->nilai }}
+                                </h5>
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#editNilaiPostTest{{ $post_test->id_nilai_tugas }}"
+                                    style="width: 100%;">Edit !?</button>
+                            </div>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
-    <div class="row justify-content-end">
+    <div class="row">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header bg-primary border-primary">
@@ -225,12 +218,11 @@
                     @if ($report == null)
                         <h5 class="text-danger">Laporan Belum bisa dinilai</h5>
                     @elseif ($report->uraian_jawaban == null)
+                        <label class="text-primary">Uraian Jawaban</label>
                         <h5>Jawaban Belum di-Upload</h5>
                     @elseif($report->uraian_jawaban != null)
                         <label class="text-primary">Uraian Jawaban</label>
-                        <div class="col-md-12 mb-2 p-4 border border-primary rounded">
-                            {!! $report->uraian_jawaban !!}
-                        </div>
+                        {!! $report->uraian_jawaban !!}
                     @endif
 
                     @if ($report == null)
@@ -248,38 +240,36 @@
                     <div class="col-md-12 mt-4">
                         @if ($report == null)
                         @elseif ($report->nilai == null)
-                            <div class="col-md-2 p-2 border border-primary rounded  text-center" style="float: right;">
+                            <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
                                 <form action="/tugas/isinilai/{{ $report->id_nilai_tugas }}" method="POST">
                                     @csrf
-                                    <label class="text-primary text-center"> Masukkan Nilai </label>
+                                    <h4 class="card-title display-3 text-primary text-center">Masukkan Nilai</h4>
                                     <input type="number" name="nilai" class="form-control mb-3" min="0"
                                         max="100">
                                     <button type="submit" class="btn btn-sm btn-warning" style="width: 100%;">Simpan
                                         Nilai
                                     </button>
                                 </form>
-                            @elseif ($report->nilai != null)
-                                <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
-                                    <h4 class="card-title display-3 text-primary text-center">Nilai <i
-                                            class="uil uil-check-circle"></i>
-                                    </h4>
-                                    <h5 class="display-3 text-primary text-center"> {{ $report->nilai }}
-                                    </h5>
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#editNilaiReport{{ $report->id_nilai_tugas }}"
-                                        style="width: 100%;">Edit !?</button>
-                                </div>
+                            </div>
+                        @elseif ($report->nilai != null)
+                            <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
+                                <h4 class="card-title display-3 text-primary text-center">Nilai <i
+                                        class="uil uil-check-circle"></i>
+                                </h4>
+                                <h5 class="display-3 text-primary text-center"> {{ $report->nilai }}
+                                </h5>
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#editNilaiReport{{ $report->id_nilai_tugas }}"
+                                    style="width: 100%;">Edit !?</button>
+                            </div>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
-
-
-    <div class="row justify-content-end">
+    <div class="row">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header bg-primary border-primary">
@@ -309,9 +299,7 @@
                         @elseif ($subject->nilai != null)
                             @if ($subject->uraian != null)
                                 <label class="text-primary">Uraian Penilaian</label>
-                                <div class="col-md-12 mb-2 border p-4">
-                                    {!! $subject->uraian !!}
-                                </div>
+                                {!! $subject->uraian !!}
                             @else
                             @endif
                             <div class="col-md-2 p-2 border border-primary rounded" style="float: right;">
@@ -329,144 +317,140 @@
             </div>
         </div>
     </div>
-    </div>
-    <!------------------------------------------Modal---------------------------------------------------------------------------->
-    @if ($pre_test == null)
-    @else
-        <div class="modal fade" id="editNilaiPreTest{{ $pre_test->id_nilai_tugas }}" tabindex="-1" role="dialog"
-            aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Nilai</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/tugas/isinilai/{{ $pre_test->id_nilai_tugas }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="col-lg-4 mx-auto d-block">
-                                    <div class="mb-3">
-                                        <input name="nilai" type="number" min="0" max="100"
-                                            class="form-control font-size-20" value="{{ $pre_test->nilai }}"
-                                            placeholder="Input nilai">
-                                    </div>
-                                    <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    @if ($post_test == null)
-    @else
-        <div class="modal fade" id="editNilaiPostTest{{ $post_test->id_nilai_tugas }}" tabindex="-1" role="dialog"
-            aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Nilai</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/tugas/isinilai/{{ $post_test->id_nilai_tugas }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="col-lg-4 mx-auto d-block">
-                                    <div class="mb-3">
-                                        <input name="nilai" type="number" min="0" max="100"
-                                            class="form-control font-size-20" value="{{ $post_test->nilai }}"
-                                            placeholder="Input nilai">
-                                    </div>
-                                    <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    @if ($report == null)
-    @else
-        <div class="modal fade" id="editNilaiReport{{ $report->id_nilai_tugas }}" tabindex="-1" role="dialog"
-            aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Nilai</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/tugas/isinilai/{{ $report->id_nilai_tugas }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="col-lg-4 mx-auto d-block">
-                                    <div class="mb-3">
-                                        <input name="nilai" type="number" min="0" max="100"
-                                            class="form-control font-size-20" value="{{ $report->nilai }}"
-                                            placeholder="Input nilai">
-                                    </div>
-                                    <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
-    @if ($subject == null)
-    @else
-        <div class="modal fade" id="editNilaiSubject{{ $subject->id_nilai_subjektif }}" tabindex="-1" role="dialog"
-            aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Nilai</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/subjektif/isinilai/{{ $subject->id_nilai_subjektif }}" method="POST">
-                            @csrf
-                            <div class="row">
-                                <div class="col-lg-4 mx-auto d-block">
-                                    <div class="mb-3">
-                                        <input name="nilai" type="number" min="0" max="100"
-                                            class="form-control font-size-20" value="{{ $subject->nilai }}"
-                                            placeholder="Input nilai">
-                                    </div>
-                                    <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-
 
 @endsection
+
+<!------------------------------------------Modal---------------------------------------------------------------------------->
+@if ($pre_test == null)
+@else
+    <div class="modal fade" id="editNilaiPreTest{{ $pre_test->id_nilai_tugas }}" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Nilai</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/tugas/isinilai/{{ $pre_test->id_nilai_tugas }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-4 mx-auto d-block">
+                                <div class="mb-3">
+                                    <input name="nilai" type="number" min="0" max="100"
+                                        class="form-control font-size-20" value="{{ $pre_test->nilai }}"
+                                        placeholder="Input nilai">
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if ($post_test == null)
+@else
+    <div class="modal fade" id="editNilaiPostTest{{ $post_test->id_nilai_tugas }}" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Nilai</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/tugas/isinilai/{{ $post_test->id_nilai_tugas }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-4 mx-auto d-block">
+                                <div class="mb-3">
+                                    <input name="nilai" type="number" min="0" max="100"
+                                        class="form-control font-size-20" value="{{ $post_test->nilai }}"
+                                        placeholder="Input nilai">
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if ($report == null)
+@else
+    <div class="modal fade" id="editNilaiReport{{ $report->id_nilai_tugas }}" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Nilai</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/tugas/isinilai/{{ $report->id_nilai_tugas }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-4 mx-auto d-block">
+                                <div class="mb-3">
+                                    <input name="nilai" type="number" min="0" max="100"
+                                        class="form-control font-size-20" value="{{ $report->nilai }}"
+                                        placeholder="Input nilai">
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if ($subject == null)
+@else
+    <div class="modal fade" id="editNilaiSubject{{ $subject->id_nilai_subjektif }}" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Nilai</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/subjektif/isinilai/{{ $subject->id_nilai_subjektif }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-4 mx-auto d-block">
+                                <div class="mb-3">
+                                    <input name="nilai" type="number" min="0" max="100"
+                                        class="form-control font-size-20" value="{{ $subject->nilai }}"
+                                        placeholder="Input nilai">
+                                </div>
+                                <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 @section('script')
-    <script src="{{ URL::asset('/assets/libs/datatables/datatables.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ URL::asset('/assets/libs/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
-    <script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/ckeditor/ckeditor.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/tinymce/tinymce.min.js') }}"></script>

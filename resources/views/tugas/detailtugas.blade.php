@@ -41,6 +41,7 @@
                                     <input type="hidden" name="id_kelas" value="{{ $detailtugas->tgskls->id_kelas }}">
                                     <input type="hidden" name="id_periode" value="{{ $detailtugas->tgskls->periode->id_periode }}">
                                     <input type="hidden" name="id_modulkelas" value="{{ $detailtugas->tgsmdl->id_modulkelas }}">
+                                    <input type="hidden" name="jenis" value="{{ $detailtugas->jenis }}">
                                     <button class="btn btn-sm btn-success mx-auto d-block border-white" type="submit"
                                         onclick="return confirm('Yakin akan setujui tugas ini?!')"
                                         class="px-2 text-white"><i class="uil uil-check-circle font-size-12"></i> Approve

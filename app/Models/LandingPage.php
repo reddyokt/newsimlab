@@ -13,4 +13,5 @@ class LandingPage extends Model
     protected $fillable = ['header1','header2'];
     protected $primaryKey = 'id_landing';
     
+    
 }

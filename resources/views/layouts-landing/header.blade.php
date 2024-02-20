@@ -3,7 +3,7 @@
       <div class="container flex-lg-row flex-nowrap align-items-center">
         <div class="navbar-brand w-100">
           <a href="{{'/'}}">
-            <img src="{{URL::asset('landing/assets/img/simlab.svg')}}" srcset="{{URL::asset('landing/assets/img/simlab.svg')}}" alt="" style="width: 60%;"/>
+            <img src="{{ asset('landing/assets/img/simlab.svg')}}" srcset="{{ asset('landing/assets/img/simlab.svg')}}" alt="" style="width: 60%;"/>
           </a>
         </div>
         <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
