@@ -356,7 +356,7 @@
                                                                         @elseif ($xx->uraian_tugas == null && $xx->status == 'draft')
                                                                             Tugas belum di buat!.
                                                                         @elseif ($xx->uraian_tugas != null && $xx->status == 'used')
-                                                                            Tugas belum di publis!.
+                                                                            Tugas belum sudah dipublish!.
                                                                         @endif
                                                                     </td>
                                                                 </tr>
@@ -371,6 +371,13 @@
                                                                     <td>
 
                                                                         @if ($xx->uraian_tugas != null && $xx->status == 'approved')
+                                                                            <a href="/tugas/detail/{{ $xx->id_tugas }}"><i
+                                                                                    class="uil uil-eye text-success"
+                                                                                    data-toggle="tooltip"
+                                                                                    data-placement="top"
+                                                                                    title="Lihat Detail"></i>
+                                                                            </a>
+                                                                        @elseif ($xx->uraian_tugas != null && $xx->status == 'used')
                                                                             <a href="/tugas/detail/{{ $xx->id_tugas }}"><i
                                                                                     class="uil uil-eye text-success"
                                                                                     data-toggle="tooltip"

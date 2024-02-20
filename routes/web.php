@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Auth::routes();
 
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'root']);
@@ -50,7 +49,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         Route::get('dashboard/setrole/{id}', [App\Http\Controllers\DashboardController::class, 'setrole'])->name('dashboard.setrole');
         Route::get('set-language/{lang}', [App\Http\Controllers\DashboardController::class, 'setlanguage'])->name('dashboard.setlanguage');
     });
-
 
     /*----------------------------------Master Data-----------------------------------------------------------*/
     /*---------------1.role--------------------------------------*/
@@ -175,7 +173,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
      Route::get('/kelas/detail/{$id}', [App\Http\Controllers\PraktikumController::class, 'detailKelas'])->name('kelas_detail');
 
-
      Route::get('/matkul/kode/{id}', [App\Http\Controllers\PraktikumController::class, 'kodeMatkul']);
      Route::get('/matkul/moduls/{id}', [App\Http\Controllers\PraktikumController::class, 'idModul']);
 
@@ -186,16 +183,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      Route::get('/proker/unrealized/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'unrealized']);
      Route::get('/proker/realized/{id}', [App\Http\Controllers\ProgramKerjaController::class, 'realized']);
 
-
      /*------------------13.Landing Property-----------------------------------------------*/
      Route::get('/landingproperty', [App\Http\Controllers\LandingPageController::class, 'landingProperty']);
      Route::post('/landingprop/update', [App\Http\Controllers\LandingPageController::class, 'updateProperty']);
 
-
      /*------------------Komposisi Nilai-----------------------------------------------*/
      Route::get('/komposisi', [App\Http\Controllers\KomposisiNilaiController::class, 'komposisiIndex']);
      Route::post('/komposisi/edit/{id}', [App\Http\Controllers\KomposisiNilaiController::class, 'editKomposisi']);
-
 
      /*------------------Alat Praktikum-----------------------------------------------*/
      Route::get('/alat', [App\Http\Controllers\AlatPraktikumController::class, 'alatIndex']);
@@ -206,7 +200,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      Route::get('/bahan', [App\Http\Controllers\BahanPraktikumController::class, 'bahanIndex']);
      Route::get('/bahan/create', [App\Http\Controllers\BahanPraktikumController::class, 'createBahan']);
      Route::post('/bahan/create', [App\Http\Controllers\BahanPraktikumController::class, 'storeBahan']);
-
 
      /*------------------Lokasi/Lemari-----------------------------------------------*/
      Route::get('/lokasi', [App\Http\Controllers\LokasiController::class, 'lokasiIndex']);
@@ -224,7 +217,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
      Route::post('/tanggal/create/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'storeTanggal']);
      Route::get('/tanggal/edit/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'editTanggal']);
      Route::post('/tanggal/edit/{id}', [App\Http\Controllers\ModulPraktikumController::class, 'storeEditTanggal']);
-
 
     /*------------------Praktikan Peserta-----------------------------------------------*/
      Route::get('/peserta', [App\Http\Controllers\PraktikanController::class, 'pesertaIndex']);
@@ -259,7 +251,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::post('/ujian/create/{id}', [App\Http\Controllers\UjianController::class, 'storeUjian']);
     Route::get('/ujian/detail/{id}', [App\Http\Controllers\UjianController::class, 'detailUjian']);
 
-    
     /*------------------Tugas-----------------------------------------------*/
     Route::get('/tugas/create/{id}', [App\Http\Controllers\TugasController::class, 'createTugas']);
     Route::post('/tugas/create/{id}', [App\Http\Controllers\TugasController::class, 'storeTugas']);
@@ -287,8 +278,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
     /*------------------Penilaian Ujian-----------------------------------------------*/
     Route::get('/nilaiakhir', [App\Http\Controllers\KomposisiNilaiController::class, 'indexPenilaianAkhir']);
     Route::post('/nilaiakhir/byperiode', [App\Http\Controllers\KomposisiNilaiController::class, 'nilaiAkhirByPeriode'])->name('nilaiakhirbyperiode');
-
-
 
 });
 
