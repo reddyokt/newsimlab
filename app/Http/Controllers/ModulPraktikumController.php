@@ -33,8 +33,8 @@ class ModulPraktikumController extends Controller
     public function createModul()
     {
         $matkul = DB::table('matkul')->where('isActive', 'Yes')->get();
-        $bahan = DB::table('bahan')->whereNull('bahan.deleted_at')->get();
-        $alat = DB::table('alat')->whereNull('alat.deleted_at')->get();
+        $bahan = DB::table('bahan')->whereNull('bahan.deleted_at')->orderBy('nama_bahan', 'ASC')->get();
+        $alat = DB::table('alat')->whereNull('alat.deleted_at')->orderBy('nama_alat', 'ASC')->get();
 
         return view('modul.createmodul', compact('matkul','bahan','alat'));
     }

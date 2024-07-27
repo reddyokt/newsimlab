@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('alat', function (Blueprint $table) {
             $table->id('id_alat');
             $table->enum('jenis', ['c2a', 'c2b']);
-            $table->unsignedBigInteger('id_lemari');
+            $table->unsignedBigInteger('id_lemari')->nullable();
             $table->foreign('id_lemari')->references('id_lemari')->on('lemari')->onDelete('restrict');
             $table->string('nama_alat');
             $table->string('merk_alat')->nullable();
             $table->string('ukuran_alat')->nullable();
             $table->integer('jumlah');
-            $table->integer('baris');
-            $table->integer('kolom');
-            $table->string('images');
+            $table->integer('baris')->nullable();
+            $table->integer('kolom')->nullable();
+            $table->string('images')->nullable();
+            $table->string('qrcode')->nullable();
             $table->date('deleted_at')->nullable();
             $table->string('created_by');
             $table->timestamps();

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Detail Kelas
 @endsection
@@ -97,6 +97,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#navtabs-pertemuan" role="tab">
+                                <span class="d-block d-sm-none"><i class="uil-calendar"></i></span>
+                                <span class="d-none d-sm-block">Pertemuan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#navtabs-modul" role="tab">
                                 <span class="d-block d-sm-none"><i class="uil-book-open"></i></span>
                                 <span class="d-none d-sm-block">Modul</span>
@@ -162,6 +168,57 @@
                                                                 <a href="/kelompok/delete/{{ $kelompok->id_kelompok }}"
                                                                     class="px-2 text-danger"><i
                                                                         class="uil uil-trash-alt font-size-18"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="navtabs-pertemuan" role="tabpanel">
+                            <div class="row" style="overflow: auto;">
+                                <div class="col-lg-12">
+                                    <table id="datatable" class="table table-bordered dt-responsive wrap"
+                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Pertemuan</th>
+                                                <th>Tanggal</th>
+                                                <th>Modul Dipakai</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($detail->pertemuan as $data)
+                                                <tr>
+                                                    <td style="width:2%;">{{ $loop->iteration }}</td>
+                                                    <td>{{ $data->nama_pertemuan }}</td>
+                                                    <td>
+                                                        @if ($data->tanggal_pertemuan == null)
+                                                            Tanggal belum ditetapkan
+                                                        @else
+                                                            {{ $data->tanggal_pertemuan }}
+                                                        @endif
+
+                                                    </td>
+                                                    <td>{{ $data->tanggal_pertemuan }}</td>
+
+                                                    <td>
+                                                        <ul class="list-inline mb-0">
+                                                            <li class="list-inline-item">
+                                                                <a href="/pertemuan/edit/{{ $data->id_pertemuan }}"
+                                                                    class="px-2 text-primary"><i
+                                                                        class="uil uil-pen font-size-18"></i></a>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <a href="/pertemuan/report/{{ $data->id_pertemuan }}"
+                                                                    class="px-2 text-success"><i
+                                                                        class="uil uil-check-circle font-size-18"></i></a>
                                                             </li>
                                                         </ul>
                                                     </td>
@@ -585,6 +642,7 @@
     <script src="{{ URL::asset('/assets/libs/jszip/jszip.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/kelas.js') }}"></script>
     <script>
         $(function() {
             $('[data-toggle="tooltip"]').tooltip()

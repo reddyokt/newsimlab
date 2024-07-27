@@ -34,12 +34,12 @@ class DosenController extends Controller
         ->whereNull('delete_at')
         ->first();
 
+        $pp = null;
+
         if ($checkExist) {
             return back()->with('warning', 'Data dengan Username tersebut sudah ada!');
         } else { 
 
-        $extension = $request->file('image')->getClientOriginalExtension();
-        $pp = $request->username.'.'.$extension;
 
             if ($request->file('image')) {
 

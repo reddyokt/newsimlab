@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('bahan', function (Blueprint $table) {
             $table->id('id_bahan');
-            $table->unsignedBigInteger('id_lemari');
+            $table->unsignedBigInteger('id_lemari')->nullable();
             $table->foreign('id_lemari')->references('id_lemari')->on('lemari')->onDelete('restrict');
             $table->string('nama_bahan');
             $table->string('rumus')->nullable();
             $table->integer('jumlah');
-            $table->string('images');
+            $table->enum('fase',['Padat','Cair','Gas']);
+            $table->enum('satuan',['mg','ml']);
+            $table->string('images')->nullable();
             $table->date('deleted_at')->nullable();
             $table->string('created_by');
             $table->timestamps();

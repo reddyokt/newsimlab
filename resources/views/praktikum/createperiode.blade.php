@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Create_Periode
 @endsection
@@ -33,7 +33,7 @@
                                     <div class="input-group">
                                         <select class="form-control" name="tahun_ajaran" id="tahun_ajaran" >
                                             <@foreach ($tAjar as $ta )
-                                                <option value="$ta">{{$ta}}</option>
+                                                <option value="{{$ta}}">{{$ta}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -45,7 +45,7 @@
                                     <div class="input-group">
                                         <select class="form-control" name="semester" id="semester" >
                                             <@foreach ($semester as $semester )
-                                            <option value="$semester">{{$semester}}</option>
+                                            <option value="{{$semester}}">{{$semester}}</option>
                                         @endforeach
                                         </select>
                                     </div>

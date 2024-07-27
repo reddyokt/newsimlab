@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Create_Account
 @endsection
@@ -97,7 +97,7 @@
                                                 placeholder="Enter your email">
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="role">Pilih Role</label>
                                             <select class="form-select form-control form-select-solid" name="role"
@@ -106,10 +106,10 @@
                                                     <option value="{{ $value->id }}">{{ $value->role_name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-6">
                                         <div id="divpda" style="display: none">
                                             <div class="col-md-12 mb-3">
@@ -132,7 +132,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="mb-3 row">
                                     <div class="col-md-6">
                                         <label class="form-label" for="image">Upload Profile Picture</label>

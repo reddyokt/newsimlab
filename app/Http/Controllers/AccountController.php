@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\UserSetting;
+use App\Notifications\ActivationUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -12,9 +13,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-Use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Role;
 
 class AccountController extends Controller
 {
@@ -55,10 +57,10 @@ class AccountController extends Controller
         $token_verified =  Str::random(32);
 
         $checkExist = DB::table('user')
-                    ->where('email', $request->email)
-                    ->orWhere('username', $request->username)
-                    ->whereNull('delete_at')
-                    ->first();
+            ->where('email', $request->email)
+            ->orWhere('username', $request->username)
+            ->whereNull('delete_at')
+            ->first();
 
         // $dataImage = $request->file('image');
 
@@ -67,17 +69,16 @@ class AccountController extends Controller
         } else {
             $user = new User;
             $extension = $request->file('image')->getClientOriginalExtension();
-            $pp = $request->username.'.'.$extension;
+            $pp = $request->username . '.' . $extension;
 
-                if ($request->file('image')) {
+            if ($request->file('image')) {
 
-                    $extension = $request->file('image')->getClientOriginalExtension();
-                    $pp = $request->username.'.'.$extension;
-                    $dataImage = $request->file('image')->get();
-                    // $user->profile_picture = $request->file('image')->store(public_path('storage/profile_picture'), $pp);
-                    File::put(public_path('upload/profile_picture/'.$pp), $dataImage);
-
-                }
+                $extension = $request->file('image')->getClientOriginalExtension();
+                $pp = $request->username . '.' . $extension;
+                $dataImage = $request->file('image')->get();
+                // $user->profile_picture = $request->file('image')->store(public_path('storage/profile_picture'), $pp);
+                File::put(public_path('upload/profile_picture/' . $pp), $dataImage);
+            }
 
             $user->username = $request->username;
             $user->password = Hash::make('qwerty');
@@ -102,19 +103,19 @@ class AccountController extends Controller
             $user_settings->created_by = Session::get('username');
             $user_settings->save();
 
-            if(env('BYPASS_NOTIF')){
+            if (env('BYPASS_NOTIF')) {
                 $dataNotif = array(
                     'to_name' => $request->name,
-                    'username' =>$request->username,
+                    'username' => $request->username,
                     'password' => $eight_random_str,
-                    'url' => url('verified/'.$token_verified)
+                    'url' => url('verified/' . $token_verified)
                 );
-        
+
                 $to_name = $request->name;
                 $to_email = $request->email;
                 $subjectMail = "Verifikasi Akun Aisyiyah PWA DKI Jakarta";
-        
-                Mail::send("mail.mailverifiedaccount", $dataNotif, function($message) use ($to_name, $to_email, $subjectMail) {
+
+                Mail::send("mail.mailverifiedaccount", $dataNotif, function ($message) use ($to_name, $to_email, $subjectMail) {
                     $message->to($to_email, $to_name)->subject($subjectMail);
                     $message->from(config('mail.from.address'), config('mail.from.name'));
                 });
@@ -128,7 +129,7 @@ class AccountController extends Controller
     {
         $enc = $id;
         $roleList = DB::table('roles')
-            ->whereNotIn('code',['SUP'])
+            ->whereNotIn('code', ['SUP'])
             ->get()->toArray();
 
         try {
@@ -136,18 +137,16 @@ class AccountController extends Controller
         } catch (DecryptException $e) {
             return view('error.404');
         }
-        $data = User::leftJoin('user_role','user_role.user_id','=','user.user_id')
+        $data = User::leftJoin('user_role', 'user_role.user_id', '=', 'user.user_id')
             ->where('user.user_id', $id)
             ->select(DB::raw('user.*, role_id'))
             ->first();
 
-        return view('auth.masterdata.account.editaccount', compact('data','roleList','enc'));
+        return view('auth.masterdata.account.editaccount', compact('data', 'roleList', 'enc'));
     }
 
     public function updateAccount(Request $request, $id)
     {
-
-
         date_default_timezone_set('Asia/Jakarta');
         $req = $request->all();
         $id = $req['id'];
@@ -160,21 +159,21 @@ class AccountController extends Controller
 
         $checkEmail = DB::table('user')
             ->where('email', $req['email'])
-            ->where('user_id','<>',$user->user_id)
+            ->where('user_id', '<>', $user->user_id)
             ->whereNull('delete_at')
             ->first();
 
-        if($checkEmail != null){
+        if ($checkEmail != null) {
             return back()->with('warning', 'Email tersebut sudah ada');
         }
 
         $checkUsername = DB::table('user')
             ->Where('username', $req['username'])
-            ->where('user_id','<>',$user->user_id)
+            ->where('user_id', '<>', $user->user_id)
             ->whereNull('delete_at')
             ->first();
 
-        if($checkUsername){
+        if ($checkUsername) {
             return back()->with('warning', 'Username tersebut sudah ada');
         }
 
@@ -183,20 +182,20 @@ class AccountController extends Controller
         if ($request->file('image')) {
 
             $extension = $request->file('image')->getClientOriginalExtension();
-            $pp = $req['username'].'.'.$extension;
+            $pp = $req['username'] . '.' . $extension;
             $dataImage = $request->file('image')->get();
             // $user->profile_picture = $request->file('image')->store(public_path('storage/profile_picture'), $pp);
-            File::put(public_path('upload/profile_picture/'.$pp), $dataImage);
+            File::put(public_path('upload/profile_picture/' . $pp), $dataImage);
         }
 
 
         $checkUsername = DB::table('user')
             ->where('username', $req['username'])
-            ->where('user_id','<>',$user->user_id)
+            ->where('user_id', '<>', $user->user_id)
             ->whereNull('delete_at')
             ->first();
 
-        if($checkEmail != null){
+        if ($checkEmail != null) {
             return back()->with('warning', 'Username tersebut sudah ada');
         }
 
@@ -209,7 +208,7 @@ class AccountController extends Controller
         $user->save();
 
         // user role
-        if($userRole->role_id != $req['role']){
+        if ($userRole->role_id != $req['role']) {
             $userRole->role_id = $req['role'];
             // $userRole->updated_at = Session::get('username');
             $userRole->save();
@@ -240,50 +239,53 @@ class AccountController extends Controller
     {
         date_default_timezone_set('Asia/Jakarta');
         // try {
-            $id = Crypt::decrypt($id);
+        $id = Crypt::decrypt($id);
 
-            $user = User::whereNull('delete_at')->where('user_id', $id)->first();
-            $user->delete_at = date('Y-m-d H:i:s');
-            $user->save();
+        $user = User::whereNull('delete_at')->where('user_id', $id)->first();
+        $user->delete_at = date('Y-m-d H:i:s');
+        $user->save();
 
-            $userRole = UserRole::whereNull('delete_at')->where('user_id', $id)->update([
-                'delete_at'=>date('Y-m-d H:i:s')
-            ]);
+        $userRole = UserRole::whereNull('delete_at')->where('user_id', $id)->update([
+            'delete_at' => date('Y-m-d H:i:s')
+        ]);
 
-            $userSetting = UserSetting::whereNull('deleted_at')->where('user_id', $id)->first();
-            $userSetting->deleted_at = date('Y-m-d H:i:s');
-            $userSetting->save();
+        $userSetting = UserSetting::whereNull('deleted_at')->where('user_id', $id)->first();
+        $userSetting->deleted_at = date('Y-m-d H:i:s');
+        $userSetting->save();
 
-            //user Log
-            // $userLog = new UserLog;
-            // $userLog->user_id = Session::get('user_id');
-            // $userLog->role_id = Session::get('role_id');
-            // $userLog->action = UserLog::AKSI_DELETE;
-            // $userLog->action_date = date('Y-m-d H:i:s');
-            // $userLog->description = 'Menghapus akun atas nama '.$user->name;
-            // $userLog->created_at = date('Y-m-d H:i:s');
-            // $userLog->created_by = Session::get('username');
-            // $userLog->save();
+        //user Log
+        // $userLog = new UserLog;
+        // $userLog->user_id = Session::get('user_id');
+        // $userLog->role_id = Session::get('role_id');
+        // $userLog->action = UserLog::AKSI_DELETE;
+        // $userLog->action_date = date('Y-m-d H:i:s');
+        // $userLog->description = 'Menghapus akun atas nama '.$user->name;
+        // $userLog->created_at = date('Y-m-d H:i:s');
+        // $userLog->created_by = Session::get('username');
+        // $userLog->save();
 
-            return back()->with('warning', 'Data telah didelete!');
-            // } catch (DecryptException $e) {
-            //     return view('error.404');
-            // }
+        return back()->with('warning', 'Data telah didelete!');
+        // } catch (DecryptException $e) {
+        //     return view('error.404');
+        // }
 
     }
 
-    public function getPDA(){
+    public function getPDA()
+    {
         $pda = DB::table('pda')->whereNull('deleted_at')->get()->toArray();
         return response()->json($pda);
     }
 
-    public function getPCA(){
+    public function getPCA()
+    {
         $dpc = DB::table('dpc')->whereNull('deleted_at')->get()->toArray();
         return response()->json($dpc);
     }
 
-    public function getMajelis(){
-        $majelis = DB::table('majelis')->where('isActive','Yes')->get()->toArray();
+    public function getMajelis()
+    {
+        $majelis = DB::table('majelis')->where('isActive', 'Yes')->get()->toArray();
         return response()->json($majelis);
     }
 
@@ -296,24 +298,108 @@ class AccountController extends Controller
             'confnewpass' => 'required|min:6'
         ]);
 
-        if($request->newpass != $request->confnewpass){
+        if ($request->newpass != $request->confnewpass) {
             return redirect()->back()->with('warning', 'Password Konfirmasi tidak sama');
         }
 
-        if(Hash::check($request->oldpass , auth()->user()->password)) {
-            if(!Hash::check($request->newpass , auth()->user()->password)) {
-               $user = User::find(auth()->user()->user_id);
-               $user->update([
-                   'password' => bcrypt($request->newpass)
-               ]);
-            //    return redirect()->back()->with('success', 'password berhasil diubah, Silahkan login kembali');
+        if (Hash::check($request->oldpass, auth()->user()->password)) {
+            if (!Hash::check($request->newpass, auth()->user()->password)) {
+                $user = User::find(auth()->user()->user_id);
+                $user->update([
+                    'password' => bcrypt($request->newpass)
+                ]);
+                //    return redirect()->back()->with('success', 'password berhasil diubah, Silahkan login kembali');
                 Auth::logout();
                 Session::flush();
                 return redirect('login')->with('success', 'password berhasil diubah, Silahkan login kembali');
-            }        
+            }
             return redirect('dashboard/index')->with('warning', 'password lama dan password baru tidak boleh sama');
-        }        
+        }
         return redirect('dashboard/index')->with('error', 'password lama salah');
+    }
 
+
+    public function profile($id)
+    {
+        $role = Session::get('role_code');
+        $user = User::findOrFail($id);
+        $data = null;
+
+        // Common part of the query
+        $query = DB::table('user')
+            ->where('user.user_id', $id)
+            ->leftJoin('user_role', 'user_role.user_id', '=', 'user.user_id')
+            ->leftJoin('roles', 'roles.id', '=', 'user_role.id');
+
+        // Add role-specific joins and select statement
+        switch ($role) {
+            case 'SUP':
+                // Additional joins or selects for Superadmin profile
+                break;
+            case 'DPA':
+                $query->leftJoin('dosen', 'dosen.user_id', '=', 'user.user_id');
+                break;
+            case 'LBO':
+                // Additional joins or selects for Laboran profile
+                break;
+            case 'ASL':
+                $query->leftJoin('aslab', 'aslab.user_id', '=', 'user.user_id');
+                break;
+            case 'MHS':
+                $query->leftJoin('mahasiswa', 'mahasiswa.user_id', '=', 'user.user_id');
+                break;
+            default:
+                // Handle if the role is not recognized
+                break;
+        }
+
+        // Execute the query and fetch the role name
+        $data = $query->first();
+        $data->role_name = Role::where('CODE', $role)->value('role_name');
+
+        return view('auth.masterdata.account.profile', compact('data'));
+    }
+
+    public function editProfile(Request $request, $id)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $req = $request->all();
+        $id = $req['id'];
+        $four_random_str = strtolower(Str::random(4));
+
+        $user = User::where('user_id', $id)->first();
+
+        $checkEmail = DB::table('user')
+            ->where('email', $req['email'])
+            ->where('user_id', '<>', $user->user_id)
+            ->whereNull('delete_at')
+            ->first();
+
+        if ($checkEmail != null) {
+            return back()->with('warning', 'Email tersebut sudah ada');
+        }
+
+        $pp = $req['old_image'];
+
+        if ($request->file('image')) {
+
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $pp = $req['username'].'_'.'updated'.$four_random_str.  '.' . $extension;
+            $dataImage = $request->file('image')->get();
+            // $user->profile_picture = $request->file('image')->store(public_path('storage/profile_picture'), $pp);
+            File::put(public_path('upload/profile_picture/' . $pp), $dataImage);
+        }
+
+        if ($checkEmail != null) {
+            return back()->with('warning', 'Username tersebut sudah ada');
+        }
+
+        $user->name = $req['name'];
+        $user->email = $req['email'];
+        $user->profile_picture = $pp;
+        $user->phone = str_replace('-', '', $req['phone_number']);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile di update');
     }
 }

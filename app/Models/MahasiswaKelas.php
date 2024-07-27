@@ -30,6 +30,11 @@ class MahasiswaKelas extends Model
         return $this->hasOne(Kelas::class, 'id_kelas', 'id_kelas');
     }
 
+    public function maskel()
+{
+    return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas')->with('matkul');
+}
+
     public function nilaitugasmhs()
     {
         return $this->hasOne(NilaiTugas::class, 'id_mahasiswa_kelas' ,'id_mahasiswa_kelas');

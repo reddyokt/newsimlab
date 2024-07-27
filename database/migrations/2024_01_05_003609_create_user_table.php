@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('profile_picture')->nullable();
             $table->enum('isActive', ['Y', 'N'])->default('Y');
+            $table->enum('password_change', ['Y','N'])->default('N');
+            $table->string('token')->nullable();
             $table->string('created_by');
             $table->date('delete_at')->nullable();
             $table->timestamps();

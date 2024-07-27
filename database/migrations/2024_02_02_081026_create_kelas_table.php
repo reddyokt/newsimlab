@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_aslab')->index()->nullable();
             $table->foreign('id_aslab')->references('id_aslab')->on('aslab')->onDelete('restrict');
             $table->enum('status',['active','not_active'])->default('active');
+            $table->integer('jumlah_pertemuan');
             $table->date('deleted_at')->nullable();
             $table->timestamps();
         });

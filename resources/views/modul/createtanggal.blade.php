@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Modul Kelas
 @endsection

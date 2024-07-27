@@ -54,6 +54,53 @@
                 </button>
             </div>
 
+            {{-- <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="uil-bell"></i>
+                    <span class="badge bg-danger rounded-pill">3</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+                    <div class="p-3">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="m-0 font-size-16"> @lang('translation.Notifications') </h5>
+                            </div>
+                            <div class="col-auto">
+                                <a href="#!" class="small"> @lang('translation.Mark_read')</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-simplebar style="max-height: 230px;">
+                        @if(isset($notifikasi))
+                        @foreach ($notifikasi as $notif )
+                        <a href="" class="text-reset notification-item">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-shrink-0 me-3">
+                                    <img src="{{ URL::asset('/assets/images/users/avatar-3.jpg') }}" class="rounded-circle avatar-xs" alt="user-pic">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mt-0 mb-1">{{$notif->nama_alat}}</h6>
+                                    <div class="font-size-12 text-muted">
+                                        <p class="mb-1">@lang('translation.simplified_English')</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> @lang('translation.1_hours_ago')</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        @endforeach
+                        @else
+                        @endif
+                    </div>
+                    
+                    <div class="p-2 border-top">
+                        <div class="d-grid">
+                            <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                <i class="uil-arrow-circle-right me-1"></i> @lang('translation.View_More')..
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @if(!empty(Auth::user()->profile_picture) && file_exists(base_path() . '/public/upload/profile_picture/'.Session::get('picture')))
@@ -66,7 +113,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="#"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i>
+                    <a class="dropdown-item" href="/profile/{{Session::get('user_id')}}"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i>
                         <span class="align-middle">@lang('translation.View_Profile')</span></a>
                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i>
                         <span class="align-middle">Change Password</span></a>

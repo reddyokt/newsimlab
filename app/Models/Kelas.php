@@ -12,11 +12,13 @@ class Kelas extends Model
     protected $table = 'kelas';
     protected $fillable = [
                             'id_periode',
-                            'id_dosen',
                             'id_matkul',
-                            'id_aslab',
+                            'kode_matkul',
                             'nama_kelas',
+                            'id_dosen',
+                            'id_aslab',
                             'status',
+                            'jumlah_pertemuan',
                             'deleted_at'
                                     ];
     protected $primaryKey = 'id_kelas';
@@ -67,5 +69,10 @@ class Kelas extends Model
     public function absen()
     {
         return $this->hasMany(Absen::class, 'id_kelas', 'id_kelas');
+    }
+
+    public function pertemuan()
+    {
+        return $this->hasMany(Pertemuan::class, 'id_kelas', 'id_kelas');
     }
 }

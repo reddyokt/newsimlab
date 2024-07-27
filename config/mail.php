@@ -36,10 +36,10 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
+            'host' => env('MAIL_HOST'),
+            'port' => env('MAIL_PORT'),
             'encryption' => 'tls',
-            'from' => ['address' => 'mail@kta.dpp-imm.or.id', 'name' => 'Aisyiyah DKI Jakarta'],
+            'from' => ['address' => 'reddy@staff.umj.ac.id', 'name' => 'SIMLAB FT-UMJ'],
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
@@ -85,8 +85,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'mail@aisyiyahjakarta.org'),
-        'name' => env('MAIL_FROM_NAME', 'Aisyiyah DKI Jakarta'),
+        'address' => env('MAIL_FROM_ADDRESS', 'reddy@staff.umj.ac.id'),
+        'name' => env('MAIL_FROM_NAME', 'SIMLAB FT-UMJ'),
     ],
 
     /*

@@ -79,6 +79,18 @@
                         <li><a href="/bahan">Bahan Praktikum</a></li>
                     </ul>
                 </li>
+                
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil-dna"></i>
+                        <span>Transaksi<span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/analisa">Rekap Analisa</a></li>
+                        <li><a href="/penelitian">Rekap Penelitian</a></li>
+                    </ul>
+                </li>
+                
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-apps"></i>
@@ -86,6 +98,9 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/komposisi">Komposisi Nilai</a></li>
+                    </ul>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="/matkul">Mata Kuliah Praktikum</a></li>
                     </ul>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="/modul">Modul Praktikum</a></li>

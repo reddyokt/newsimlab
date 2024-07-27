@@ -1,231 +1,76 @@
-// CHART REGIS
-const regisData = $(".registrationData").val();
-const totalPda = $(".totalPDA").val();
-const pdaList = $(".pdaList").val();
-const valRegisData = Object.values(JSON.parse(regisData));
-const valTotalPda = Object.values(JSON.parse(totalPda));
-const valPdaList = JSON.parse(pdaList);
-var roleCode = $('#roleCode').val();
-if(roleCode == 'SUP' || roleCode == 'PWA1'){
-	var optionsPda = {
-		chart: {
-			type: 'bar',
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+	var colorMap = {}; // Object to store the color for each id_kelas
+
+	var calendar = new FullCalendar.Calendar(calendarEl, {
+		plugins: ['dayGrid'],
+        events: events,
+        eventClick: function(info) {
+			var title = info.event.title;
+			var start = info.event.start;
+			var dosen = info.event.extendedProps.dosen;
+			var aslab = info.event.extendedProps.aslab;
+			var idKelas = info.event.extendedProps.id_kelas
+		.toString(); // Ensure idKelas is a string
+
+			var startDate = start ? start.toLocaleDateString('id-ID', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			}) : '';
+
+			var startDateStyle = start < new Date() ? 'text-decoration: line-through;' : '';
+
+			$('#eventDetails').html(`
+				<div class="row">
+					<div class="col-md-6">
+						<strong>Title:</strong>
+						<p>${title}</p>
+						<strong>Praktikum Date:</strong>
+						<p style="${startDateStyle}">${startDate}</p>
+					</div>
+					<div class="col-md-6">
+						<strong>Dosen:</strong>
+						<p>${dosen}</p>
+						<strong>Aslab:</strong>
+						<p>${aslab}</p>
+						<strong>ID Kelas:</strong>
+						<p>${idKelas}</p>
+					</div>
+				</div>`);
+			$('#eventModal').modal('show');
 		},
-		series: [{
-			name: labelPdaList,
-			data: valTotalPda
-		}],
-		xaxis: {
-			categories: valPdaList
-		},
-		yaxis: {
-			labels: {
-			formatter: (value) => {
-				return value.toFixed(0)
-			},
+		eventRender: function(info) {
+			var idKelas = info.event.extendedProps.id_kelas
+		.toString(); // Ensure idKelas is a string
+			var start = info.event.start;
+			var today = new Date();
+
+			if (!colorMap[idKelas]) {
+				colorMap[idKelas] = getRandomColor(idKelas);
 			}
-		},
+
+			if (start.toDateString() === today.toDateString()) {
+				// If event starts today, set background color to green
+				info.el.style.backgroundColor = 'green';
+			} else if (start < today) {
+				// If event is in the past, set background color to red
+				info.el.style.backgroundColor = 'red';
+			} else {
+				// If event is in the future, set background color based on id_kelas
+				info.el.style.backgroundColor = colorMap[idKelas];
+			}
+		}
+	});
+
+	calendar.render();
+
+	function getRandomColor(idKelas) {
+		// Generate a unique color based on the id_kelas
+		var seed = parseInt(idKelas.replace(/[^\d]/g, ''), 10);
+		var color = '#' + (seed * 7 % 16777215).toString(
+		16); // Use a prime number multiplier to ensure uniqueness
+		return color;
 	}
-	var chartPda = new ApexCharts(document.querySelector("#chartTotalPDA"), optionsPda);
-	chartPda.render();
-}
 
-var options = {
-    chart: {
-        type: 'bar',
-    },
-    series: [{
-        name: labelRegis,
-        data: valRegisData
-    }],
-    xaxis: {
-        categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-    },
-	yaxis: {
-		labels: {
-		  formatter: (value) => {
-			return value.toFixed(0)
-		  },
-		}
-	},
-}
-var chart = new ApexCharts(document.querySelector("#chart"), options);
-chart.render();
-
-// CHART GENDER
-const genderData = $(".genderData").val();
-const valGenderData = Object.values(JSON.parse(genderData));
-var optionsPie = {
-	series: valGenderData,
-	chart: {
-		width: 380,
-		type: 'pie',
-	},
-  	labels: [labelMale, labelFemale],
-  	responsive: [{
-    	breakpoint: 480,
-    	options: {
-     	 	chart: {
-        		width: 200
-      		},
-      		legend: {
-        		position: 'bottom'
-      		}
-    	}
-  	}],
-};
-var chartPie = new ApexCharts(document.querySelector("#chartPie"), optionsPie);
-chartPie.render();
-
-// CHART topFiveDPD
-const topFiveDPD = $(".topFiveDPD").val();
-const labelTopFiveDPD = Object.keys(JSON.parse(topFiveDPD));
-const valTopFiveDPD = Object.values(JSON.parse(topFiveDPD));
-
-var optionsDPD = {
-	colors: [ // this array contains different color code for each data
-        "#33b2df",
-        "#546E7A",
-        "#d4526e",
-        "#13d8aa",
-        "#A5978B"
-    ],
-	series: [{
-		name: labelTotal,
-		data: valTopFiveDPD,
-		color: "#41B883",
-	}],
-	chart: {
-		type: 'bar',
-		height: 350
-	},
-	plotOptions: {
-		bar: {
-			distributed: true, // this line is mandatory
-			borderRadius: 4,
-			horizontal: true,
-		}
-	},
-	dataLabels: {
-		enabled: false
-	},
-	xaxis: {
-		categories: labelTopFiveDPD,
-		labels: {
-		  formatter: (value) => {
-			return value.toFixed(0)
-		  },
-		}
-	},
-	yaxis: {
-		labels: {
-		  formatter: (value) => {
-			return value
-		  },
-		}
-	},
-};
-var chartDPD = new ApexCharts(document.querySelector("#chartDPD"), optionsDPD);
-chartDPD.render();
-
-// CHART topFiveDPC
-const topFiveDPC = $(".topFiveDPC").val();
-const labelTopFiveDPC = Object.keys(JSON.parse(topFiveDPC));
-const valTopFiveDPC = Object.values(JSON.parse(topFiveDPC));
-
-var optionsDPC = {
-	colors: ['#2b908f', '#f9a3a4', '#90ee7e','#f48024', '#69d2e7'],
-		series: [{
-		name: labelTotal,
-		data: valTopFiveDPC
-	}],
-		chart: {
-		type: 'bar',
-		height: 350
-	},
-	plotOptions: {
-		bar: {
-			distributed: true, // this line is mandatory
-			borderRadius: 4,
-			horizontal: true,
-		}
-	},
-	dataLabels: {
-		enabled: false
-	},
-	xaxis: {
-		categories: labelTopFiveDPC,
-		labels: {
-		  formatter: (value) => {
-			return value.toFixed(0)
-		  },
-		}
-	},
-	yaxis: {
-		labels: {
-		  formatter: (value) => {
-			return value
-		  },
-		}
-	},
-};
-var chartDPC = new ApexCharts(document.querySelector("#chartDPC"), optionsDPC);
-chartDPC.render();
-
-$(document).on('change', '.filterType', function(){
-	var val = $(this).val();
-
-	// $("#chartPie").empty();
-	var optionsPie = null;
-	if(val == 'gender'){
-		$('#titleGrafikType').html(titleGrafikGender);
-
-		const genderData = $(".genderData").val();
-		const valGenderData = Object.values(JSON.parse(genderData));
-		optionsPie = {
-			series: valGenderData,
-			chart: {
-				width: 380,
-				type: 'pie',
-			},
-			labels: [labelMale, labelFemale],
-			responsive: [{
-				breakpoint: 480,
-				options: {
-					chart: {
-						width: 200
-					},
-					legend: {
-						position: 'bottom'
-					}
-				}
-			}],
-		};
-	}else{
-		$('#titleGrafikType').html(titleGrafikEducation);
-
-		const educationData = $(".educationData").val();
-		const valEducationData = Object.values(JSON.parse(educationData));
-		var optionsPie = {
-			series: valEducationData,
-			chart: {
-				width: 380,
-				type: 'pie',
-			},
-			labels: [labelDiploma, labelSarjana, labelMaster, labelDoktoral],
-			responsive: [{
-				breakpoint: 480,
-				options: {
-					chart: {
-						width: 200
-					},
-					legend: {
-						position: 'bottom'
-					}
-				}
-			}],
-		};
-	}
-	chartPie.updateOptions(optionsPie);
-	// chartPie.render();
 });

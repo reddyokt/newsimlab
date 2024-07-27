@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Bahan_Praktikum
 @endsection
@@ -42,6 +42,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Rumus Kimia</th>
+                                    <th scope="col">Fase</th>
                                     <th scope="col">Jumlah</th>
                                     <th scope="col">Lokasi</th>
 
@@ -62,13 +63,14 @@
                                                 </a>
                                             @else
                                                 <img class="avatar-sm rounded-circle me-2"
-                                                    src="{{ asset('assets/media/users/default.jpg') }}" alt="user" />
+                                                    src="{{ asset('assets/media/users/no-image.png') }}" alt="user" />
                                             @endif
                                             <span><a href="#" class="text-body">{{ $bahan->nama }}</a></span>
 
                                         </td>
                                         <td>{{ $bahan->rumus }}</td>
-                                        <td>{{ $bahan->jumlah }}</td>
+                                        <td>{{ $bahan->fase }}</td>
+                                        <td>{{ $bahan->jumlah }} {{$bahan->satuan}}</td>
                                         <td style="width: 30%;">
                                             Lokasi : {{ $bahan->lokasi }}<br>
                                             Lemari : {{ $bahan->lemari }}<br>

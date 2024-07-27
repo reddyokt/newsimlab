@@ -6,8 +6,10 @@ use App\Models\Aslab;
 use App\Models\Dosen;
 use App\Models\Kelas;
 use App\Models\MahasiswaKelas;
+use App\Models\Matkul;
 use App\Models\ModulKelas;
 use App\Models\Periode;
+use App\Models\Pertemuan;
 use App\Models\Tugas;
 use App\Models\Ujian;
 use Illuminate\Http\Request;
@@ -17,6 +19,45 @@ use Illuminate\Support\Facades\Session;
 
 class PraktikumController extends Controller
 {
+    public function matkulIndex()
+    {
+        $matkul = DB::table('matkul')->get();
+        return view('praktikum.indexmatkul', compact('matkul'));
+    }
+
+    public function createMatkul()
+    {
+        return view('praktikum.creatematkul');
+    }
+
+    public function storeMatkul(Request $request)
+    {
+        $matkul = new Matkul();
+        $matkul->kode_matkul = $request->kode;
+        $matkul->nama_matkul = $request->name;
+        $matkul->jumlah_modul = $request->jumlah;
+        $matkul->save();
+
+        return redirect('/matkul');
+    }
+
+    public function editMatkul($id)
+    {
+        $data = Matkul::find($id);
+        return view('praktikum.editmatkul', compact('data'));
+    }
+
+    public function storeEditMatkul(Request $request, $id)
+    {
+        Matkul::find($id)->update([
+            'nama_matkul' => $request->name,
+            'kode_matkul' => $request->kode,
+            'jumlah_modul' => $request->jumlah
+        ]);
+
+        return redirect('matkul')->with('success', 'Alhamdulillah data Matkul berhasil di-edit');
+    }
+
     public function periodeIndex()
     {
         $periodeindex = DB::table('periode')->get()->toArray();
@@ -95,31 +136,27 @@ class PraktikumController extends Controller
             })->get();
         }
 
-        $kelasx = Kelas::whereHas('periode', function ($q) {
-            $q->where('periode.isActive', 'Yes');
-        })->get();
-
         if ($role == 'DPA') {
             $dosen = Dosen::where('user_id', Session::get('user_id'))->first();
-            $kelasx = Kelas::where('id_dosen', $dosen->id_dosen)->whereHas('periode', function ($q) {
+            $kelas = Kelas::where('id_dosen', $dosen->id_dosen)->whereHas('periode', function ($q) {
                 $q->where('periode.isActive', 'Yes');
             })->get();
         }
 
         if ($role == 'ASL') {
             $aslab = Aslab::where('user_id', Session::get('user_id'))->first();
-            $kelasx = Kelas::where('id_aslab', $aslab->id_aslab)->whereHas('periode', function ($q) {
+            $kelas = Kelas::where('id_aslab', $aslab->id_aslab)->whereHas('periode', function ($q) {
                 $q->where('periode.isActive', 'Yes');
             })->get();
-        }    
-        
+        }
+
         $modkls = ModulKelas::whereHas('kels')->get();
         $aslab = DB::table('aslab')
             ->where('aslab.status', 'active')
             ->whereNull('deleted_at')
             ->select(DB::raw('aslab.id_aslab as id_aslab, aslab.nama_aslab as nama_aslab'))
             ->get()->toArray();
-        return view('praktikum.indexkelas', compact('kelas', 'modkls', 'kelasx', 'aslab'));
+        return view('praktikum.indexkelas', compact('kelas', 'modkls', 'aslab'));
     }
 
     public function createKelas()
@@ -148,7 +185,7 @@ class PraktikumController extends Controller
 
     public function storeKelas(Request $request)
     {
-
+        // dd($request);
         $req = $request->all();
 
         $idkel = $request->matkul;
@@ -162,6 +199,7 @@ class PraktikumController extends Controller
         $kelas->id_dosen = $req['dosen'];
         $kelas->nama_kelas = $req['name'];
         $kelas->kode_matkul = $req['kode'];
+        $kelas->jumlah_pertemuan = $req['jumlah'];
         $kelas->save();
 
         foreach ($allmodul as  $modul) {
@@ -173,7 +211,7 @@ class PraktikumController extends Controller
             ]);
 
             foreach ($jenistugas as $key =>  $tugas) {
-                $tugasmodul = Tugas::create([
+                Tugas::create([
                     'id_kelas' => $kelas->id_kelas,
                     'jenis' => $tugas,
                     'id_periode' => $req['id_periode'],
@@ -181,6 +219,15 @@ class PraktikumController extends Controller
                     'created_by' => Session::get('user_id'),
                 ]);
             }
+        }
+
+        for ($i = 0; $i < $request->jumlah; $i++) {
+            Pertemuan::create([
+                'id_kelas' => $kelas->id_kelas,
+                'id_periode' => $req['id_periode'],
+                'created_by' => Session::get('user_id'),
+                'nama_pertemuan' => 'Pertemuan ' . ($i + 1),
+            ]);
         }
 
         foreach ($jenisujian as $key => $ujian) {
@@ -241,6 +288,6 @@ class PraktikumController extends Controller
             ->select(DB::raw('aslab.id_aslab as id_aslab, aslab.nama_aslab as nama_aslab'))
             ->get()->toArray();
 
-        return view('praktikum.detailkelas', compact('detail', 'detailx', 'aslab', 'detailmhs', 'detailmodul', 'detailtugas', 'detailujian','mhskelas'));
+        return view('praktikum.detailkelas', compact('detail', 'detailx', 'aslab', 'detailmhs', 'detailmodul', 'detailtugas', 'detailujian', 'mhskelas'));
     }
 }

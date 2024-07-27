@@ -32,6 +32,7 @@ class KomposisiNilaiController extends Controller
 
     public function indexPenilaianAkhir()
     {
+        
         $komPretest = KomposisiNilai::where('nama_komponen', 'Pre Test')->first()->nilai_komponen;
         $komPosttest = Komposisinilai::where('nama_komponen', 'Post Test')->first()->nilai_komponen;
         $komSubjektif = Komposisinilai::where('nama_komponen', 'Subjectif')->first()->nilai_komponen;
@@ -74,10 +75,10 @@ class KomposisiNilaiController extends Controller
             $kelas_id = $kelasmhs->id_kelas;
             // $jumlah_modul = $kelasmhs->kelas->matkul->jumlah_modul;
             $jml_modul = DB::table('matkul')
-                            ->leftJoin('kelas', 'kelas.id_matkul','=','matkul.id_matkul')
-                            ->leftJoin('mahasiswa_kelas', 'mahasiswa_kelas.id_kelas', '=', 'kelas.id_kelas')
-                            ->where('mahasiswa_kelas.id_mahasiswa_kelas', $kelasmhs->id_mahasiswa_kelas)
-                            ->first();
+                ->leftJoin('kelas', 'kelas.id_matkul', '=', 'matkul.id_matkul')
+                ->leftJoin('mahasiswa_kelas', 'mahasiswa_kelas.id_kelas', '=', 'kelas.id_kelas')
+                ->where('mahasiswa_kelas.id_mahasiswa_kelas', $kelasmhs->id_mahasiswa_kelas)
+                ->first();
             $jumlah_modul = $jml_modul->jumlah_modul;
 
             $ujian_awal = NilaiUjian::whereHas('ujian', function ($q) use ($kelasmhs) {
@@ -178,12 +179,17 @@ class KomposisiNilaiController extends Controller
             $data[$index]->nilaiakhir = $nilaiakhir;
         }
 
-        return view('komposisi.indexnilaiakhir', compact('data','kelas','periode'));
-
+        return view('komposisi.indexnilaiakhir', compact('data', 'kelas', 'periode'));
     }
 
     public function nilaiAkhirByPeriode(Request $request)
     {
+        // Read the image file
+        $imageData = file_get_contents(public_path('landing/assets/img/simlab.png'));
+
+        // Convert to base64 format
+        $logoBase64 = 'data:image/png;base64,' . base64_encode($imageData);
+
 
         $komPretest = KomposisiNilai::where('nama_komponen', 'Pre Test')->first()->nilai_komponen;
         $komPosttest = Komposisinilai::where('nama_komponen', 'Post Test')->first()->nilai_komponen;
@@ -196,8 +202,12 @@ class KomposisiNilaiController extends Controller
         $role = Session::get('role_code');
 
         $periode = Periode::where('id_periode', $request->periode)->first();
+        if ($periode == null) {
+            return redirect()->back()->with('error', 'Pilih Periode dulu!');
+        }
+
         $id_periode = $periode->id_periode;
-        
+
         $kelas = Kelas::whereHas('periode', function ($q) use ($role, $id_periode) {
             if ($role == 'DPA') {
                 $q = $q->where('id_dosen', auth()->user()->dosen->id_dosen);
@@ -207,8 +217,8 @@ class KomposisiNilaiController extends Controller
             }
             $q->where('id_periode', $id_periode);
         })->get();
-
-        $data = MahasiswaKelas::with(["mhs", "mhskls"])
+        
+        $data = MahasiswaKelas::with(["mhs", "mhskls","maskel.matkul"])
             ->whereHas('mhskls', function ($q) use ($role, $id_periode) {
                 if ($role == 'DPA') {
                     $q = $q->where('id_dosen', auth()->user()->dosen->id_dosen);
@@ -216,7 +226,7 @@ class KomposisiNilaiController extends Controller
                 if ($role == 'ASL') {
                     $q = $q->where('id_aslab', auth()->user()->id);
                 }
-                $q->whereHas('periode', function ($q1) use($id_periode) {
+                $q->whereHas('periode', function ($q1) use ($id_periode) {
                     $q1->where('id_periode', $id_periode);
                 });
             })->get();
@@ -229,10 +239,10 @@ class KomposisiNilaiController extends Controller
             $kelas_id = $kelasmhs->id_kelas;
 
             $jml_modul = DB::table('matkul')
-                            ->leftJoin('kelas', 'kelas.id_matkul','=','matkul.id_matkul')
-                            ->leftJoin('mahasiswa_kelas', 'mahasiswa_kelas.id_kelas', '=', 'kelas.id_kelas')
-                            ->where('mahasiswa_kelas.id_mahasiswa_kelas', $kelasmhs->id_mahasiswa_kelas)
-                            ->first();
+                ->leftJoin('kelas', 'kelas.id_matkul', '=', 'matkul.id_matkul')
+                ->leftJoin('mahasiswa_kelas', 'mahasiswa_kelas.id_kelas', '=', 'kelas.id_kelas')
+                ->where('mahasiswa_kelas.id_mahasiswa_kelas', $kelasmhs->id_mahasiswa_kelas)
+                ->first();
             $jumlah_modul = $jml_modul->jumlah_modul;
 
             $ujian_awal = NilaiUjian::whereHas('ujian', function ($q) use ($kelasmhs) {
@@ -333,7 +343,6 @@ class KomposisiNilaiController extends Controller
             $data[$index]->nilaiakhir = $nilaiakhir;
         }
 
-        return view('komposisi.indexnilaiakhirbyperiode', compact('data','kelas','periode'));
-
+        return view('komposisi.indexnilaiakhirbyperiode', compact('data', 'kelas', 'periode','logoBase64'));
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Create_Bahan_Praktikum
 @endsection
@@ -42,6 +42,22 @@
                     <form action="/bahan/create" method="POST" name="createnewalat" id="createnewalat"
                         enctype="multipart/form-data">
                         @csrf
+                        <div class="mb-3 row">
+                            <input type="hidden" value="{{ Auth::id() }}" name="id">
+                            <div class="col-lg-6">
+                                <label class="form-label col-form-label">Jenis Fase</label>
+                                <div class="form-check form-check-inline">
+                                    <input required class="form-group form-check-input" type="radio" name="fase"
+                                        id="padat" value="Padat">
+                                    <label class="form-check-label" for="c2a">Padat</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-group form-check-input" type="radio" name="fase"
+                                        id="cair" value="Cair">
+                                    <label class="form-check-label" for="c2b">Cair</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <div class="col-lg-6">
                                 <label for="name" class="form-label col-form-label">Nama Bahan</label>

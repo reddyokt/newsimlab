@@ -61,7 +61,7 @@ class TugasController extends Controller
 
             'uraian_tugas' => $req['body'],
             'file_tugas' => $pp,
-            'status' => 'waiting',
+            'status' => 'approved',
         ]);
 
         foreach ($allmhs as $key => $mhs) {
@@ -174,14 +174,20 @@ class TugasController extends Controller
         return redirect('/dashboard/index')->with('success', 'Jawaban berhasil diupload');
     }
 
-    public function takeDownTugas(Request $request)
+    public function publishTugas($id)
+    {
+        Tugas::find($id)->update(['status'=>'used']);
+        return redirect()->back()->with('success', 'tugas sudah di-publish');
+    }
+
+    public function takeDownTugas(Request $request, $id)
     {
         $id_tugas = $request->id_tugas;
         $id_kelas = $request->id_kelas;
 
-        Tugas::find($id_tugas)->update(['status' => 'unused']);
+        Tugas::find($id)->update(['status' => 'approved']);
 
-        NilaiTugas::where('id_tugas', $id_tugas)->where('nilai', Null)->update(['nilai' => 0]);
+        NilaiTugas::where('id_tugas', $id)->whereNull('nilai')->update(['nilai' => 0]);
 
         return redirect()->to('kelas/detail/' . $id_kelas)->with('warning', 'Tugas telah di-takedown');
     }

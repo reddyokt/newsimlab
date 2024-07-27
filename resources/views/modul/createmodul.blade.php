@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Create_Modul
 @endsection
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-6">
                                         <div class="col-md-12">
                                             <label class="form-label">Tanggal Praktikum</label>
@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -124,11 +124,11 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label" class="control-label">Pilih Bahan</label>
-                                                <select class="select2 form-select form-control select2-multiple"
+                                                <select class="form-control select2 multiple"
                                                     name="bahan[]" data-live-search="true">
                                                     <option selected disabled>Pilih Bahan</option>
-                                                    @foreach ($bahan as $bahan)
-                                                        <option value="{{ $bahan->id_bahan }}">{{ $bahan->nama_bahan }}
+                                                    @foreach ($bahan as $item)
+                                                        <option value="{{ $item->id_bahan }}">{{ $item->nama_bahan }} - {{$item->rumus}} ( {{$item->fase}} )
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -136,10 +136,9 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="col-md-12 mb-3">
-                                                <label class="form-label" for="eduyear">Jumlah</label>
-                                                <input id="jumlah_bahan" name="jumlah_bahan[]" type="number"
-                                                    min="1" class="form-control"
-                                                    placeholder="Masukkan Jumlah Bahan">
+                                                <label class="form-label" for="jumlah_bahan">Jumlah</label>
+                                                <input id="jumlah_bahan" name="jumlah_bahan[]" type="number" min="1"
+                                                    class="form-control" placeholder="Masukkan Jumlah Bahan">
                                             </div>
                                         </div>
                                     </div>
@@ -183,12 +182,12 @@
                                     <div class="row clonealat">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" class="control-label">Pilih Alat</label>
+                                                <label class="form-label">Pilih Alat</label>
                                                 <select class="select2 form-select form-control select2-multiple"
                                                     name="alat[]" data-live-search="true">
                                                     <option selected disabled>Pilih Alat</option>
-                                                    @foreach ($alat as $alat)
-                                                        <option value="{{ $alat->id_alat }}">{{ $alat->nama_alat }}
+                                                    @foreach ($alat as $item)
+                                                        <option value="{{ $item->id_alat }}">{{ $item->nama_alat }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -196,7 +195,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="col-md-12 mb-3">
-                                                <label class="form-label" for="jumlah">Jumlah</label>
+                                                <label class="form-label" for="jumlah_alat">Jumlah</label>
                                                 <input id="jumlah_alat" name="jumlah_alat[]" type="number"
                                                     min="1" class="form-control"
                                                     placeholder="Masukkan Jumlah Alat">
@@ -204,6 +203,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -225,7 +225,9 @@
     </form>
 @endsection
 @section('script')
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{ URL::asset('/assets/libs/select2/select2.min.js') }}"></script>
+    
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script type="text/javascript">
         $(function() {
             // add bahan when
@@ -248,12 +250,12 @@
         });
 
         $("#date").datepicker({
-                numberOfMonths: 1,
-                onSelect: function(selected) {
-                    var dt = new Date(selected);
-                    dt.setDate(dt.getDate() + 1);
-                    $("#end").datepicker("option", "minDate", dt);
-                }
-            });
+            numberOfMonths: 1,
+            onSelect: function(selected) {
+                var dt = new Date(selected);
+                dt.setDate(dt.getDate() + 1);
+                $("#end").datepicker("option", "minDate", dt);
+            }
+        });
     </script>
 @endsection

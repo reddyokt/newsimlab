@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     @lang('translation.Starter_Page')
 @endsection
@@ -30,22 +30,21 @@
 
                             @if ($detailtugas->status == 'approved')
                                 <button class="btn btn-sm btn-primary mx-auto d-block border-white">
-                                    <a href="/publishTugas/{{ $detailtugas->id_tugas }}"
+                                    <a href="/tugas/publishTugas/{{ $detailtugas->id_tugas }}"
                                         onclick="return confirm('Yakin akan publish tugas ini?!')"
                                         class="px-2 text-white"><i class="uil uil-play-circle font-size-12"></i> Publish
                                         this</a>
                                 </button>
-                            @elseif ($role == 'SUP' || ($role == 'DPA' && $detailtugas->status == 'waiting'))
-                                <form action="/tugas/validasi/{{ $detailtugas->id_tugas }}" method="POST">
+                            @elseif ($detailtugas->status == 'used')
+                                <form action="/tugas/takeDown/{{ $detailtugas->id_tugas }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="id_kelas" value="{{ $detailtugas->tgskls->id_kelas }}">
                                     <input type="hidden" name="id_periode" value="{{ $detailtugas->tgskls->periode->id_periode }}">
                                     <input type="hidden" name="id_modulkelas" value="{{ $detailtugas->tgsmdl->id_modulkelas }}">
                                     <input type="hidden" name="jenis" value="{{ $detailtugas->jenis }}">
-                                    <button class="btn btn-sm btn-success mx-auto d-block border-white" type="submit"
-                                        onclick="return confirm('Yakin akan setujui tugas ini?!')"
-                                        class="px-2 text-white"><i class="uil uil-check-circle font-size-12"></i> Approve
-                                        this</a>
+                                    <button class="btn btn-sm btn-danger mx-auto d-block border-white" type="submit"
+                                        onclick="return confirm('Yakin akan take down tugas ini?!')"
+                                        class="px-2 text-white"><i class="uil uil-eye-slash font-size-12"></i> Take Down</a>
                                     </button>
                                 </form>
                             @endif
@@ -71,5 +70,5 @@
 @endsection
 
 @section('script')
-    <script src="{{ URL::asset('landing/assets/js/theme.js') }}"></script>
+    {{-- <script src="{{ URL::asset('landing/assets/js/theme.js') }}"></script> --}}
 @endsection

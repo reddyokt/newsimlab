@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Kelas
 @endsection
@@ -31,37 +31,37 @@
                                 <th>#</th>
                                 <th>Nama Kelas</th>
                                 <th>Tahun Ajaran / Semester</th>
-                                <th>Modul</th>
+                                <th>Pertemuan</th>
                                 <th>Dosen Pengampu</th>
                                 <th>Asisten Lab</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kelas as $kelas)
+                            @foreach ($kelas as $data)
                                 <tr class="font-size-12">
                                     <td style="width: 2%;">{{ $loop->iteration }}</td>
                                     <td>
-                                        Kelas {{ $kelas->nama_kelas }}
-                                        <p>{{ $kelas->matkul->nama_matkul }} / {{ $kelas->matkul->kode_matkul }} </p>
+                                        Kelas {{ $data->nama_kelas }}
+                                        <p>{{ $data->matkul->nama_matkul }} / {{ $data->matkul->kode_matkul }} </p>
                                     </td>
-                                    <td>{{ $kelas->periode->tahun_ajaran }} - {{ $kelas->periode->semester }}</td>
+                                    <td>{{ $data->periode->tahun_ajaran }} - {{ $data->periode->semester }}</td>
                                     <td style="width: 30%;">
                                         <ul class="list-unstyled product-desc-list text-muted">
-                                            <p class="text-primary">Jumlah Modul = {{ $kelas->modulkelas->count() }}</p>
-                                            @foreach ($kelas->modulkelas as $x)
+                                            <p class="text-primary">Jumlah Modul = {{ $data->modulkelas->count() }}</p>
+                                            @foreach ($data->pertemuan as $x)
                                                 <li class="text-primary" ><i
                                                         class="mdi mdi-circle-medium me-1 align-middle"></i>
-                                                    {{ $x->moduls->modul_name }} |
-                                                    @if ($x->tanggal_praktek == null)
-                                                        <a href="/tanggal/create/{{ $kelas->id_kelas }}">
+                                                    {{ $x->nama_pertemuan }} |
+                                                    @if ($x->tanggal== null)
+                                                        <a href="/kelas/detail/{{ $x->id_kelas }}#navtabs-pertemuan">
                                                             <span class="text-danger">masukkan tanggal
                                                                 praktek</span>
                                                         </a>
                                                     @else
-                                                        <a href="/tanggal/edit/{{ $kelas->id_kelas }}">
+                                                        <a href="/tanggal/edit/{{ $x->id_pertemuan }}">
                                                             <span class="text-primary">
-                                                                {{ \Carbon\Carbon::parse($x->tanggal_praktek)->isoFormat('dddd, D MMMM Y') }}
+                                                                {{ \Carbon\Carbon::parse($x->tanggal)->isoFormat('dddd, D MMMM Y') }}
                                                             </span>
                                                         </a>
                                                     @endif
@@ -69,16 +69,15 @@
                                             @endforeach
                                         </ul>
                                     </td>
-                                    <td><p class="text-primary">{{ $kelas->dosen->nama_dosen }} </p></td>
+                                    <td><p class="text-primary">{{ $data->dosen->nama_dosen }} </p></td>
                                     <td>
-                                        @if ($kelas->id_aslab != null)
+                                        @if ($data->id_aslab != null)
                                             <a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#editAslab{{ $kelas->id_kelas }}">
-                                                <p class="text-primary"> {{ $kelas->aslab->nama_aslab }} </p>
+                                                data-bs-target="#editAslab{{ $data->id_kelas }}">
+                                                <p class="text-primary"> {{ $data->aslab->nama_aslab }} </p>
                                             </a>
                                         @else
-                                            <a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#kelasAslab{{ $kelas->id_kelas }}">
+                                            <a href="/kelas/detail/{{$data->id_kelas}}">
                                                 <p class="text-danger">Asisten Lab belum ditunjuk!</p>
                                             </a>
                                         @endif
@@ -86,17 +85,17 @@
                                     <td>
                                         <ul class="list-inline mb-0">
                                             <li class="list-inline-item">
-                                                <a href="/kelas/detail/{{$kelas->id_kelas}}" class="px-2 text-success"><i
+                                                <a href="/kelas/detail/{{$data->id_kelas}}" class="px-2 text-success"><i
                                                         class="uil uil-eye font-size-12"></i></a>
                                             </li>
-                                            <li class="list-inline-item">
+                                            {{-- <li class="list-inline-item">
                                                 <a href="/kelas/edit/" class="px-2 text-primary"><i
                                                         class="uil uil-pen font-size-12"></i></a>
                                             </li>
                                             <li class="list-inline-item">
                                                 <a href="/kelas/delete/" class="px-2 text-danger"><i
                                                         class="uil uil-trash-alt font-size-12"></i></a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </td>
                                 </tr>
@@ -109,7 +108,7 @@
         </div> <!-- end col -->
     </div> <!-- end row -->
     <!-- Modal -->
-    @foreach ($kelasx as $x => $kelas)
+    @foreach ($kelas as $x => $kelas)
         <!-- Center Modal example -->
         <div class="modal fade" id="kelasAslab{{ $kelas->id_kelas }}" tabindex="-1" role="dialog"
             aria-labelledby="myMediumModalLabel" aria-hidden="true">

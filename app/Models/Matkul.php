@@ -10,6 +10,7 @@ class Matkul extends Model
     use HasFactory;
 
     protected $table = 'matkul';
+    protected $fillable = ['nama_matkul', 'kode_matkul', 'jumlah_modul'];
     protected $primaryKey = 'id_matkul';
 
     public function modul()
@@ -21,5 +22,4 @@ class Matkul extends Model
     {
         return $this->hasMany(Kelas::class, 'id_matkul', 'id_matkul');
     }
-
 }

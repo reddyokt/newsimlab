@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Absen Kelas {{$kelas->nama_kelas}} - {{$kelas->matkul->nama_matkul}} | Periode {{$kelas->periode->tahun_ajaran}} | {{$kelas->periode->semester}}
 @endsection

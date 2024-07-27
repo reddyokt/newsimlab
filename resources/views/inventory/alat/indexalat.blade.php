@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-layouts')
 @section('title')
     Alat_Praktikum
 @endsection
@@ -51,48 +51,59 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($alat as $alat)
+                                @foreach ($alat as $data)
                                     <tr>
                                         <td style="width: 5%;">{{ $loop->iteration }}</td>
                                         <td style="width: 30%;">
-                                            @if (!empty($alat->images) && file_exists(base_path() . '/public/upload/inventory/alat/' . $alat->images))
+                                            @if (!empty($data->images) && file_exists(base_path() . '/public/upload/inventory/alat/' . $data->images))
                                                 <a class="image-popup-vertical-fit"
-                                                    href="{{ '/../upload/inventory/alat/' . $alat->images }}">
+                                                    href="{{ '/../upload/inventory/alat/' . $data->images }}">
                                                     <img class="img-fluid avatar-sm rounded-circle me-2" alt=""
-                                                        src="{{ '/../upload/inventory/alat/' . $alat->images }}"
+                                                        src="{{ '/../upload/inventory/alat/' . $data->images }}"
                                                         width="145">
                                                 </a>
                                             @else
                                                 <img class="avatar-sm rounded-circle me-2"
-                                                    src="{{ asset('assets/media/users/default.jpg') }}" alt="user" />
+                                                    src="{{ asset('assets/media/users/no-image.png') }}" alt="user" />
                                             @endif
-                                            <span><a href="#" class="text-body">{{ $alat->nama }}</a></span>
+                                            <span><a href="#" class="text-body">{{ $data->nama }}</a></span>
 
                                         </td>
-                                        <td>{{ $alat->jenis }}</td>
-                                        <td>{{ $alat->merk }}</td>
-                                        <td>{{ $alat->ukuran }}</td>
-                                        <td>{{ $alat->jumlah }}</td>
+                                        <td>{{ $data->jenis }}</td>
+                                        <td>{{ $data->merk }}</td>
+                                        <td>{{ $data->ukuran }}</td>
+                                        <td>{{ $data->jumlah }}</td>
                                         <td style="width: 30%;">
-                                            Lokasi : {{ $alat->lokasi }}<br>
-                                            Lemari : {{ $alat->lemari }}<br>
-                                            Baris/Kolom : {{ $alat->baris }}/{{ $alat->kolom }}
+                                            Lokasi : {{ $data->lokasi }}<br>
+                                            Lemari : {{ $data->lemari }}<br>
+                                            Baris/Kolom : {{ $data->baris }}/{{ $data->kolom }}
                                         </td>
                                         <td>
                                             <ul class="list-inline mb-0">
                                                 <li class="list-inline-item">
-                                                    <a href="/alat/edit/{{ $alat->id_alat }}" class="px-2 text-primary"><i
+                                                    <a href="/alat/edit/{{ $data->id_alat }}" class="px-2 text-primary"><i
                                                             class="uil uil-pen font-size-18"></i></a>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <a href="/alat/delete/{{ $alat->id_alat }}" class="px-2 text-danger"><i
+                                                    <a href="/alat/delete/{{ $data->id_alat }}" class="px-2 text-danger"><i
                                                             class="uil uil-trash-alt font-size-18"></i></a>
                                                 </li>
-                                                <li class="list-inline-item">
-                                                    <a href="#" class="px-2 text-success" data-bs-toggle="modal"
-                                                        data-bs-target="#modalAlat-{{ $alat->id_alat }}"><i
-                                                            class="mdi mdi-qrcode-scan font-size-18"></i></a>
-                                                </li>
+                                                @if ($data->jenis == 'c2a')
+                                                    <a href="#" class="text-success" data-bs-toggle="modal"
+                                                        data-bs-target="#modalAlat-{{ $data->id_alat }}">
+                                                        <i class="mdi mdi-qrcode-scan font-size-18"></i>
+                                                    </a>
+                                                @else
+                                                @endif
+
+                                                @if ($data->jenis == 'c2b')
+                                                    <li class="list-inline-item">
+                                                        <a href="/alat/detail/{{ $data->id_alat }}"
+                                                            class="px-2 text-warning"><i
+                                                                class="uil uil-eye font-size-18"></i></a>
+                                                    </li>
+                                                @else
+                                                @endif
                                             </ul>
                                         </td>
                                     </tr>
@@ -106,24 +117,27 @@
     </div>
     <!-- end row -->
 
-    @foreach ($alats as $x)
+    @foreach ($alat as $x)
         <div class="modal fade" id="modalAlat-{{ $x->id_alat }}" tabindex="-1" role="dialog"
             aria-labelledby="myMediumModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">QR Code</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
                     </div>
                     <div class="modal-body">
-                        <img class="text-center mx-auto d-block mb-3"
-                            src="data:image/png;base64, 
-                        {!! base64_encode(QrCode::format('png')->generate(URL('alat/showcode/' . $x->id_alat))) !!}"
-                            style="width: 200px;">
-                        <a href="data:image/png;base64, 
-                        {!! base64_encode(QrCode::size(200)->format('png')->generate(URL('alat/showcode/' . $x->id_alat))) !!}" download
-                            class="text-center mx-auto d-block mb-3"> Downnload </a>
+                        <div class="col-md-12">
+                            <a href="{{ asset('/upload/qrcodes/' . $x->qrcode) }}" download>
+                                <div style="position: relative; text-align: center;">
+                                    <img class="text-center mx-auto d-block mb-3"
+                                        src="{{ asset('/upload/qrcodes/' . $x->qrcode) }}" width="145"
+                                        style="width: 150px;">
+                                    <div>
+                                        Download QRCODE
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
