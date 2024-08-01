@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+
+/*----------------------------------Daftar Penelitian-----------------------------------------------------------*/
+Route::get('form-daftar-penelitian/{id}', [App\Http\Controllers\LandingPageController::class, 'formPenelitian'])->name('formPenelitian');
+
+
+
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 Route::post('/formsubmit', [App\Http\Controllers\HomeController::class, 'FormSubmit'])->name('FormSubmit');
 
@@ -206,7 +212,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
         /*------------------Pertemuan-----------------------------------------------*/
         Route::get('/pertemuan/edit/{id}', [App\Http\Controllers\PertemuanController::class, 'editPertemuan']);
 
-        
+
 
     });
 });

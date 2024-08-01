@@ -35,7 +35,7 @@
             @include('flashmessage')
         </div>
     </div>
-    <h5 class="display-6 mb-3 text-primary">Assalamu'alaikum {{ Session::get('name') }}</h5>
+    <h5 class="display-6 mb-3" style="color: teal;">Assalamu'alaikum {{ Session::get('name') }}</h5>
     <div class="row">
         @if ($role == 'LBO' || $role == 'KAL' || $role == 'SUP' || $role == 'DPA')
             @if ($events == [])

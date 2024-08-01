@@ -72,12 +72,28 @@ class LandingPageController extends Controller
 
     public function updateProperty(Request $request)
     {
-        // dd($request); 
+        // dd($request);
 
         $update = LandingPage::find(1);
         $update->update($request->all());
 
         return redirect()->back()->with('success','Landing Property di update');
 
+    }
+
+    public function formPenelitian($id)
+    {
+        $type = $id;
+
+        if($type == 'mahasiswa'){
+
+            return view('penelitian.daftar.mahasiswa.index');
+        }elseif($type == 'dosen'){
+
+            return view('penelitian.daftar.dosen.index');
+        }elseif($type == 'umum'){
+
+            return view('penelitian.daftar.umum.index');
+        }
     }
 }

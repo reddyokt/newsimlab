@@ -97,9 +97,8 @@
                     <div class="container py-14 py-md-16">
                         <div class="row">
                             <div class="col-lg-10 col-xl-9 col-xxl-8 mx-auto text-center">
-                                <h2 class="fs-15 text-uppercase text-muted mb-3">Sewa Lab</h2>
-                                <h3 class="display-4 mb-15 mb-md-6 px-lg-10">Kami Menyewakan Laboratorium untuk Umum dan
-                                    Internal Kampus.</h3>
+                                <h2 class="fs-15 text-uppercase text-muted mb-3">Penggunaan Lab</h2>
+                                <h3 class="display-4 mb-15 mb-md-6 px-lg-10">Untuk Penelitian Mahasiswa, Dosen, dan Umum</h3>
                             </div>
                             <!--/column -->
                         </div>
@@ -116,30 +115,24 @@
                                         <div class="card-body">
                                             <img src="{{ asset('landing/assets/img/5.svg') }}"
                                                 class="svg-inject icon-svg icon-svg-lg text-primary mb-3" alt="" />
-                                            <h4 class="card-title">Basic Plan</h4>
+                                            <h4 class="card-title">Dosen</h4>
                                             <div class="prices text-dark">
-                                                <div class="price price-show"><span class="price-currency">$</span><span
-                                                        class="price-value">9</span> <span class="price-duration">mo</span>
+                                                <div class="price price-show"><span class="price-currency">Rp.</span><span
+                                                        class="price-value">400K</span>
                                                 </div>
                                                 <div class="price price-hide price-hidden"><span
-                                                        class="price-currency">$</span><span class="price-value">99</span>
-                                                    <span class="price-duration">yr</span>
+                                                        class="price-currency">Rp.</span><span class="price-value">400K</span>
+                                                    <span class="price-duration"></span>
                                                 </div>
                                             </div>
                                             <!--/.prices -->
                                             <ul class="icon-list bullet-bg bullet-soft-primary mt-7 mb-8 text-start">
-                                                <li><i class="uil uil-check"></i><span><strong>1</strong> Project </span>
+                                                <li class="text-danger"><i class="uil uil-exclamation text-danger"></i><span ><strong>Wajib Memiliki JSA </strong> </span>
                                                 </li>
-                                                <li><i class="uil uil-check"></i><span><strong>100K</strong> API Access
+                                                <li class="text-danger"><i class="uil uil-exclamation text-danger"></i><span ><strong>Extra Charges</strong> Sabtu & Ahad
                                                     </span></li>
-                                                <li><i class="uil uil-check"></i><span><strong>100MB</strong> Storage
-                                                    </span></li>
-                                                <li><i class="uil uil-times bullet-soft-red"></i><span> Weekly
-                                                        <strong>Reports</strong> </span></li>
-                                                <li><i class="uil uil-times bullet-soft-red"></i><span> 7/24
-                                                        <strong>Support</strong></span></li>
                                             </ul>
-                                            <a href="#" class="btn btn-primary rounded-pill">Choose Plan</a>
+                                            <a href="/form-daftar-penelitian/dosen" class="btn btn-primary rounded-pill">Daftar</a>
                                         </div>
                                         <!--/.card-body -->
                                     </div>
@@ -151,31 +144,25 @@
                                         <div class="card-body">
                                             <img src="{{ asset('landing/assets/img/6.svg') }}"
                                                 class="svg-inject icon-svg icon-svg-lg text-primary mb-3" alt="" />
-                                            <h4 class="card-title">Premium Plan</h4>
+                                            <h4 class="card-title">Mahasiswa</h4>
                                             <div class="prices text-dark">
-                                                <div class="price price-show"><span class="price-currency">$</span><span
-                                                        class="price-value">19</span> <span class="price-duration">mo</span>
+                                                <div class="price price-show"><span class="price-currency">Rp.</span><span
+                                                        class="price-value">200K</span>
                                                 </div>
                                                 <div class="price price-hide price-hidden"><span
-                                                        class="price-currency">$</span><span
-                                                        class="price-value">199</span>
+                                                        class="price-currency">Rp.</span><span
+                                                        class="price-value">200</span>
                                                     <span class="price-duration">yr</span>
                                                 </div>
                                             </div>
                                             <!--/.prices -->
                                             <ul class="icon-list bullet-bg bullet-soft-primary mt-7 mb-8 text-start">
-                                                <li><i class="uil uil-check"></i><span><strong>5</strong> Projects </span>
+                                                <li class="text-danger"><i class="uil uil-exclamation text-danger"></i><span ><strong>Wajib Memiliki JSA </strong> </span>
                                                 </li>
-                                                <li><i class="uil uil-check"></i><span><strong>100K</strong> API Access
+                                                <li class="text-danger"><i class="uil uil-exclamation text-danger"></i><span ><strong>Extra Charges</strong> Sabtu & Ahad
                                                     </span></li>
-                                                <li><i class="uil uil-check"></i><span><strong>200MB</strong> Storage
-                                                    </span></li>
-                                                <li><i class="uil uil-check"></i><span> Weekly
-                                                        <strong>Reports</strong></span></li>
-                                                <li><i class="uil uil-times bullet-soft-red"></i><span> 7/24
-                                                        <strong>Support</strong></span></li>
                                             </ul>
-                                            <a href="#" class="btn btn-primary rounded-pill">Choose Plan</a>
+                                            <a href="/form-daftar-penelitian/mahasiswa" class="btn btn-primary rounded-pill">Daftar</a>
                                         </div>
                                         <!--/.card-body -->
                                     </div>
@@ -188,30 +175,23 @@
                                             <img src="{{ asset('landing/assets/img/7.svg') }}"
                                                 class="svg-inject icon-svg icon-svg-lg text-primary mb-3"
                                                 alt="" />
-                                            <h4 class="card-title">Corporate Plan</h4>
+                                            <h4 class="card-title">Umum</h4>
                                             <div class="prices text-dark">
-                                                <div class="price price-show"><span class="price-currency">$</span><span
-                                                        class="price-value">49</span> <span
-                                                        class="price-duration">mo</span></div>
+                                                <div class="price price-show"><span class="price-currency">Rp.</span><span
+                                                        class="price-value">500K</span></div>
                                                 <div class="price price-hide price-hidden"><span
-                                                        class="price-currency">$</span><span
+                                                        class="price-currency">Rp.</span><span
                                                         class="price-value">499</span> <span
                                                         class="price-duration">yr</span></div>
                                             </div>
                                             <!--/.prices -->
                                             <ul class="icon-list bullet-bg bullet-soft-primary mt-7 mb-8 text-start">
-                                                <li><i class="uil uil-check"></i><span><strong>20</strong> Projects </span>
+                                                <li class="text-danger"><i class="uil uil-exclamation text-danger"></i><span ><strong>Wajib Memiliki JSA </strong> </span>
                                                 </li>
-                                                <li><i class="uil uil-check"></i><span><strong>300K</strong> API Access
+                                                <li class="text-danger"><i class="uil uil-exclamation text-danger"></i><span ><strong>Extra Charges</strong> Sabtu & Ahad
                                                     </span></li>
-                                                <li><i class="uil uil-check"></i><span><strong>500MB</strong> Storage
-                                                    </span></li>
-                                                <li><i class="uil uil-check"></i><span> Weekly
-                                                        <strong>Reports</strong></span></li>
-                                                <li><i class="uil uil-check"></i><span> 7/24
-                                                        <strong>Support</strong></span></li>
                                             </ul>
-                                            <a href="#" class="btn btn-primary rounded-pill">Choose Plan</a>
+                                            <a href="/form-daftar-penelitian/umum" class="btn btn-primary rounded-pill">Daftar</a>
                                         </div>
                                         <!--/.card-body -->
                                     </div>
