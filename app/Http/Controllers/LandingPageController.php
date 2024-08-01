@@ -86,11 +86,17 @@ class LandingPageController extends Controller
         $type = $id;
 
         if($type == 'mahasiswa'){
+            $mahasiswa = DB::table('mahasiswa')
+                        ->where('status', 'active')
+                        ->whereNull('deleted_at')
+                        ->get();
+            $dosen = DB::table('dosen')->where('isActive', 'Yes')->get();
+            return view('penelitian.daftar.mahasiswa.index', compact('dosen', 'mahasiswa'));
 
-            return view('penelitian.daftar.mahasiswa.index');
         }elseif($type == 'dosen'){
 
             return view('penelitian.daftar.dosen.index');
+
         }elseif($type == 'umum'){
 
             return view('penelitian.daftar.umum.index');

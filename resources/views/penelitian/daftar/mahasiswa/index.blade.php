@@ -50,13 +50,25 @@
                                                 <option value="S2">S2</option>
                                             </select>
                                         </div>
+                                        <div class="form-select-wrapper mb-4">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected disabled>Pilih Dosen Pembimbing</option>
+                                                @foreach ($dosen as $value)
+                                                    <option value="{{ $value->id_dosen }}">{{ $value->nama_dosen }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-select-wrapper mb-4">
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected disabled>NIM</option>
+                                                @foreach ($mahasiswa as $value)
+                                                    <option value="{{ $value->id_mahasiswa }}">{{ $value->nim }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div class="form-floating mb-4">
                                             <input type="text" class="form-control" placeholder="Name" id="loginName">
                                             <label for="loginName">Name</label>
-                                        </div>
-                                        <div class="form-floating mb-4">
-                                            <input type="number" class="form-control" placeholder="NIM" id="nim">
-                                            <label for="nim">NIM</label>
                                         </div>
                                         <div class="form-floating mb-4">
                                             <input type="email" class="form-control" placeholder="Email" id="loginEmail">
