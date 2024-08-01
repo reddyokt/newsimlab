@@ -84,11 +84,11 @@
                                                 <td style="width: 30%;">{{ $notif->nama_alat }} - {{ $notif->sub_id_alat }}
                                                 </td>
                                                 <td>
-                                                    {{ \Carbon\Carbon::parse($notif->date_calibration)->isoFormat('dddd, D MMMM Y') }}
+                                                    {{ \Carbon\Carbon::parse($notif->deadline_calibration)->isoFormat('dddd, D MMMM Y') }}
                                                     @php
                                                         $now = \Carbon\Carbon::now();
                                                         $countdown = \Carbon\Carbon::parse(
-                                                            $notif->date_calibration,
+                                                            $notif->deadline_calibration,
                                                         )->diffInDays($now);
                                                         $colorClass = '';
                                                         if ($countdown >= 10 && $countdown <= 30) {
@@ -97,7 +97,7 @@
                                                             $colorClass = 'text-danger'; // Apply red color
                                                         }
                                                     @endphp
-                                                    @if ($now < \Carbon\Carbon::parse($notif->date_calibration))
+                                                    @if ($now < \Carbon\Carbon::parse($notif->deadline_calibration))
                                                         <span class="{{ $colorClass }}">({{ $countdown }} Hari
                                                             Tersisa)</span>
                                                     @else
