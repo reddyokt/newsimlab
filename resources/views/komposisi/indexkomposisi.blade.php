@@ -27,10 +27,10 @@
                     @include('flashmessage')
                     <div class="row mb-2">
                         <div class="col-md-6">
-                            {{-- <div class="mb-3">
-                                <a href="/alat/create" class="btn btn-success waves-effect waves-light"><i
+                            <div class="mb-3">
+                                <a href="/komposisi/create" class="btn btn-success waves-effect waves-light"><i
                                         class="mdi mdi-plus me-2"></i> Add New</a>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                     <!-- end row -->

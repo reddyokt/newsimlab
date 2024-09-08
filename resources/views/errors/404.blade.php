@@ -13,16 +13,16 @@
                             <div class="row justify-content-center">
                                 <div class="col-sm-4">
                                     <div class="error-img">
-                                        <img src="{{ URL::asset('/assets/images/404-error.png') }}" alt=""
+                                        <img src="{{ URL::asset('/assets/images/sepertinya.png') }}" alt=""
                                             class="img-fluid mx-auto d-block">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <h4 class="text-uppercase mt-4">Sorry, page not found</h4>
-                        <p class="text-muted">It will be as simple as Occidental in fact, it will be Occidental</p>
+                        <h4 class="text-uppercase mt-4">Are You Lost??!</h4>
+                        <p class="text-muted">Sepertinya... Kau Memang dari Planet yang lain...</p>
                         <div class="mt-5">
-                            <a class="btn btn-primary waves-effect waves-light" href="{{ url('index') }}">Back to
+                            <a class="btn btn-primary waves-effect waves-light" href="{{ url('dashboard/index') }}">Back to
                                 Dashboard</a>
                         </div>
                     </div>
