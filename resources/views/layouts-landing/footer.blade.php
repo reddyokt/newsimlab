@@ -3,7 +3,7 @@
       <div class="row gy-6 gy-lg-0">
         <div class="col-md-4 col-lg-3">
           <div class="widget">
-            <img class="mb-4" src="{{URL::asset('landing/assets/img/simlab-light.svg')}}" srcset="{{URL::asset('landing/assets/img/simlab-light.svg')}}" alt="" style="width: 50%;" />
+            <img class="mb-4" src="{{URL::asset('landing/assets/img/logo-simlab-light.svg')}}" srcset="{{URL::asset('landing/assets/img/logo-simlab-light.svg')}}" alt="" style="width: 50%;" />
             <p class="mb-4">© 2024 SIMLAB FT-UMJ. <br class="d-none d-lg-block" />All rights reserved.</p>
             <nav class="nav social social-white">
               <a href="#"><i class="uil uil-twitter"></i></a>

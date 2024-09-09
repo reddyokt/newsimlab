@@ -5,21 +5,21 @@
             <div class="navbar-brand-box">
                 <a href="{{ url('/dashboard') }}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ URL::asset('landing/assets/img/logo-white.png') }}" alt="" height="50">
+                        <img src="{{ URL::asset('landing/assets/img/logo-simlab-light.svg') }}" alt="" height="50">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('landing/assets/img/logo-white.png') }}" alt=""
+                        <img src="{{ URL::asset('landing/assets/img/logo-simlab-light.svg') }}" alt=""
                             height="50">
                     </span>
                 </a>
 
                 <a href="{{ url('/dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ URL::asset('landing/assets/img/logo-white.png') }}" alt=""
+                        <img src="{{ URL::asset('landing/assets/img/logo-simlab-light.svg') }}" alt=""
                             height="50">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ URL::asset('landing/assets/img/logo-white.png') }}" alt=""
+                        <img src="{{ URL::asset('landing/assets/img/logo-simlab-light.svg') }}" alt=""
                             height="50">
                     </span>
                 </a>
